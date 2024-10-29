@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Balls
@@ -12,7 +14,8 @@ namespace Balls
         ReadyToLaunch,
         Launched,
         Stopped,
-        Scored
+        Scored,
+        Crashed
     }
 
     public abstract class Ball : MonoBehaviour
@@ -24,7 +27,21 @@ namespace Balls
         [SerializeField] protected float maxLaunchForce;
         [SerializeField] protected float minLaunchForce;
         [SerializeField] protected float arrowRotationLerp;
+        [SerializeField] protected LayerMask areaLayer;
         
+        [field:SerializeField]
+        public bool ScoreCounted { get; protected set; }
+        
+        [field: SerializeField]
+        public BallState CurrentBallState { get; protected set; }
+
+        [field: SerializeField]
+        public bool HasCrashed { get; protected set; } = false;
+
+        [field:SerializeField]
+        public int BallIndex { get; protected set; }
+
+        public bool IsStopped => _rigidbody.velocity == Vector3.zero;
 
         protected Rigidbody _rigidbody;
         
@@ -42,11 +59,7 @@ namespace Balls
 
         protected PlayerEnum _belongPlayer;
         
-        private bool _scoreCounted;
-        
         private float _scoreCountTimer = 1f;
-        
-        public BallState CurrentBallState { get; protected set; }
         
         protected virtual void Awake()
         {
@@ -70,19 +83,25 @@ namespace Balls
                     break;
                 case BallState.Launched :
                     MakeSureBallStop();
-                    print($"Velocity: {Math.Round(_rigidbody.velocity.sqrMagnitude, 2)}");
                     break;
                 case BallState.Stopped:
-                    if (!_scoreCounted)
+                    if (!ScoreCounted && !HasCrashed)
                     {
                         _scoreCountTimer -= Time.deltaTime;
                         if (_scoreCountTimer <= 0)
                         {
-                            _scoreCounted = true;
+                            ScoreCounted = true;
+                            Debug.Log("Miss Score,ChangeRound");
                             ChaosBallApp.Interface.SendEvent<OnChangeRound>();
                             _scoreCountTimer = 1f;
                         }
                     }
+                    break;
+                case BallState.Crashed:
+                    MakeSureBallStop();
+                    break;
+                case BallState.Scored:
+                    MakeSureBallStop();
                     break;
             }
         }
@@ -102,11 +121,10 @@ namespace Balls
                 _waitFrames--;
                 return;
             }
-            if (_rigidbody.velocity.sqrMagnitude < .5f)
+            if (_rigidbody.velocity.sqrMagnitude < 1f)
             {
                 _rigidbody.velocity = Vector3.zero;
-                CurrentBallState = BallState.Stopped;
-                print("Ball Stopped!");
+                CurrentBallState = CurrentBallState == BallState.Launched ? BallState.Stopped : BallState.Scored;
             }
         }
         
@@ -131,29 +149,96 @@ namespace Balls
                 yield return null;
             }
         }
-        
+
+        #region Trigger And Collider
+
         private void OnTriggerStay(Collider other)
         {
-            if (CurrentBallState != BallState.Stopped || _scoreCounted) return;
-            print($"Score, {other.GetComponentInParent<Area>().gameObject.name}!");
-
-            if (other.GetComponentInParent<Area>().Type == AreaData.AreaType.OutSpace)
+            if (CurrentBallState == BallState.Stopped && !ScoreCounted && !HasCrashed)
             {
-                GameManager.Instance.ReTry();
-                _scoreCounted = true;
+                if (other.GetComponentInParent<Area>().Type == AreaData.AreaType.OutSpace)
+                {
+                    Debug.Log("OutSpace, ChangeRound");
+                    GameManager.Instance.ReTry();
+                    ScoreCounted = true;
+                    CurrentBallState = BallState.Scored;
+                    Destroy(gameObject);
+                    return;
+                }
+
+                CalculateAndIncreaseScore();
+                // 切换投球
+                ChaosBallApp.Interface.SendEvent<OnChangeRound>();
+            } 
+            else if (CurrentBallState == BallState.Scored && IsStopped && !ScoreCounted && HasCrashed)
+            {
+                CalculateAndIncreaseScore();
+            }
+        }
+
+        private void CalculateAndIncreaseScore()
+        {
+            var areas = GetAreas();
+            if (areas.Length == 0)
+            {
+                Debug.Log("Areas Empty, ChangeRound");
+                ScoreCounted = true;
                 CurrentBallState = BallState.Scored;
-                Destroy(gameObject);
+                ChaosBallApp.Interface.SendEvent<OnChangeRound>();
                 return;
             }
-
+            Array.Sort(areas);
             // Update Player Score
-            var score = other.GetComponentInParent<Area>().Score;
-            GameManager.Instance.UpdatePlayerScore(_belongPlayer, score + GameManager.Instance.GetPlayerScore(_belongPlayer));
-            _scoreCounted = true;
+            var score = areas[areas.Length - 1].Score;
+            GameManager.Instance.UpdatePlayerScore(_belongPlayer, BallIndex, score);
+            ScoreCounted = true;
             CurrentBallState = BallState.Scored;
-            // 切换回合
-            ChaosBallApp.Interface.SendEvent(new OnChangeRound { keepRound = false});
         }
+
+        private Area[] GetAreas()
+        {
+            var capsuleCollider = GetComponent<CapsuleCollider>();
+            var areas = Physics.CapsuleCastAll(transform.position, transform.position + capsuleCollider.height * Vector3.up
+                , capsuleCollider.radius, Vector3.down,1f, areaLayer).Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
+            // Area[] areas = Physics.RaycastAll(transform.position + capsuleCollider.radius * Vector3.up,
+            //         Vector3.down, 1f, areaLayer)
+            //     .Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
+            return areas;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (CurrentBallState == BallState.Crashed && HasCrashed && !ScoreCounted)
+            {
+                if (other.transform.parent.TryGetComponent(out Area area))
+                {
+                    // Decrease Score
+                    GameManager.Instance.UpdatePlayerScore(_belongPlayer, BallIndex, 0);
+                    CurrentBallState = BallState.Scored;
+                }
+            }
+            
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("BallCrash"))
+            {
+                GameManager.Instance.CreateParticle(transform.position);
+                if (other.transform.CompareTag("Ball") && CurrentBallState is BallState.Scored or BallState.Crashed)
+                {
+                    Debug.Log("Ball Collision");
+                    CurrentBallState = BallState.Crashed;
+                    HasCrashed = true;
+                    ScoreCounted = false;
+                    _waitFrames = 5;
+                }
+            }
+           
+        }
+
+        #endregion
+        
 
         private void LaunchBall()
         {
@@ -192,5 +277,14 @@ namespace Balls
         }
 
         public PlayerEnum GetPlayerBelong() => _belongPlayer;
+
+        public void SetBallIndex(int index) => BallIndex = index;
+
+        private void OnDrawGizmosSelected()
+        {
+            var capsuleCollider = GetComponent<CapsuleCollider>();
+            Gizmos.DrawLine(transform.position, transform.position +capsuleCollider.height * Vector3.up);
+        }
+        
     }
 }

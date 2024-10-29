@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6152285570763262848}
   - component: {fileID: 1863053777381134585}
   - component: {fileID: 8757191576099920108}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4825826419821813989}
   - component: {fileID: 4513338196757107367}
   - component: {fileID: 7217200417067436642}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 5433419756459828671}
   - component: {fileID: 9123357277074123616}
   - component: {fileID: 7673754428361780051}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NormalBall
   m_TagString: Ball
   m_Icon: {fileID: 0}
@@ -215,6 +215,13 @@ MonoBehaviour:
   maxLaunchForce: 100
   minLaunchForce: 10
   arrowRotationLerp: 0.02
+  areaLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  <ScoreCounted>k__BackingField: 0
+  <CurrentBallState>k__BackingField: 0
+  <HasCrashed>k__BackingField: 0
+  <BallIndex>k__BackingField: 0
 --- !u!54 &9123357277074123616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -224,7 +231,7 @@ Rigidbody:
   m_GameObject: {fileID: 5611937314006890905}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.5
+  m_Drag: 0.6
   m_AngularDrag: 0.9
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -240,7 +247,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &7673754428361780051
 CapsuleCollider:
@@ -261,7 +268,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.6
+  m_Radius: 1.2
   m_Height: 6
   m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
@@ -276,7 +283,7 @@ GameObject:
   - component: {fileID: 5847077238612731288}
   - component: {fileID: 8640559865699610615}
   - component: {fileID: 8735216494141323204}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +333,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 90f0eed1477afe14b9e538e5bfa88cdc, type: 2}
+  - {fileID: 2238796764414207470, guid: 240cb0343f51a264eaa7795cefe2dd94, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -358,7 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 127507277017678697}
   - component: {fileID: 7389038100557208609}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6150483968795960222}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +457,7 @@ GameObject:
   - component: {fileID: 4470699918911534975}
   - component: {fileID: 3402151122097431399}
   - component: {fileID: 8562064838950140977}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,7 +541,7 @@ GameObject:
   - component: {fileID: 7386189785328984646}
   - component: {fileID: 2665813907790249979}
   - component: {fileID: 7921358037740977091}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +642,7 @@ GameObject:
   - component: {fileID: 7160400536627122913}
   - component: {fileID: 3051952986080837284}
   - component: {fileID: 3716565072861090487}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +692,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 90f0eed1477afe14b9e538e5bfa88cdc, type: 2}
+  - {fileID: 2238796764414207470, guid: 240cb0343f51a264eaa7795cefe2dd94, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

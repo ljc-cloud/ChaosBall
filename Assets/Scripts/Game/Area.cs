@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class Area : MonoBehaviour
+public class Area : MonoBehaviour, IComparable<Area>
 {
 
     [SerializeField] private AreaData areaData;
@@ -43,5 +44,10 @@ public class Area : MonoBehaviour
             }
             sprites[i].color = new Color(areaData.color.r, areaData.color.g, areaData.color.b, areaData.color.a);
         }
+    }
+
+    public int CompareTo(Area otherArea)
+    {
+        return Score - otherArea.Score;
     }
 }

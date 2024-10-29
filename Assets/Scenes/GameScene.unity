@@ -214,25 +214,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 593576374339578727, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1334957330154472841, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalScale.x
-      value: 40
+      value: 42.2
       objectReference: {fileID: 0}
     - target: {fileID: 1334957330154472841, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalScale.z
-      value: 40
+      value: 48.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528969729797146381, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1539244538032312875, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.5
+      value: 20.6
       objectReference: {fileID: 0}
     - target: {fileID: 1616077111723540729, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -19.5
+      value: -23.85
       objectReference: {fileID: 0}
     - target: {fileID: 2321288067860398144, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Size.x
-      value: 40
+      value: 48.7
       objectReference: {fileID: 0}
     - target: {fileID: 2321288067860398144, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Color.a
@@ -244,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3172707854705868947, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3172707854705868947, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalPosition.z
@@ -278,9 +286,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3271391595274763650, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3378393649841510183, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Size.x
-      value: 40
+      value: 48.7
       objectReference: {fileID: 0}
     - target: {fileID: 3378393649841510183, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Color.a
@@ -288,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005977809964037190, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Size.x
-      value: 40
+      value: 42.2
       objectReference: {fileID: 0}
     - target: {fileID: 4005977809964037190, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Color.a
@@ -299,24 +311,40 @@ PrefabInstance:
       value: BlueArea
       objectReference: {fileID: 0}
     - target: {fileID: 4117288123182628589, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117288123182628589, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4377684852008339511, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.5
+      value: -20.6
       objectReference: {fileID: 0}
     - target: {fileID: 5372495846626587755, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: width
-      value: 40
+      value: 42.2
       objectReference: {fileID: 0}
     - target: {fileID: 5372495846626587755, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: height
-      value: 40
+      value: 48.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448325210137030365, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809165302388021868, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971876148071194369, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8162459805854583308, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Size.x
-      value: 40
+      value: 42.2
       objectReference: {fileID: 0}
     - target: {fileID: 8162459805854583308, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_Color.a
@@ -324,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579605061763776605, guid: 6c7efdb52970f3c41984fe067d8d2922, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 19.5
+      value: 23.85
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -417,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 16295415}
   - component: {fileID: 16295416}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -471,7 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 25756530}
   - component: {fileID: 25756531}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +554,7 @@ GameObject:
   - component: {fileID: 31063373}
   - component: {fileID: 31063375}
   - component: {fileID: 31063374}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +788,7 @@ GameObject:
   - component: {fileID: 53535286}
   - component: {fileID: 53535288}
   - component: {fileID: 53535287}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -920,7 +948,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73507794}
   - component: {fileID: 73507795}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1029,7 +1057,7 @@ GameObject:
   - component: {fileID: 87580846}
   - component: {fileID: 87580848}
   - component: {fileID: 87580847}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1111,7 +1139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 92024118}
   - component: {fileID: 92024119}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,7 +1194,7 @@ GameObject:
   - component: {fileID: 119706313}
   - component: {fileID: 119706315}
   - component: {fileID: 119706314}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1248,7 +1276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 122384249}
   - component: {fileID: 122384250}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1461,7 +1489,7 @@ GameObject:
   - component: {fileID: 145168467}
   - component: {fileID: 145168469}
   - component: {fileID: 145168468}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1544,7 +1572,7 @@ GameObject:
   - component: {fileID: 145876043}
   - component: {fileID: 145876045}
   - component: {fileID: 145876044}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1686,7 +1714,7 @@ GameObject:
   - component: {fileID: 151969838}
   - component: {fileID: 151969840}
   - component: {fileID: 151969839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1768,7 +1796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 155652306}
   - component: {fileID: 155652307}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1822,7 +1850,7 @@ GameObject:
   m_Component:
   - component: {fileID: 158725647}
   - component: {fileID: 158725648}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1876,7 +1904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 166068298}
   - component: {fileID: 166068299}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2079,7 +2107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 183592597}
   - component: {fileID: 183592598}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2528,7 +2556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 234187262}
   - component: {fileID: 234187263}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2717,7 +2745,7 @@ GameObject:
   - component: {fileID: 246468869}
   - component: {fileID: 246468871}
   - component: {fileID: 246468870}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3056,7 +3084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327766675}
   - component: {fileID: 327766676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3110,7 +3138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 343344165}
   - component: {fileID: 343344166}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3165,7 +3193,7 @@ GameObject:
   - component: {fileID: 344298934}
   - component: {fileID: 344298936}
   - component: {fileID: 344298935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3701,7 +3729,7 @@ GameObject:
   - component: {fileID: 393979362}
   - component: {fileID: 393979364}
   - component: {fileID: 393979363}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3784,7 +3812,7 @@ GameObject:
   - component: {fileID: 415452361}
   - component: {fileID: 415452363}
   - component: {fileID: 415452362}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3866,7 +3894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416569766}
   - component: {fileID: 416569767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3975,7 +4003,7 @@ GameObject:
   - component: {fileID: 427803362}
   - component: {fileID: 427803364}
   - component: {fileID: 427803363}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4058,7 +4086,7 @@ GameObject:
   - component: {fileID: 435445093}
   - component: {fileID: 435445095}
   - component: {fileID: 435445094}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4178,7 +4206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444849334}
   - component: {fileID: 444849335}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4233,7 +4261,7 @@ GameObject:
   - component: {fileID: 450864300}
   - component: {fileID: 450864302}
   - component: {fileID: 450864301}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4393,7 +4421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 464250079}
   - component: {fileID: 464250080}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4525,7 +4553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 477745646}
   - component: {fileID: 477745647}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4580,7 +4608,7 @@ GameObject:
   - component: {fileID: 482163524}
   - component: {fileID: 482163526}
   - component: {fileID: 482163525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4662,7 +4690,7 @@ GameObject:
   m_Component:
   - component: {fileID: 483047933}
   - component: {fileID: 483047934}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4717,7 +4745,7 @@ GameObject:
   - component: {fileID: 485721037}
   - component: {fileID: 485721039}
   - component: {fileID: 485721038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4936,7 +4964,7 @@ GameObject:
   m_Component:
   - component: {fileID: 522098325}
   - component: {fileID: 522098326}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4990,7 +5018,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543478998}
   - component: {fileID: 543478999}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5174,7 +5202,7 @@ GameObject:
   - component: {fileID: 560124076}
   - component: {fileID: 560124078}
   - component: {fileID: 560124077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5254,25 +5282,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 593576374339578727, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1334957330154472841, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 25
+      value: 27.7
       objectReference: {fileID: 0}
     - target: {fileID: 1334957330154472841, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 25
+      value: 28.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528969729797146381, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1539244538032312875, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12
+      value: 13.35
       objectReference: {fileID: 0}
     - target: {fileID: 1616077111723540729, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12
+      value: -13.8
       objectReference: {fileID: 0}
     - target: {fileID: 2321288067860398144, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Size.x
-      value: 25
+      value: 28.6
       objectReference: {fileID: 0}
     - target: {fileID: 2321288067860398144, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Color.a
@@ -5296,7 +5332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3172707854705868947, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3172707854705868947, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5330,9 +5366,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3271391595274763650, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3378393649841510183, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Size.x
-      value: 25
+      value: 28.6
       objectReference: {fileID: 0}
     - target: {fileID: 3378393649841510183, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Color.a
@@ -5352,7 +5392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005977809964037190, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Size.x
-      value: 25
+      value: 27.7
       objectReference: {fileID: 0}
     - target: {fileID: 4005977809964037190, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Color.a
@@ -5374,25 +5414,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedArea
       objectReference: {fileID: 0}
+    - target: {fileID: 4117288123182628589, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4377684852008339511, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12
+      value: -13.35
       objectReference: {fileID: 0}
     - target: {fileID: 5372495846626587755, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: width
-      value: 25
+      value: 27.7
       objectReference: {fileID: 0}
     - target: {fileID: 5372495846626587755, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: height
-      value: 25
+      value: 28.6
       objectReference: {fileID: 0}
     - target: {fileID: 5372495846626587755, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: areaData
       value: 
       objectReference: {fileID: 11400000, guid: c5dbc1fcb2e761b4884d2aa4ad36bd9d, type: 2}
+    - target: {fileID: 5448325210137030365, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809165302388021868, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971876148071194369, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8162459805854583308, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Size.x
-      value: 25
+      value: 27.7
       objectReference: {fileID: 0}
     - target: {fileID: 8162459805854583308, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_Sprite
@@ -5420,7 +5476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579605061763776605, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12
+      value: 13.8
       objectReference: {fileID: 0}
     - target: {fileID: 8579605061763776605, guid: fa4408466fb351c44b1cdba15ee265a1, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -5442,7 +5498,7 @@ GameObject:
   - component: {fileID: 569375034}
   - component: {fileID: 569375036}
   - component: {fileID: 569375035}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5768,6 +5824,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 593576374339578727, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1334957330154472841, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_LocalScale.x
       value: 68
@@ -5775,6 +5835,10 @@ PrefabInstance:
     - target: {fileID: 1334957330154472841, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_LocalScale.z
       value: 19.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528969729797146381, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1539244538032312875, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5794,11 +5858,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3172707854705868947, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3172707854705868947, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -41.54
+      value: -36.3
       objectReference: {fileID: 0}
     - target: {fileID: 3172707854705868947, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5828,6 +5892,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3271391595274763650, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3378393649841510183, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_Size.x
       value: 19.8
@@ -5839,6 +5907,10 @@ PrefabInstance:
     - target: {fileID: 4117288123182628589, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_Name
       value: OutArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117288123182628589, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4377684852008339511, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5859,6 +5931,18 @@ PrefabInstance:
     - target: {fileID: 5372495846626587755, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: position.y
       value: -36.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448325210137030365, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5809165302388021868, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971876148071194369, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8162459805854583308, guid: 178e1101f378b5742b3152d5cc36786c, type: 3}
       propertyPath: m_Size.x
@@ -5961,7 +6045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 625574586}
   - component: {fileID: 625574587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6015,7 +6099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635317783}
   - component: {fileID: 635317784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6070,7 +6154,7 @@ GameObject:
   - component: {fileID: 638537482}
   - component: {fileID: 638537484}
   - component: {fileID: 638537483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6313,7 +6397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649600021}
   - component: {fileID: 649600022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6368,7 +6452,7 @@ GameObject:
   - component: {fileID: 658290053}
   - component: {fileID: 658290055}
   - component: {fileID: 658290054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6649,7 +6733,7 @@ GameObject:
   - component: {fileID: 674207762}
   - component: {fileID: 674207764}
   - component: {fileID: 674207763}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6790,7 +6874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 680617166}
   - component: {fileID: 680617167}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6845,7 +6929,7 @@ GameObject:
   - component: {fileID: 681765880}
   - component: {fileID: 681765882}
   - component: {fileID: 681765881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7423,7 +7507,7 @@ GameObject:
   - component: {fileID: 726985870}
   - component: {fileID: 726985872}
   - component: {fileID: 726985871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7506,7 +7590,7 @@ GameObject:
   - component: {fileID: 729684594}
   - component: {fileID: 729684596}
   - component: {fileID: 729684595}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7587,9 +7671,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 742257884}
-  - component: {fileID: 742257883}
-  - component: {fileID: 742257882}
-  - component: {fileID: 742257881}
   m_Layer: 0
   m_Name: CameraTrans2
   m_TagString: Untagged
@@ -7597,77 +7678,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &742257881
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742257880}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &742257882
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742257880}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &742257883
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 742257880}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &742257884
 Transform:
   m_ObjectHideFlags: 0
@@ -7747,7 +7757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 746140196}
   - component: {fileID: 746140197}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7802,7 +7812,7 @@ GameObject:
   - component: {fileID: 747915872}
   - component: {fileID: 747915874}
   - component: {fileID: 747915873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8018,7 +8028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758817208}
   - component: {fileID: 758817209}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8155,7 +8165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 781813935}
   - component: {fileID: 781813936}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8288,7 +8298,7 @@ GameObject:
   - component: {fileID: 788874786}
   - component: {fileID: 788874788}
   - component: {fileID: 788874787}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8449,7 +8459,7 @@ GameObject:
   - component: {fileID: 797336175}
   - component: {fileID: 797336177}
   - component: {fileID: 797336176}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8614,7 +8624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 811551925}
   - component: {fileID: 811551926}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8669,7 +8679,7 @@ GameObject:
   - component: {fileID: 814959434}
   - component: {fileID: 814959436}
   - component: {fileID: 814959435}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9191,7 +9201,7 @@ GameObject:
   - component: {fileID: 873619014}
   - component: {fileID: 873619016}
   - component: {fileID: 873619015}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9349,7 +9359,7 @@ GameObject:
   - component: {fileID: 893954078}
   - component: {fileID: 893954080}
   - component: {fileID: 893954079}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9739,7 +9749,7 @@ GameObject:
   - component: {fileID: 939023856}
   - component: {fileID: 939023858}
   - component: {fileID: 939023857}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9992,7 +10002,7 @@ GameObject:
   - component: {fileID: 969556828}
   - component: {fileID: 969556830}
   - component: {fileID: 969556829}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10074,7 +10084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 970606168}
   - component: {fileID: 970606169}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10455,7 +10465,7 @@ GameObject:
   - component: {fileID: 1015160097}
   - component: {fileID: 1015160099}
   - component: {fileID: 1015160098}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10941,7 +10951,7 @@ GameObject:
   - component: {fileID: 1055603263}
   - component: {fileID: 1055603265}
   - component: {fileID: 1055603264}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11023,7 +11033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1059625515}
   - component: {fileID: 1059625516}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11144,7 +11154,7 @@ GameObject:
   - component: {fileID: 1061532214}
   - component: {fileID: 1061532216}
   - component: {fileID: 1061532215}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11227,7 +11237,7 @@ GameObject:
   - component: {fileID: 1067593839}
   - component: {fileID: 1067593841}
   - component: {fileID: 1067593840}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11392,7 +11402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1086224421}
   - component: {fileID: 1086224422}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11863,7 +11873,7 @@ GameObject:
   - component: {fileID: 1146358476}
   - component: {fileID: 1146358478}
   - component: {fileID: 1146358477}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11945,7 +11955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1147801238}
   - component: {fileID: 1147801239}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12326,7 +12336,7 @@ GameObject:
   - component: {fileID: 1211738524}
   - component: {fileID: 1211738526}
   - component: {fileID: 1211738525}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12569,7 +12579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1242671427}
   - component: {fileID: 1242671428}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12622,7 +12632,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1248760869}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12675,7 +12685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252218918}
   - component: {fileID: 1252218919}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12879,7 +12889,7 @@ GameObject:
   - component: {fileID: 1269293618}
   - component: {fileID: 1269293620}
   - component: {fileID: 1269293619}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13099,7 +13109,7 @@ GameObject:
   - component: {fileID: 1301005367}
   - component: {fileID: 1301005369}
   - component: {fileID: 1301005368}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13181,7 +13191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1317176501}
   - component: {fileID: 1317176502}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13289,7 +13299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1322859503}
   - component: {fileID: 1322859504}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13343,7 +13353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1323600950}
   - component: {fileID: 1323600951}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13397,7 +13407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1327405358}
   - component: {fileID: 1327405359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13452,7 +13462,7 @@ GameObject:
   - component: {fileID: 1349551179}
   - component: {fileID: 1349551181}
   - component: {fileID: 1349551180}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13535,7 +13545,7 @@ GameObject:
   - component: {fileID: 1359960703}
   - component: {fileID: 1359960705}
   - component: {fileID: 1359960704}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13617,7 +13627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1365401214}
   - component: {fileID: 1365401215}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13832,7 +13842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1400718533}
   - component: {fileID: 1400718534}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14047,7 +14057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1441831968}
   - component: {fileID: 1441831969}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14245,7 +14255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1457254894}
   - component: {fileID: 1457254895}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14299,7 +14309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1478368934}
   - component: {fileID: 1478368935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14354,7 +14364,7 @@ GameObject:
   - component: {fileID: 1481978571}
   - component: {fileID: 1481978573}
   - component: {fileID: 1481978572}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14436,7 +14446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482014760}
   - component: {fileID: 1482014761}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14544,7 +14554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1518140491}
   - component: {fileID: 1518140492}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14653,7 +14663,7 @@ GameObject:
   - component: {fileID: 1533284736}
   - component: {fileID: 1533284738}
   - component: {fileID: 1533284737}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14736,7 +14746,7 @@ GameObject:
   - component: {fileID: 1535183075}
   - component: {fileID: 1535183077}
   - component: {fileID: 1535183076}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15075,7 +15085,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1558613178}
   - component: {fileID: 1558613179}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15130,7 +15140,7 @@ GameObject:
   - component: {fileID: 1564164903}
   - component: {fileID: 1564164905}
   - component: {fileID: 1564164904}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15290,7 +15300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1580740044}
   - component: {fileID: 1580740045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15344,7 +15354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1588378106}
   - component: {fileID: 1588378107}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15398,7 +15408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1588623708}
   - component: {fileID: 1588623709}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15530,7 +15540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1608355969}
   - component: {fileID: 1608355970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15743,7 +15753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1647410460}
   - component: {fileID: 1647410461}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15797,7 +15807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1650241428}
   - component: {fileID: 1650241429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15852,7 +15862,7 @@ GameObject:
   - component: {fileID: 1652469290}
   - component: {fileID: 1652469292}
   - component: {fileID: 1652469291}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16197,7 +16207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684901785}
   - component: {fileID: 1684901786}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16251,7 +16261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691090171}
   - component: {fileID: 1691090172}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16384,7 +16394,7 @@ GameObject:
   - component: {fileID: 1706492783}
   - component: {fileID: 1706492785}
   - component: {fileID: 1706492784}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16571,7 +16581,7 @@ GameObject:
   - component: {fileID: 1726761384}
   - component: {fileID: 1726761386}
   - component: {fileID: 1726761385}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16705,7 +16715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1728435746}
   - component: {fileID: 1728435747}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16760,7 +16770,7 @@ GameObject:
   - component: {fileID: 1745904024}
   - component: {fileID: 1745904026}
   - component: {fileID: 1745904025}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16921,7 +16931,7 @@ GameObject:
   - component: {fileID: 1751755073}
   - component: {fileID: 1751755075}
   - component: {fileID: 1751755074}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17179,10 +17189,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 5611937314006890905, guid: 017cfaf389f41534e8b74de86b960733, type: 3}
+  player1Color: {r: 0.49411768, g: 0.854902, b: 0.3647059, a: 0}
+  player2Color: {r: 0.2784314, g: 0.7254902, b: 0.8431373, a: 0}
   cameraTrans1: {fileID: 577412933}
   cameraTrans2: {fileID: 742257884}
   camera: {fileID: 963194228}
   cameraTransModifyTime: 1
+  ballCrashParticlePrefab: {fileID: 8791802859087666345, guid: 7a2ea0ff023c6684f8c362ebe13000d0, type: 3}
 --- !u!4 &1764327434
 Transform:
   m_ObjectHideFlags: 0
@@ -17192,7 +17205,7 @@ Transform:
   m_GameObject: {fileID: 1764327432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.954728, y: 16.964867, z: -24.524307}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17209,7 +17222,7 @@ GameObject:
   - component: {fileID: 1768446256}
   - component: {fileID: 1768446258}
   - component: {fileID: 1768446257}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17357,7 +17370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802283778}
   - component: {fileID: 1802283779}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17514,7 +17527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1814132004}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17560,6 +17573,111 @@ Transform:
   - {fileID: 1086224421}
   m_Father: {fileID: 440557207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1819994568
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1334957330154472841, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 37.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1334957330154472841, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 36.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1539244538032312875, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 18.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1616077111723540729, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321288067860398144, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_Size.x
+      value: 36.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3172707854705868947, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3378393649841510183, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_Size.x
+      value: 36.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005977809964037190, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_Size.x
+      value: 37.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4117288123182628589, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_Name
+      value: YellowArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 4377684852008339511, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -18.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5372495846626587755, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: width
+      value: 37.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5372495846626587755, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: height
+      value: 36.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8162459805854583308, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_Size.x
+      value: 37.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579605061763776605, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 58856bb1fdb48154ebff5b3c64cb8a8d, type: 3}
 --- !u!1 &1824007888
 GameObject:
   m_ObjectHideFlags: 0
@@ -17570,7 +17688,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1824007889}
   - component: {fileID: 1824007890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17679,7 +17797,7 @@ GameObject:
   - component: {fileID: 1828230311}
   - component: {fileID: 1828230313}
   - component: {fileID: 1828230312}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17761,7 +17879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1831847054}
   - component: {fileID: 1831847055}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17816,7 +17934,7 @@ GameObject:
   - component: {fileID: 1835045674}
   - component: {fileID: 1835045676}
   - component: {fileID: 1835045675}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18110,7 +18228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865755941}
   - component: {fileID: 1865755942}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18505,7 +18623,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1913133551}
   - component: {fileID: 1913133552}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18717,7 +18835,7 @@ GameObject:
   - component: {fileID: 1936610693}
   - component: {fileID: 1936610695}
   - component: {fileID: 1936610694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18800,7 +18918,7 @@ GameObject:
   - component: {fileID: 1941472617}
   - component: {fileID: 1941472619}
   - component: {fileID: 1941472618}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18966,7 +19084,7 @@ GameObject:
   - component: {fileID: 1968871576}
   - component: {fileID: 1968871578}
   - component: {fileID: 1968871577}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19421,7 +19539,7 @@ GameObject:
   - component: {fileID: 2001318715}
   - component: {fileID: 2001318717}
   - component: {fileID: 2001318716}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19504,7 +19622,7 @@ GameObject:
   - component: {fileID: 2013585644}
   - component: {fileID: 2013585646}
   - component: {fileID: 2013585645}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19586,7 +19704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2030262979}
   - component: {fileID: 2030262980}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19640,7 +19758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2049927211}
   - component: {fileID: 2049927212}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19773,7 +19891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2061225624}
   - component: {fileID: 2061225625}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19881,7 +19999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2072027969}
   - component: {fileID: 2072027970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19936,7 +20054,7 @@ GameObject:
   - component: {fileID: 2079905263}
   - component: {fileID: 2079905265}
   - component: {fileID: 2079905264}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20207,7 +20325,7 @@ GameObject:
   - component: {fileID: 2096385956}
   - component: {fileID: 2096385958}
   - component: {fileID: 2096385957}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20288,7 +20406,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2100688558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20345,7 +20463,7 @@ GameObject:
   - component: {fileID: 2106924997}
   - component: {fileID: 2106924999}
   - component: {fileID: 2106924998}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20428,7 +20546,7 @@ GameObject:
   - component: {fileID: 2107956527}
   - component: {fileID: 2107956529}
   - component: {fileID: 2107956528}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20643,7 +20761,7 @@ GameObject:
   - component: {fileID: 2118771859}
   - component: {fileID: 2118771861}
   - component: {fileID: 2118771860}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20725,7 +20843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2140850257}
   - component: {fileID: 2140850258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20780,7 +20898,7 @@ GameObject:
   - component: {fileID: 6086648597013192169}
   - component: {fileID: 7809616533699911540}
   - component: {fileID: 5215743674772472125}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: KitchenCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20797,7 +20915,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4656442140761437037}
   - component: {fileID: 4656442140761437038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ClearCounter_Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20911,6 +21029,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 577412933}
+  - {fileID: 742257884}
   - {fileID: 705507995}
   - {fileID: 440557207}
   - {fileID: 2087253116}
@@ -20918,6 +21038,5 @@ SceneRoots:
   - {fileID: 563649167}
   - {fileID: 1935228}
   - {fileID: 608306163}
+  - {fileID: 1819994568}
   - {fileID: 1764327434}
-  - {fileID: 577412933}
-  - {fileID: 742257884}
