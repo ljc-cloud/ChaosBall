@@ -114,6 +114,15 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UnLaunch"",
+                    ""type"": ""Button"",
+                    ""id"": ""f64c7152-9cee-44e5-9614-3152e56250ad"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,10 +163,21 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""5de87b4e-65b4-4c1e-a62d-66ae3d66157c"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": ""Hold(duration=0.1)"",
+                    ""interactions"": ""Hold(duration=0.25)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Launch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0da40da-2ef0-4b9d-946f-e1f3ae587d50"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UnLaunch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -184,6 +204,15 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UnLaunch"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f5d1a5b-efe3-41a6-9098-72ab8b630911"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -191,7 +220,7 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""faa74646-f346-413b-970e-2f0a2eba87f1"",
                     ""path"": ""<Keyboard>/numpad0"",
-                    ""interactions"": ""Hold(duration=0.1)"",
+                    ""interactions"": ""Hold(duration=0.25)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Launch"",
@@ -230,6 +259,17 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
                     ""action"": ""LR"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8827deb4-9e54-4346-bdc3-54bc7b1dc685"",
+                    ""path"": ""<Keyboard>/numpadPeriod"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UnLaunch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -244,10 +284,12 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
         m_Player1 = asset.FindActionMap("Player1", throwIfNotFound: true);
         m_Player1_Launch = m_Player1.FindAction("Launch", throwIfNotFound: true);
         m_Player1_LR = m_Player1.FindAction("LR", throwIfNotFound: true);
+        m_Player1_UnLaunch = m_Player1.FindAction("UnLaunch", throwIfNotFound: true);
         // Player2
         m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
         m_Player2_Launch = m_Player2.FindAction("Launch", throwIfNotFound: true);
         m_Player2_LR = m_Player2.FindAction("LR", throwIfNotFound: true);
+        m_Player2_UnLaunch = m_Player2.FindAction("UnLaunch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -365,12 +407,14 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
     private List<IPlayer1Actions> m_Player1ActionsCallbackInterfaces = new List<IPlayer1Actions>();
     private readonly InputAction m_Player1_Launch;
     private readonly InputAction m_Player1_LR;
+    private readonly InputAction m_Player1_UnLaunch;
     public struct Player1Actions
     {
         private @BallAction m_Wrapper;
         public Player1Actions(@BallAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Launch => m_Wrapper.m_Player1_Launch;
         public InputAction @LR => m_Wrapper.m_Player1_LR;
+        public InputAction @UnLaunch => m_Wrapper.m_Player1_UnLaunch;
         public InputActionMap Get() { return m_Wrapper.m_Player1; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -386,6 +430,9 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
             @LR.started += instance.OnLR;
             @LR.performed += instance.OnLR;
             @LR.canceled += instance.OnLR;
+            @UnLaunch.started += instance.OnUnLaunch;
+            @UnLaunch.performed += instance.OnUnLaunch;
+            @UnLaunch.canceled += instance.OnUnLaunch;
         }
 
         private void UnregisterCallbacks(IPlayer1Actions instance)
@@ -396,6 +443,9 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
             @LR.started -= instance.OnLR;
             @LR.performed -= instance.OnLR;
             @LR.canceled -= instance.OnLR;
+            @UnLaunch.started -= instance.OnUnLaunch;
+            @UnLaunch.performed -= instance.OnUnLaunch;
+            @UnLaunch.canceled -= instance.OnUnLaunch;
         }
 
         public void RemoveCallbacks(IPlayer1Actions instance)
@@ -419,12 +469,14 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
     private List<IPlayer2Actions> m_Player2ActionsCallbackInterfaces = new List<IPlayer2Actions>();
     private readonly InputAction m_Player2_Launch;
     private readonly InputAction m_Player2_LR;
+    private readonly InputAction m_Player2_UnLaunch;
     public struct Player2Actions
     {
         private @BallAction m_Wrapper;
         public Player2Actions(@BallAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Launch => m_Wrapper.m_Player2_Launch;
         public InputAction @LR => m_Wrapper.m_Player2_LR;
+        public InputAction @UnLaunch => m_Wrapper.m_Player2_UnLaunch;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -440,6 +492,9 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
             @LR.started += instance.OnLR;
             @LR.performed += instance.OnLR;
             @LR.canceled += instance.OnLR;
+            @UnLaunch.started += instance.OnUnLaunch;
+            @UnLaunch.performed += instance.OnUnLaunch;
+            @UnLaunch.canceled += instance.OnUnLaunch;
         }
 
         private void UnregisterCallbacks(IPlayer2Actions instance)
@@ -450,6 +505,9 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
             @LR.started -= instance.OnLR;
             @LR.performed -= instance.OnLR;
             @LR.canceled -= instance.OnLR;
+            @UnLaunch.started -= instance.OnUnLaunch;
+            @UnLaunch.performed -= instance.OnUnLaunch;
+            @UnLaunch.canceled -= instance.OnUnLaunch;
         }
 
         public void RemoveCallbacks(IPlayer2Actions instance)
@@ -476,10 +534,12 @@ public partial class @BallAction: IInputActionCollection2, IDisposable
     {
         void OnLaunch(InputAction.CallbackContext context);
         void OnLR(InputAction.CallbackContext context);
+        void OnUnLaunch(InputAction.CallbackContext context);
     }
     public interface IPlayer2Actions
     {
         void OnLaunch(InputAction.CallbackContext context);
         void OnLR(InputAction.CallbackContext context);
+        void OnUnLaunch(InputAction.CallbackContext context);
     }
 }
