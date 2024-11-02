@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Linq;
-using Events;
+using ChaosBall.Events;
+using ChaosBall.Game;
+using ChaosBall.Manager;
+using ChaosBall.Utility;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Balls
+namespace ChaosBall.Balls
 {
     public enum BallState
     {
@@ -239,9 +242,9 @@ namespace Balls
 
         #endregion
         
-
         private void LaunchBall()
         {
+            Timer.Instance.PauseTimer();
             arrow.gameObject.SetActive(false);
             StopCoroutine(nameof(ReadyToLaunchBall));
             _playerInput.DisableInput();

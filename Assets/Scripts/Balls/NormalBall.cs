@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Balls
+namespace ChaosBall.Balls
 {
     public class NormalBall : Ball
     {

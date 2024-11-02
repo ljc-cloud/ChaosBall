@@ -1,11 +1,11 @@
-using System;
-using Events;
+using ChaosBall.Events;
+using ChaosBall.Manager;
 using QFramework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace ChaosBall.UI
 {
     public class PlayerUI : MonoBehaviour
     {

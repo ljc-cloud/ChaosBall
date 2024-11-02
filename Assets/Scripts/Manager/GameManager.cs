@@ -2,17 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Balls;
-using Events;
+using ChaosBall.Balls;
+using ChaosBall.Events;
+using ChaosBall.Game;
+using ChaosBall.Model;
 using QFramework;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Timer = ChaosBall.Utility.Timer;
 
-public enum PlayerEnum
+namespace ChaosBall.Manager
 {
-    Player1,
-    Player2
-}
+    public enum PlayerEnum
+    {
+        Player1,
+        Player2
+    }
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -31,16 +36,17 @@ public class GameManager : MonoSingleton<GameManager>
     public readonly string ROUND_SWITCH_TEXT = "交换投球权";
 
     private int _currentRound = 1;
-
-    // FIXME
+    
     private Dictionary<PlayerEnum, int[]> _playerScoreDic = new();
+
+    private Ball _currentBall;
     
 
     public enum GameStateEnum
     {
         CountToStart,
         Started,
-        RoundChecking,
+        OnMessaging,
         GameOver
     }
 
@@ -50,6 +56,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         GameState = GameStateEnum.Started;
         _playerDataDict.Add(PlayerEnum.Player1, new PlayerModel { playerName = "Traveler", ballLeft = 4, score = 0});
         _playerDataDict.Add(PlayerEnum.Player2, new PlayerModel { playerName = "Rika", ballLeft = 4, score = 0});
@@ -59,18 +66,27 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Start()
     {
-        FirstRound();
+        MusicManager.Instance.StartBGM();
         ChaosBallApp.Interface.RegisterEvent<OnChangeRound>(e =>
         {
             RoundCheck();
         }).UnRegisterWhenGameObjectDestroyed(gameObject);
         ChaosBallApp.Interface.SendEvent(new OnUpdatePlayerData { playerData = _playerDataDict});
+        Timer.Instance.OnTimeComplete += CurrentPlayerTimeComplete;
         InitializePlayerUI();
+        FirstRound();
     }
 
     private void Update()
     {
         CheckGameOver();
+    }
+    
+    private void CurrentPlayerTimeComplete()
+    {
+        Debug.Log($"{_currentPlayer} Time Complete");
+        var message = $"{_playerDataDict[_currentPlayer].playerName}超时,切换投球权";
+        StartMessaging(message, SwitchRound);
     }
 
     private void CheckGameOver()
@@ -96,21 +112,29 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void FirstRound()
     {
-        SetRoundCheckStart();
+        // SetMessagingStart();
         var random = Random.Range(0, 101);
         _currentPlayer = random % 2 == 0 ? PlayerEnum.Player1 : PlayerEnum.Player2;
-        CreateBall();
         var message = $"第一回合, {_playerDataDict[_currentPlayer].playerName}先手";
-        ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
+        StartMessaging(message, SpawnBall);
     }
 
     public void ReTry()
     {
         // 通知UI
-        SetRoundCheckStart();
+        // SetMessagingStart();
         string message = $"{_playerDataDict[_currentPlayer].playerName}投球超出界限,重新投球!";
-        ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
-        StartCoroutine(CreateRound());
+        // ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
+        StartMessaging(message, SpawnBall);
+    }
+
+    private void SwitchRound()
+    {
+        _currentPlayer = _currentPlayer == PlayerEnum.Player1 ? PlayerEnum.Player2 : PlayerEnum.Player1;
+        // destroy previous ball
+        Destroy(_currentBall.gameObject);
+        // spawn new ball
+        SpawnBall();
     }
 
     private void RoundCheck()
@@ -118,41 +142,31 @@ public class GameManager : MonoSingleton<GameManager>
         // ballLeft--
         _playerDataDict[_currentPlayer].ballLeft--;
         ChaosBallApp.Interface.SendEvent(new OnChangePlayerData { playerData = new Dictionary<PlayerEnum, PlayerModel>(_playerDataDict) });
+        // SetMessagingStart();
         if (_playerDataDict[PlayerEnum.Player1].ballLeft == _playerDataDict[PlayerEnum.Player2].ballLeft)
         {
             // 回合结束
-            SetRoundCheckStart();
             var message = $"第{_currentRound}回合结束";
-            ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
+            // ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
+            StartMessaging(message, null);
             _currentRound++;
             var player = GetPlayerScore(PlayerEnum.Player1) > GetPlayerScore(PlayerEnum.Player2)
                 ? PlayerEnum.Player1
                 : PlayerEnum.Player2;
             message = $"第{_currentRound}回合, 由上回合胜方{_playerDataDict[player].playerName}先手";
             _currentPlayer = player;
-            ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
+            StartMessaging(message, null);
         }
         else
         {
-            SetRoundCheckStart();
             _currentPlayer = _currentPlayer == PlayerEnum.Player1 ? PlayerEnum.Player2 : PlayerEnum.Player1;
             var message = ROUND_SWITCH_TEXT;
-            ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
+            StartMessaging(message, null);
         }
-        StartCoroutine(CreateRound());
-    }
-    
-    private IEnumerator CreateRound()
-    {
-        while (GameState == GameStateEnum.RoundChecking)
-        {
-            yield return null;
-        }
-        // Instantiate Ball
-        CreateBall();
+        StartCoroutine(WaitMessaging(SpawnBall));
     }
 
-    private void CreateBall()
+    private void SpawnBall()
     {
         var ballGameObject = Instantiate(ballPrefab);
         var ball = ballGameObject.GetComponent<Ball>();
@@ -170,6 +184,8 @@ public class GameManager : MonoSingleton<GameManager>
             ball.SetPlayerInput(new Player2Input());
             ball.SetPlayerBelong(PlayerEnum.Player2);
         }
+        _currentBall = ball;
+        Timer.Instance.ReStartTimer();
     }
 
     public void UpdatePlayerScore(PlayerEnum playerEnum, int index, int score)
@@ -179,27 +195,6 @@ public class GameManager : MonoSingleton<GameManager>
         Debug.Log($"Update {playerEnum}, index:{index}, Score:{score}");
         ChaosBallApp.Interface.SendEvent(new OnChangePlayerData { playerData = new Dictionary<PlayerEnum, PlayerModel>(_playerDataDict)});
     }
-
-    #region BUG,FIXME
-
-    public void IncreasePlayerScore(PlayerEnum playerEnum, int index, int score)
-    {
-        _playerScoreDic[playerEnum][index] = score;
-        _playerDataDict[playerEnum].score = _playerScoreDic[playerEnum].Aggregate(0, (pre, cur) => pre + cur);
-        Debug.Log($"Increase {playerEnum} Score, Cur:{_playerDataDict[playerEnum].score}");
-        ChaosBallApp.Interface.SendEvent(new OnChangePlayerData { playerData = new Dictionary<PlayerEnum, PlayerModel>(_playerDataDict)});
-    }
-
-    public void DecreasePlayerScore(PlayerEnum playerEnum, int index, int score)
-    {
-        _playerScoreDic[playerEnum][index] = score;
-        _playerDataDict[playerEnum].score = _playerScoreDic[playerEnum].Aggregate(0, (pre, cur) => pre + cur);
-        Debug.Log($"Decrease {playerEnum} Score, Cur:{_playerDataDict[playerEnum].score}");
-        ChaosBallApp.Interface.SendEvent(new OnChangePlayerData { playerData = new Dictionary<PlayerEnum, PlayerModel>(_playerDataDict)});
-    }
-
-    #endregion
-   
     
     private IEnumerator SetCameraRoundCheckingMode()
     {
@@ -225,12 +220,12 @@ public class GameManager : MonoSingleton<GameManager>
         camera.position = cameraTrans1.position;
     }
 
-    public void SetRoundCheckStart()
+    public void SetMessagingStart()
     {
         StartCoroutine(SetCameraRoundCheckingMode());  
-        GameState = GameStateEnum.RoundChecking;
+        GameState = GameStateEnum.OnMessaging;
     }
-    public void SetRoundCheckOver()
+    public void SetMessagingOver()
     {
         StartCoroutine(SetCameraNormalMode());
         GameState = GameStateEnum.Started;
@@ -240,4 +235,20 @@ public class GameManager : MonoSingleton<GameManager>
     {
         Instantiate(ballCrashParticlePrefab, position, Quaternion.identity);
     }
+    public void StartMessaging(string message, Action onMessageOver)
+    {
+        SetMessagingStart();
+        ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
+        StartCoroutine(WaitMessaging(onMessageOver));
+    }
+    private IEnumerator WaitMessaging(Action onComplete)
+    {
+        while (GameState == GameStateEnum.OnMessaging)
+        {
+            yield return null;
+        }
+        onComplete?.Invoke();
+    }
 }
+}
+

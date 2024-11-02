@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
+using ChaosBall.Utility;
 using QFramework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Utility;
 
-namespace UI
+namespace ChaosBall.UI
 {
     public class LoadUI : MonoBehaviour, IPointerClickHandler
     {

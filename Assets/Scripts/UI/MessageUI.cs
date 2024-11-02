@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Events;
+using ChaosBall.Events;
+using ChaosBall.Manager;
 using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace ChaosBall.UI
 {
     public class MessageUI : MonoBehaviour
     {
@@ -53,7 +54,7 @@ namespace UI
         {
             if (_messageQue.Count == 0)
             {
-                GameManager.Instance.SetRoundCheckOver();
+                GameManager.Instance.SetMessagingOver();
             }
         }
     } 

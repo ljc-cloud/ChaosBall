@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Utility
+namespace ChaosBall.Utility
 {
     public enum SceneEnum
     {

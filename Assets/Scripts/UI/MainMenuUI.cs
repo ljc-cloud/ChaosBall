@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Utility;
+using ChaosBall.Utility;
 
-namespace UI
+namespace ChaosBall.UI
 {
     public class MainMenuUI : MonoBehaviour
     {

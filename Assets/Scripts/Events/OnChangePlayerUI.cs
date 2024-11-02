@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using ChaosBall.Manager;
+using ChaosBall.Model;
 
-namespace Events
+namespace ChaosBall.Events
 {
     public struct OnChangePlayerData
     {

@@ -1,4 +1,4 @@
-namespace Events
+namespace ChaosBall.Events
 {
     public struct OnCountScore
     {

@@ -2,7 +2,7 @@ using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace ChaosBall.UI
 {
     public class RoundUI : MonoBehaviour
     {
