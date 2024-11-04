@@ -8,7 +8,8 @@ namespace ChaosBall.Utility
     {
         MainMenuScene,
         LoadScene,
-        GameScene
+        GameScene,
+        GameOverScene
     }
 
     public static class SceneLoader

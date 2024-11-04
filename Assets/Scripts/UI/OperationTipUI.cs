@@ -24,8 +24,6 @@ namespace ChaosBall.UI
         private void Start()
         {
             _action = new BallAction();
-            Debug.Log(_action.Player1.LR.controls[0].name);
-            Debug.Log(_action.Player2.LR.controls[0].name);
             GameManager.Instance.OnChangePlayer += ChangeOperationUI;
         }
 

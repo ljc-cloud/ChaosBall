@@ -6,6 +6,7 @@ using ChaosBall.Balls;
 using ChaosBall.Events;
 using ChaosBall.Game;
 using ChaosBall.Model;
+using ChaosBall.Utility;
 using QFramework;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -19,6 +20,10 @@ namespace ChaosBall.Manager
         Player2
     }
 
+    // TODO 修改墙壁
+    // TODO 设计NormalBall的其他功能性球
+    // TODO 寻找特效
+    // BUG 超时切换投球权，该玩家没有剩余的球却能投球
     public class GameManager : MonoSingleton<GameManager>
     {
         [SerializeField] protected GameObject ballPrefab;
@@ -32,15 +37,18 @@ namespace ChaosBall.Manager
         [SerializeField] private GameObject ballCrashParticlePrefab;
 
         public event Action<PlayerEnum> OnChangePlayer;
+        public event Action<List<int[]>, List<PlayerModel>> OnGameOverTriggered;
 
         private readonly Dictionary<PlayerEnum, PlayerModel> _playerDataDict = new();
+        public Dictionary<PlayerEnum, PlayerModel> PlayerData => _playerDataDict;
 
-        private readonly string ROUND_SWITCH_TEXT = "交换投球权";
-        private readonly int MAX_ROUND = 4;
+        private static readonly string ROUND_SWITCH_TEXT = "交换投球权";
+        public static readonly int MAX_ROUND = 4;
 
         private int _currentRound = 1;
 
-        private Dictionary<PlayerEnum, int[]> _playerScoreDic = new();
+        private Dictionary<PlayerEnum, int[]> _playerScoreDict = new();
+        public Dictionary<PlayerEnum, int[]> PlayerScorePoints => _playerScoreDict;
 
         private Ball _currentBall;
 
@@ -61,11 +69,10 @@ namespace ChaosBall.Manager
         {
             DontDestroyOnLoad(gameObject);
             GameState = GameStateEnum.Started;
-            _playerDataDict.Add(PlayerEnum.Player1,
-                new PlayerModel { playerName = "Traveler", ballLeft = MAX_ROUND, score = 0 });
+            _playerDataDict.Add(PlayerEnum.Player1, new PlayerModel { playerName = "Traveler", ballLeft = MAX_ROUND, score = 0 });
             _playerDataDict.Add(PlayerEnum.Player2, new PlayerModel { playerName = "Rika", ballLeft = MAX_ROUND, score = 0 });
-            _playerScoreDic.Add(PlayerEnum.Player1, new int[MAX_ROUND]);
-            _playerScoreDic.Add(PlayerEnum.Player2, new int[MAX_ROUND]);
+            _playerScoreDict.Add(PlayerEnum.Player1, new int[MAX_ROUND]);
+            _playerScoreDict.Add(PlayerEnum.Player2, new int[MAX_ROUND]);
         }
 
         private void Start()
@@ -81,7 +88,7 @@ namespace ChaosBall.Manager
 
         private void Update()
         {
-            CheckGameOver();
+            IsGameOver();
         }
 
         private void CurrentPlayerTimeComplete()
@@ -89,15 +96,6 @@ namespace ChaosBall.Manager
             Debug.Log($"{_currentPlayer} Time Complete");
             var message = $"{_playerDataDict[_currentPlayer].playerName}超时,切换投球权";
             StartMessaging(message, SwitchRound);
-        }
-
-        private void CheckGameOver()
-        {
-            if (_playerDataDict[PlayerEnum.Player1].ballLeft <= 0 && _playerDataDict[PlayerEnum.Player2].ballLeft <= 0)
-            {
-                // GameOver
-                Debug.Log("GAME OVER!");
-            }
         }
 
         private void InitializePlayerUI()
@@ -124,10 +122,7 @@ namespace ChaosBall.Manager
 
         public void ReTry()
         {
-            // 通知UI
-            // SetMessagingStart();
             string message = $"{_playerDataDict[_currentPlayer].playerName}投球超出界限,重新投球!";
-            // ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
             StartMessaging(message, SpawnBall);
         }
 
@@ -146,12 +141,16 @@ namespace ChaosBall.Manager
             _playerDataDict[_currentPlayer].ballLeft--;
             ChaosBallApp.Interface.SendEvent(new OnChangePlayerData
                 { playerData = new Dictionary<PlayerEnum, PlayerModel>(_playerDataDict) });
-            // SetMessagingStart();
+            if (IsGameOver())
+            {
+                StartMessaging("游戏结束", ProcessGameOver);
+                
+                return;
+            }
             if (_playerDataDict[PlayerEnum.Player1].ballLeft == _playerDataDict[PlayerEnum.Player2].ballLeft)
             {
                 // 回合结束
                 var message = $"第{_currentRound}回合结束";
-                // ChaosBallApp.Interface.SendEvent(new OnMessaging { message = message});
                 StartMessaging(message, null);
                 _currentRound++;
                 var player = GetPlayerScore(PlayerEnum.Player1) > GetPlayerScore(PlayerEnum.Player2)
@@ -170,6 +169,31 @@ namespace ChaosBall.Manager
             }
 
             StartCoroutine(WaitMessaging(SpawnBall));
+        }
+        
+        private bool IsGameOver()
+        {
+            return _playerDataDict[PlayerEnum.Player1].ballLeft <= 0 &&
+                   _playerDataDict[PlayerEnum.Player2].ballLeft <= 0;
+        }
+
+        private void ProcessGameOver()
+        {
+            GameState = GameStateEnum.GameOver;
+            StopCoroutine(SetCameraNormalMode());
+            // 1. 切换场景
+            SceneLoader.LoadSceneAsync(SceneEnum.GameOverScene, operation =>
+            {
+                ResetData();
+                
+                // 2. 触发事件
+                operation.completed += _ =>
+                {
+                    Debug.Log("GameOver Scene!!!!");
+                    // BUG 跨场景事件绑定，事件触发失效？？
+                    OnGameOverTriggered?.Invoke(_playerScoreDict.Values.ToList(), _playerDataDict.Values.ToList());
+                };
+            });
         }
 
         private void SpawnBall()
@@ -197,8 +221,8 @@ namespace ChaosBall.Manager
 
         public void UpdatePlayerScore(PlayerEnum playerEnum, int index, int score)
         {
-            _playerScoreDic[playerEnum][index] = score;
-            _playerDataDict[playerEnum].score = _playerScoreDic[playerEnum].Aggregate(0, (pre, cur) => pre + cur);
+            _playerScoreDict[playerEnum][index] = score;
+            _playerDataDict[playerEnum].score = _playerScoreDict[playerEnum].Aggregate(0, (pre, cur) => pre + cur);
             Debug.Log($"Update {playerEnum}, index:{index}, Score:{score}");
             ChaosBallApp.Interface.SendEvent(new OnChangePlayerData
                 { playerData = new Dictionary<PlayerEnum, PlayerModel>(_playerDataDict) });
@@ -212,40 +236,44 @@ namespace ChaosBall.Manager
 
         private IEnumerator SetCameraRoundCheckingMode()
         {
+            if (camera == null) yield break;
             float currentTime = 0;
-            while (currentTime < cameraTransModifyTime)
+            while (currentTime < cameraTransModifyTime && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
             {
                 currentTime += Time.deltaTime;
                 camera.position = Vector3.Lerp(cameraTrans1.position, cameraTrans2.position,
                     currentTime / cameraTransModifyTime);
                 yield return null;
             }
-
+            if (camera == null) yield break;
             camera.position = cameraTrans2.position;
         }
 
         private IEnumerator SetCameraNormalMode()
         {
+            if (camera == null) yield break;
             float currentTime = 0;
-            while (currentTime < cameraTransModifyTime)
+            while (currentTime < cameraTransModifyTime && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
             {
                 currentTime += Time.deltaTime;
                 camera.position = Vector3.Lerp(cameraTrans2.position, cameraTrans1.position,
                     currentTime / cameraTransModifyTime);
                 yield return null;
             }
-
+            if (camera == null) yield break;
             camera.position = cameraTrans1.position;
         }
 
         public void SetMessagingStart()
         {
+            if (GameState != GameStateEnum.Started) return;
             StartCoroutine(SetCameraRoundCheckingMode());
             GameState = GameStateEnum.OnMessaging;
         }
 
         public void SetMessagingOver()
         {
+            if (GameState != GameStateEnum.Started && GameState != GameStateEnum.OnMessaging) return;
             StartCoroutine(SetCameraNormalMode());
             GameState = GameStateEnum.Started;
         }
@@ -270,6 +298,14 @@ namespace ChaosBall.Manager
             }
 
             onComplete?.Invoke();
+        }
+
+        private void ResetData()
+        {
+            camera = null;
+            _currentBall = null;
+            cameraTrans1 = null;
+            cameraTrans2 = null;
         }
     }
 }

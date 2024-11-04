@@ -2142,7 +2142,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 50}
+  m_SizeDelta: {x: 129.0424, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &172646941
 MonoBehaviour:
@@ -11099,7 +11099,7 @@ GameObject:
   - component: {fileID: 972475730}
   - component: {fileID: 972475729}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: MoveRightImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11704,8 +11704,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.00025082, y: 0}
+  m_SizeDelta: {x: 129.04, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1040640006
 MonoBehaviour:
@@ -11740,7 +11740,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Space
+  m_Text: SPACE
 --- !u!222 &1040640007
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18858,12 +18858,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveLeftImage: {fileID: 1041700559}
   moveRightImage: {fileID: 972475729}
-  moveLeftText: {fileID: 0}
-  moveRightText: {fileID: 0}
-  launchText: {fileID: 0}
-  unlaunchText: {fileID: 0}
-  leftArrow: {fileID: 0}
-  rightArrow: {fileID: 0}
+  moveLeftText: {fileID: 1935526481}
+  moveRightText: {fileID: 2053382059}
+  launchText: {fileID: 1040640006}
+  unlaunchText: {fileID: 1593790077}
+  leftArrow: {fileID: 21300000, guid: 27d544f9267497d46b87d3455fc63133, type: 3}
+  rightArrow: {fileID: 21300000, guid: 766dd1233d470a440b78cbaa65412b4b, type: 3}
+  buttonBackground: {fileID: 21300000, guid: a4a30a507a1311a438ecf1507369b28d, type: 3}
 --- !u!1 &1814132003
 GameObject:
   m_ObjectHideFlags: 0

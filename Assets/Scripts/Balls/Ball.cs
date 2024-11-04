@@ -94,7 +94,6 @@ namespace ChaosBall.Balls
                         if (_scoreCountTimer <= 0)
                         {
                             ScoreCounted = true;
-                            Debug.Log("Miss Score,ChangeRound");
                             ChaosBallApp.Interface.SendEvent<OnChangeRound>();
                             _scoreCountTimer = 1f;
                         }
@@ -115,7 +114,10 @@ namespace ChaosBall.Balls
             _playerInput.OnLRMove += vector2 => { _moveVector = vector2; };
             _playerInput.OnReadyToLaunch += () => { StartCoroutine(ReadyToLaunchBall()); };
             _playerInput.OnLaunch += LaunchBall;
+            _playerInput.OnUnLaunch += CancelLaunchBall;
         }
+
+       
 
         private void MakeSureBallStop()
         {
@@ -230,7 +232,6 @@ namespace ChaosBall.Balls
                 GameManager.Instance.CreateParticle(transform.position);
                 if (other.transform.CompareTag("Ball") && CurrentBallState is BallState.Scored or BallState.Crashed)
                 {
-                    Debug.Log("Ball Collision");
                     CurrentBallState = BallState.Crashed;
                     HasCrashed = true;
                     ScoreCounted = false;
@@ -244,12 +245,23 @@ namespace ChaosBall.Balls
         
         private void LaunchBall()
         {
+            if (CurrentBallState != BallState.ReadyToLaunch) return;
             Timer.Instance.PauseTimer();
             arrow.gameObject.SetActive(false);
             StopCoroutine(nameof(ReadyToLaunchBall));
             _playerInput.DisableInput();
             _rigidbody.AddForce(arrow.forward * _launchForce, ForceMode.Impulse);
             CurrentBallState = BallState.Launched;
+        }
+        
+        private void CancelLaunchBall()
+        {
+            if (CurrentBallState != BallState.ReadyToLaunch) return;
+            Timer.Instance.StartTimer();
+            arrow.gameObject.SetActive(true);
+            arrowImage.fillAmount = 1;
+            _playerInput.EnableInput();
+            CurrentBallState = BallState.UnLaunched;
         }
         
         private void BallMove()
