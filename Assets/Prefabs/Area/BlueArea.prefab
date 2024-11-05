@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4377684852008339511}
   - component: {fileID: 2321288067860398144}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: t3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1616077111723540729}
   - component: {fileID: 4005977809964037190}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: t2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7705065790133594494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpriteArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3172707854705868947}
   - component: {fileID: 5372495846626587755}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BlueArea
   m_TagString: Area
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1539244538032312875}
   - component: {fileID: 3378393649841510183}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: t4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8579605061763776605}
   - component: {fileID: 8162459805854583308}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: t1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 1022469301872625145}
   - component: {fileID: 916792950054716231}
   - component: {fileID: 2517995976435277205}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TriggerArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

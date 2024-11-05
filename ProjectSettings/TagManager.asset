@@ -8,6 +8,7 @@ TagManager:
   - Ball
   - BallCrash
   - FxTemporaire
+  - Wall
   layers:
   - Default
   - TransparentFX

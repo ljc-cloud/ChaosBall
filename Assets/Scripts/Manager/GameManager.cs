@@ -20,10 +20,10 @@ namespace ChaosBall.Manager
         Player2
     }
 
-    // TODO 修改墙壁
+    // TODO 修改墙壁 DONE!
     // TODO 设计NormalBall的其他功能性球
     // TODO 寻找特效
-    // BUG 超时切换投球权，该玩家没有剩余的球却能投球
+    // BUG 超时切换投球权，该玩家没有剩余的球却能投球 DONE!
     public class GameManager : MonoSingleton<GameManager>
     {
         [SerializeField] protected GameObject ballPrefab;
@@ -94,6 +94,12 @@ namespace ChaosBall.Manager
         private void CurrentPlayerTimeComplete()
         {
             Debug.Log($"{_currentPlayer} Time Complete");
+            var nextPlayer = _currentPlayer == PlayerEnum.Player1 ? PlayerEnum.Player2 : PlayerEnum.Player1;
+            if (_playerDataDict[nextPlayer].ballLeft <= 0)
+            {
+                return;
+            }
+
             var message = $"{_playerDataDict[_currentPlayer].playerName}超时,切换投球权";
             StartMessaging(message, SwitchRound);
         }
@@ -128,6 +134,7 @@ namespace ChaosBall.Manager
 
         private void SwitchRound()
         {
+            
             ChangePlayer();
             // destroy previous ball
             Destroy(_currentBall.gameObject);

@@ -8,7 +8,7 @@ namespace ChaosBall.Game
     
         [SerializeField] private AreaData areaData;
         [SerializeField][Range(0, 80)] private float width;
-        [SerializeField][Range(0, 60)] private float height;
+        [SerializeField][Range(0, 80)] private float height;
         [SerializeField] private Vector2 position;
     
         [SerializeField] private Transform triggerArea;

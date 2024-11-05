@@ -29,6 +29,8 @@ namespace ChaosBall.Balls
         [SerializeField] protected float arrowClamp;
         [SerializeField] protected float maxLaunchForce;
         [SerializeField] protected float minLaunchForce;
+        [SerializeField] protected float ballBounceRatio;
+        [SerializeField] protected float launchToMaxForceDuration;
         [SerializeField] protected float arrowRotationLerp;
         [SerializeField] protected LayerMask areaLayer;
         
@@ -56,13 +58,15 @@ namespace ChaosBall.Balls
         
         private bool _rotationFlag;
 
-        private short _waitFrames = 5;
+        private short _waitFrames = 10;
 
         private IPlayerInput _playerInput;
 
         protected PlayerEnum _belongPlayer;
         
         private float _scoreCountTimer = 1f;
+
+        private Vector3 _lastDir;
         
         protected virtual void Awake()
         {
@@ -88,16 +92,16 @@ namespace ChaosBall.Balls
                     MakeSureBallStop();
                     break;
                 case BallState.Stopped:
-                    if (!ScoreCounted && !HasCrashed)
-                    {
-                        _scoreCountTimer -= Time.deltaTime;
-                        if (_scoreCountTimer <= 0)
-                        {
-                            ScoreCounted = true;
-                            ChaosBallApp.Interface.SendEvent<OnChangeRound>();
-                            _scoreCountTimer = 1f;
-                        }
-                    }
+                    // if (!ScoreCounted && !HasCrashed)
+                    // {
+                    //     _scoreCountTimer -= Time.deltaTime;
+                    //     if (_scoreCountTimer <= 0)
+                    //     {
+                    //         ScoreCounted = true;
+                    //         ChaosBallApp.Interface.SendEvent<OnChangeRound>();
+                    //         _scoreCountTimer = 1f;
+                    //     }
+                    // }
                     break;
                 case BallState.Crashed:
                     MakeSureBallStop();
@@ -135,22 +139,22 @@ namespace ChaosBall.Balls
         
         private IEnumerator ReadyToLaunchBall()
         {
+            Timer.Instance.PauseTimer();
             CurrentBallState = BallState.ReadyToLaunch;
             var flag = true;
+            var currentTime = 0f;
+            arrowImage.fillAmount = 0f;
             while (CurrentBallState == BallState.ReadyToLaunch)
             {
-                if (Mathf.Abs(arrowImage.fillAmount - 1f) < .05f)
+                if (currentTime >= launchToMaxForceDuration)
                 {
-                    flag = false;
+                    flag = !flag;
                 }
-                else if (arrowImage.fillAmount < .05f)
-                {
-                    flag = true;
-                }
-                arrowImage.fillAmount = flag? Mathf.Lerp(arrowImage.fillAmount, 1f, arrowRotationLerp)
-                    : Mathf.Lerp(arrowImage.fillAmount, 0f, arrowRotationLerp);
-                _launchForce = flag? Mathf.Lerp(_launchForce, maxLaunchForce, arrowRotationLerp)
-                    : Mathf.Lerp(_launchForce, minLaunchForce, arrowRotationLerp);
+                currentTime = currentTime >= launchToMaxForceDuration ? 0 : currentTime + Time.deltaTime;
+                arrowImage.fillAmount = flag? Mathf.Lerp(0f, 1f, currentTime / launchToMaxForceDuration)
+                    : Mathf.Lerp(1f, 0f, currentTime / launchToMaxForceDuration);
+                _launchForce = flag? Mathf.Lerp(minLaunchForce, maxLaunchForce, currentTime / launchToMaxForceDuration)
+                    : Mathf.Lerp(maxLaunchForce, minLaunchForce, currentTime / launchToMaxForceDuration);
                 yield return null;
             }
         }
@@ -203,11 +207,11 @@ namespace ChaosBall.Balls
         private Area[] GetAreas()
         {
             var capsuleCollider = GetComponent<CapsuleCollider>();
-            var areas = Physics.CapsuleCastAll(transform.position, transform.position + capsuleCollider.height * Vector3.up
-                , capsuleCollider.radius, Vector3.down,1f, areaLayer).Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
-            // Area[] areas = Physics.RaycastAll(transform.position + capsuleCollider.radius * Vector3.up,
-            //         Vector3.down, 1f, areaLayer)
-            //     .Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
+            // var areas = Physics.CapsuleCastAll(transform.position, transform.position + capsuleCollider.height * Vector3.up
+            //     , capsuleCollider.radius, Vector3.down,1f, areaLayer).Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
+            Area[] areas = Physics.RaycastAll(transform.position + capsuleCollider.radius * Vector3.up,
+                    Vector3.down, 1f, areaLayer)
+                .Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
             return areas;
         }
 
@@ -215,15 +219,25 @@ namespace ChaosBall.Balls
         {
             if (CurrentBallState == BallState.Crashed && HasCrashed && !ScoreCounted)
             {
-                if (other.transform.parent.TryGetComponent(out Area area))
+                if (other.transform.parent.TryGetComponent(out Area _))
                 {
                     // Decrease Score
                     GameManager.Instance.UpdatePlayerScore(_belongPlayer, BallIndex, 0);
                     CurrentBallState = BallState.Scored;
                 }
             }
-            
         }
+
+        private void LateUpdate()
+        {
+            _lastDir = _rigidbody.velocity;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawRay(transform.position, _lastDir);
+        }
+
 
         private void OnCollisionEnter(Collision other)
         {
@@ -235,7 +249,13 @@ namespace ChaosBall.Balls
                     CurrentBallState = BallState.Crashed;
                     HasCrashed = true;
                     ScoreCounted = false;
-                    _waitFrames = 5;
+                    _waitFrames = 10;
+                }
+                else if (other.transform.CompareTag("Wall"))
+                {
+                    // 修改球的角度
+                    Vector3 reflectAngle = Vector3.Reflect(_lastDir, other.GetContact(0).normal);
+                    _rigidbody.velocity = reflectAngle.normalized * _lastDir.magnitude * ballBounceRatio;
                 }
             }
            
@@ -246,7 +266,6 @@ namespace ChaosBall.Balls
         private void LaunchBall()
         {
             if (CurrentBallState != BallState.ReadyToLaunch) return;
-            Timer.Instance.PauseTimer();
             arrow.gameObject.SetActive(false);
             StopCoroutine(nameof(ReadyToLaunchBall));
             _playerInput.DisableInput();
