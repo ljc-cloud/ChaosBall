@@ -41,7 +41,6 @@ namespace ChaosBall.Game
             var player1InfoUIGameObject = Instantiate(playerInfoUIPrefab, transform);
             var player2InfoUIGameObject = Instantiate(playerInfoUIPrefab, transform);
             
-            Debug.Log("Instantiate PlayerInfo");
             var scorePoints = GameManager.Instance.PlayerScorePoints.Values.ToArray();
             Array.Sort(scorePoints, (x, y) => y.Aggregate(0, (pre, cur) => pre + cur) - x.Aggregate(0, (pre, cur) => pre + cur));
             

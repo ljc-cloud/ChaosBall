@@ -13,7 +13,7 @@ namespace ChaosBall.UI
         {
             startGameButton.onClick.AddListener(() =>
             {
-                SceneLoader.LoadScene(SceneEnum.LoadScene);
+                SceneLoader.LoadScene(SceneEnum.LevelSelectScene);
             });
             quitButton.onClick.AddListener(Application.Quit);
         }

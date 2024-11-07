@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using ChaosBall.Manager;
 using ChaosBall.Utility;
 using QFramework;
 using TMPro;
@@ -21,7 +22,7 @@ namespace ChaosBall.UI
         {
             _isLoadDone = false;
             loadCompleteText.Hide();
-            SceneLoader.LoadSceneAsync(SceneEnum.GameScene, operation =>
+            SceneLoader.LoadLevelAsync(SceneLoader.NEXT_LEVEL, operation =>
             {
                 _operation = operation;
                 operation.allowSceneActivation = false;

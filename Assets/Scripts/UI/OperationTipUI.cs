@@ -1,5 +1,5 @@
+using System;
 using ChaosBall.Manager;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,8 +17,7 @@ namespace ChaosBall.UI
         [SerializeField] private Sprite leftArrow;
         [SerializeField] private Sprite rightArrow;
         [SerializeField] private Sprite buttonBackground;
-
-
+        
         private BallAction _action;
         
         private void Start()
@@ -27,14 +26,19 @@ namespace ChaosBall.UI
             GameManager.Instance.OnChangePlayer += ChangeOperationUI;
         }
 
+        private void OnDestroy()
+        {
+            GameManager.Instance.OnChangePlayer -= ChangeOperationUI;
+        }
+
         private void ChangeOperationUI(PlayerEnum player)
         {
             if (player == PlayerEnum.Player1)
             {
-                // moveLeftImage.sprite = buttonBackground;
-                // moveRightImage.sprite = buttonBackground;
-                // moveLeftText.gameObject.SetActive(true);
-                // moveRightText.gameObject.SetActive(true);
+                moveLeftImage.sprite = buttonBackground;
+                moveRightImage.sprite = buttonBackground;
+                moveLeftText.gameObject.SetActive(true);
+                moveRightText.gameObject.SetActive(true);
                 moveLeftText.text = _action.Player1.LR.controls[0].name.ToUpper();
                 moveRightText.text = _action.Player1.LR.controls[1].name.ToUpper();
                 launchText.text = _action.Player1.Launch.controls[0].name.ToUpper();
@@ -42,13 +46,14 @@ namespace ChaosBall.UI
             }
             else
             {
-                // moveLeftText.gameObject.SetActive(false);
-                // moveRightText.gameObject.SetActive(false);
-                // moveLeftImage.sprite = leftArrow;
-                // moveRightImage.sprite = rightArrow;
-                // moveLeftImage.color = Color.white;
-                moveLeftText.text = "⬅";
-                moveRightText.text = "➡";
+                moveLeftText.gameObject.SetActive(false);
+                moveRightText.gameObject.SetActive(false);
+                moveLeftImage.sprite = leftArrow;
+                moveRightImage.sprite = rightArrow;
+                moveLeftImage.color = Color.white;
+                moveRightImage.color = Color.white;
+                // moveLeftText.text = "⬅";
+                // moveRightText.text = "➡";
                 launchText.text = "0";
                 unlaunchText.text = ".";
                 // launchText.text = _action.Player2.Launch.controls[0].name.ToUpper();

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using ChaosBall.Events;
 using ChaosBall.Manager;
-using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,19 +21,22 @@ namespace ChaosBall.UI
         private float _messageExist = 1.5f;
         private bool _messaging = false;
 
-        private void Start()
+        private void Awake()
         {
             _animator = GetComponent<Animator>();
             
-            ChaosBallApp.Interface.RegisterEvent<OnMessaging>(e =>
-            {
-                _messageQue.Enqueue(e.message);
-                StartCoroutine(ShowMessage());
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            GameManager.Instance.OnSendMessage += ExecuteMessage;
         }
 
+        private void ExecuteMessage(string message)
+        {
+            _messageQue.Enqueue(message);
+            StartCoroutine(ShowMessage());
+        }
+        
         private void OnDestroy()
         {
+            GameManager.Instance.OnSendMessage -= ExecuteMessage;
             StopCoroutine(nameof(ShowMessage));
         }
 

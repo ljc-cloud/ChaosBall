@@ -27,7 +27,7 @@ namespace ChaosBall.Game
             InitArea();
         }
         private void InitArea() {
-            transform.position = new Vector3(position.x, 1, position.y);
+            transform.position = new Vector3(position.x, transform.position.y, position.y);
             triggerArea.localScale = new Vector3(width, 1, height);
             var sprites = spriteArea.GetComponentsInChildren<SpriteRenderer>();
             for (int i = 0; i < sprites.Length; i++) {

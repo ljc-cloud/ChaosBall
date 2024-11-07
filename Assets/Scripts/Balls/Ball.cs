@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Linq;
-using ChaosBall.Events;
 using ChaosBall.Game;
 using ChaosBall.Manager;
 using ChaosBall.Utility;
@@ -18,9 +17,12 @@ namespace ChaosBall.Balls
         Launched,
         Stopped,
         Scored,
-        Crashed
+        Effected,
     }
 
+    /// <summary>
+    /// 一般的小球，似乎没什么特点
+    /// </summary>
     public abstract class Ball : MonoBehaviour
     {
         [SerializeField] protected float moveSpeed;
@@ -31,7 +33,6 @@ namespace ChaosBall.Balls
         [SerializeField] protected float minLaunchForce;
         [SerializeField] protected float ballBounceRatio;
         [SerializeField] protected float launchToMaxForceDuration;
-        [SerializeField] protected float arrowRotationLerp;
         [SerializeField] protected LayerMask areaLayer;
         
         [field:SerializeField]
@@ -47,6 +48,15 @@ namespace ChaosBall.Balls
         public int BallIndex { get; protected set; }
 
         public bool IsStopped => _rigidbody.velocity == Vector3.zero;
+
+        public event Action OnBallOutSpace;
+        
+        // belongPlayer, BallIndex, Score 
+        public event Action<PlayerEnum, int, int> OnBallIncreaseScore;
+        // belongPlayer, BallIndex
+        public event Action<PlayerEnum, int> OnBallScoreReset;
+
+        public event Action OnBallScoreCounted;
 
         protected Rigidbody _rigidbody;
         
@@ -85,31 +95,47 @@ namespace ChaosBall.Balls
             switch (CurrentBallState)
             {
                 case BallState.UnLaunched :
-                    BallMove();
-                    ArrowRotation();
+                    OnBallUnLaunched();
                     break;
                 case BallState.Launched :
-                    MakeSureBallStop();
+                    OnBallLaunched();
                     break;
                 case BallState.Stopped:
-                    // if (!ScoreCounted && !HasCrashed)
-                    // {
-                    //     _scoreCountTimer -= Time.deltaTime;
-                    //     if (_scoreCountTimer <= 0)
-                    //     {
-                    //         ScoreCounted = true;
-                    //         ChaosBallApp.Interface.SendEvent<OnChangeRound>();
-                    //         _scoreCountTimer = 1f;
-                    //     }
-                    // }
-                    break;
-                case BallState.Crashed:
-                    MakeSureBallStop();
+                    OnBallStopped();
                     break;
                 case BallState.Scored:
-                    MakeSureBallStop();
+                    OnBallScored();
+                    break;
+                case BallState.Effected:
+                    OnBallEffected();
                     break;
             }
+        }
+
+        protected virtual void OnBallUnLaunched()
+        {
+            BallMove();
+            ArrowRotation();
+        }
+
+        protected virtual void OnBallLaunched()
+        {
+            MakeSureBallStop();
+        }
+
+        protected virtual void OnBallStopped()
+        {
+            
+        }
+
+        protected virtual void OnBallScored()
+        {
+            MakeSureBallStop();
+        }
+
+        protected virtual void OnBallEffected()
+        {
+            MakeSureBallStop();
         }
 
         public void SetPlayerInput(IPlayerInput playerInput)
@@ -120,9 +146,7 @@ namespace ChaosBall.Balls
             _playerInput.OnLaunch += LaunchBall;
             _playerInput.OnUnLaunch += CancelLaunchBall;
         }
-
-       
-
+        
         private void MakeSureBallStop()
         {
             if (_waitFrames > 0)
@@ -133,7 +157,7 @@ namespace ChaosBall.Balls
             if (_rigidbody.velocity.sqrMagnitude < 1f)
             {
                 _rigidbody.velocity = Vector3.zero;
-                CurrentBallState = CurrentBallState == BallState.Launched ? BallState.Stopped : BallState.Scored;
+                CurrentBallState = CurrentBallState == BallState.Launched ? BallState.Stopped : CurrentBallState;
             }
         }
         
@@ -163,23 +187,23 @@ namespace ChaosBall.Balls
 
         private void OnTriggerStay(Collider other)
         {
-            if (CurrentBallState == BallState.Stopped && !ScoreCounted && !HasCrashed)
+            if (CurrentBallState == BallState.Stopped && !ScoreCounted) // && !HasCrashed
             {
                 if (other.GetComponentInParent<Area>().Type == AreaData.AreaType.OutSpace)
                 {
-                    Debug.Log("OutSpace, ChangeRound");
-                    GameManager.Instance.ReTry();
-                    ScoreCounted = true;
-                    CurrentBallState = BallState.Scored;
+                    OnBallOutSpace?.Invoke();
+                    // ScoreCounted = true;
+                    // CurrentBallState = BallState.Scored;
+                    BallManager.Instance.RemoveBall(this);
                     Destroy(gameObject);
                     return;
                 }
 
                 CalculateAndIncreaseScore();
                 // 切换投球
-                ChaosBallApp.Interface.SendEvent<OnChangeRound>();
+                // ChaosBallApp.Interface.SendEvent<OnChangeRound>();
             } 
-            else if (CurrentBallState == BallState.Scored && IsStopped && !ScoreCounted && HasCrashed)
+            else if (CurrentBallState == BallState.Effected && IsStopped && !ScoreCounted)
             {
                 CalculateAndIncreaseScore();
             }
@@ -188,20 +212,13 @@ namespace ChaosBall.Balls
         private void CalculateAndIncreaseScore()
         {
             var areas = GetAreas();
-            if (areas.Length == 0)
-            {
-                Debug.Log("Areas Empty, ChangeRound");
-                ScoreCounted = true;
-                CurrentBallState = BallState.Scored;
-                ChaosBallApp.Interface.SendEvent<OnChangeRound>();
-                return;
-            }
             Array.Sort(areas);
             // Update Player Score
             var score = areas[areas.Length - 1].Score;
-            GameManager.Instance.UpdatePlayerScore(_belongPlayer, BallIndex, score);
+            OnBallIncreaseScore?.Invoke(_belongPlayer, BallIndex, score);
             ScoreCounted = true;
             CurrentBallState = BallState.Scored;
+            OnBallScoreCounted?.Invoke();
         }
 
         private Area[] GetAreas()
@@ -210,20 +227,20 @@ namespace ChaosBall.Balls
             // var areas = Physics.CapsuleCastAll(transform.position, transform.position + capsuleCollider.height * Vector3.up
             //     , capsuleCollider.radius, Vector3.down,1f, areaLayer).Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
             Area[] areas = Physics.RaycastAll(transform.position + capsuleCollider.radius * Vector3.up,
-                    Vector3.down, 1f, areaLayer)
+                    Vector3.down, 2f, areaLayer)
                 .Select(item => item.transform.GetComponentInParent<Area>()).ToArray();
             return areas;
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (CurrentBallState == BallState.Crashed && HasCrashed && !ScoreCounted)
+            if (CurrentBallState == BallState.Effected && !ScoreCounted)
             {
                 if (other.transform.parent.TryGetComponent(out Area _))
                 {
                     // Decrease Score
-                    GameManager.Instance.UpdatePlayerScore(_belongPlayer, BallIndex, 0);
-                    CurrentBallState = BallState.Scored;
+                    OnBallScoreReset?.Invoke(_belongPlayer, BallIndex);
+                    // CurrentBallState = BallState.Scored;
                 }
             }
         }
@@ -233,32 +250,39 @@ namespace ChaosBall.Balls
             _lastDir = _rigidbody.velocity;
         }
 
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawRay(transform.position, _lastDir);
-        }
-
-
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("BallCrash"))
             {
                 GameManager.Instance.CreateParticle(transform.position);
-                if (other.transform.CompareTag("Ball") && CurrentBallState is BallState.Scored or BallState.Crashed)
+                if (other.transform.CompareTag("Ball") && CurrentBallState is BallState.Scored)
                 {
-                    CurrentBallState = BallState.Crashed;
-                    HasCrashed = true;
-                    ScoreCounted = false;
-                    _waitFrames = 10;
+                    OnCollideOtherBall(other);
                 }
-                else if (other.transform.CompareTag("Wall"))
+                if (other.transform.CompareTag("Wall"))
                 {
                     // 修改球的角度
                     Vector3 reflectAngle = Vector3.Reflect(_lastDir, other.GetContact(0).normal);
                     _rigidbody.velocity = reflectAngle.normalized * _lastDir.magnitude * ballBounceRatio;
                 }
             }
-           
+        }
+
+        protected virtual void OnCollideOtherBall(Collision other)
+        {
+            if (other.transform.GetComponent<Ball>() is NormalBall)
+            {
+                CurrentBallState = BallState.Effected;
+                ScoreCounted = false;
+                _waitFrames = 10;
+            }
+            else if (other.transform.GetComponent<Ball>() is AttachBall)
+            {
+                transform.SetParent(other.transform);
+                CurrentBallState = BallState.Effected;
+                ScoreCounted = false;
+                _waitFrames = 10;
+            }
         }
 
         #endregion
@@ -319,6 +343,16 @@ namespace ChaosBall.Balls
             var capsuleCollider = GetComponent<CapsuleCollider>();
             Gizmos.DrawLine(transform.position, transform.position +capsuleCollider.height * Vector3.up);
         }
-        
+
+        public void EnableInput()
+        {
+            _playerInput.EnableInput();
+        }
+
+        public void DisableInput()
+        {
+            _playerInput.DisableInput();
+        }
+
     }
 }
