@@ -60,6 +60,7 @@ namespace ChaosBall.Manager
             var ball = _ballList[index];
             Destroy(ball.gameObject);
             _ballList.RemoveAt(index);
+            OnChangeRound?.Invoke();
         }
     }
 }
