@@ -43,6 +43,8 @@ namespace ChaosBall.Manager
             _ballList.Remove(ball);
         }
 
+        public int IndexAt(Ball ball) => _ballList.IndexOf(ball);
+
         private void ResetBallScore(PlayerEnum player, int ballIndex)
         {
             GameManager.Instance.UpdatePlayerScore(player, ballIndex, 0);
@@ -53,9 +55,11 @@ namespace ChaosBall.Manager
             GameManager.Instance.UpdatePlayerScore(player, ballIndex, score);
         }
 
-        private void OnBallOutSpace()
+        private void OnBallOutSpace(int index)
         {
-            GameManager.Instance.ReTry();
+            var ball = _ballList[index];
+            Destroy(ball.gameObject);
+            _ballList.RemoveAt(index);
         }
     }
 }

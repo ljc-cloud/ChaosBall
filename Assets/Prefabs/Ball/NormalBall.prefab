@@ -169,9 +169,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3246538862664467443}
-  - component: {fileID: 5433419756459828671}
   - component: {fileID: 9123357277074123616}
   - component: {fileID: 7673754428361780051}
+  - component: {fileID: 5433419756459828671}
   m_Layer: 6
   m_Name: NormalBall
   m_TagString: Ball
@@ -196,33 +196,6 @@ Transform:
   - {fileID: 2147370291092113371}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5433419756459828671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5611937314006890905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c00e2d4590f5474c986e6aeeeb67e51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 15
-  arrow: {fileID: 6150483968795960222}
-  arrowImage: {fileID: 8757191576099920108}
-  arrowClamp: 60
-  maxLaunchForce: 100
-  minLaunchForce: 10
-  ballBounceRatio: 0.8
-  launchToMaxForceDuration: 1
-  areaLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  <ScoreCounted>k__BackingField: 0
-  <CurrentBallState>k__BackingField: 0
-  <HasCrashed>k__BackingField: 0
-  <BallIndex>k__BackingField: 0
 --- !u!54 &9123357277074123616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -232,8 +205,8 @@ Rigidbody:
   m_GameObject: {fileID: 5611937314006890905}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.6
-  m_AngularDrag: 0.9
+  m_Drag: 0.75
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -249,7 +222,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &7673754428361780051
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -273,6 +246,35 @@ CapsuleCollider:
   m_Height: 6
   m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
+--- !u!114 &5433419756459828671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5611937314006890905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c00e2d4590f5474c986e6aeeeb67e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 15
+  arrow: {fileID: 6150483968795960222}
+  arrowImage: {fileID: 8757191576099920108}
+  arrowClamp: 60
+  arrowRotationRatio: 0.25
+  maxLaunchForce: 100
+  minLaunchForce: 10
+  ballBounceRatio: 0.6
+  wallBounceRatio: 0.6
+  launchToMaxForceDuration: 1
+  areaLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  <ScoreCounted>k__BackingField: 0
+  <CurrentBallState>k__BackingField: 0
+  <HasCollide>k__BackingField: 0
+  <BallIndex>k__BackingField: 0
 --- !u!1 &6222460921386697403
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 127507277017678697}
   - component: {fileID: 7389038100557208609}
+  - component: {fileID: 6345405125616650088}
   m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
@@ -411,6 +414,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6345405125616650088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6339436321422107467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e77eaf02e75f48faba720b9c8e971b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyRenderer: {fileID: 8562064838950140977}
 --- !u!1 &6407979035214907386
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +451,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6407979035214907386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -21,4 +21,4 @@ MonoBehaviour:
   - {fileID: 5611937314006890905, guid: b06e68fd7cba11949b2d473d812babfd, type: 3}
   - {fileID: 5611937314006890905, guid: 017cfaf389f41534e8b74de86b960733, type: 3}
   - {fileID: 5611937314006890905, guid: b06e68fd7cba11949b2d473d812babfd, type: 3}
-  isLocked: 1
+  isLocked: 0

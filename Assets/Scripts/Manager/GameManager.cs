@@ -26,7 +26,7 @@ namespace ChaosBall.Manager
     // 超时切换投球权，该玩家没有剩余的球却能投球 DONE!
     public class GameManager : MonoSingleton<GameManager>
     {
-        [SerializeField] protected GameObject ballPrefab;
+        [SerializeField] private LevelDataList levelDataList;
         [SerializeField] private Color player1Color;
         [SerializeField] private Color player2Color;
         [SerializeField] private Vector3 cameraNormalPostion;
@@ -34,7 +34,7 @@ namespace ChaosBall.Manager
         [SerializeField] private Vector3 cameraCheckingPostion;
         [SerializeField] private Vector3 cameraCheckingRotation;
         [SerializeField] private Transform cameraTransform;
-        [SerializeField] private float cameraTransModifyTime = 1f;
+        [SerializeField] private float cameraTransModifyDuration = 1f;
 
         [SerializeField] private GameObject ballCrashParticlePrefab;
         public event Action<PlayerEnum> OnChangePlayer;
@@ -103,6 +103,7 @@ namespace ChaosBall.Manager
 
         private void BallManagerOnChangeRound()
         {
+            Debug.Log("BallManager OnChangeRound");
             _playerDataDict[_currentPlayer].DecreaseBallLeft();
             OnChangePlayerData?.Invoke(new ReadOnlyDictionary<PlayerEnum, PlayerModel>(_playerDataDict));
             if (IsGameOver())
@@ -210,22 +211,23 @@ namespace ChaosBall.Manager
             });
         }
         
-        // TODO 根据LevelData给的BallPrefab生成
+        //  根据LevelData给的BallPrefab生成 Done!
         private void SpawnBall()
         {
-            var ballGameObject = Instantiate(ballPrefab);
-            var ball = ballGameObject.GetComponent<Ball>();
             int ballIndex = MAX_ROUND - _playerDataDict[_currentPlayer].ballLeft;
+            var levelData = GetCurrentLevelData();
+            var ballGameObject = Instantiate(levelData.balls[ballIndex]);
+            var ball = ballGameObject.GetComponent<Ball>();
             ball.SetBallIndex(ballIndex);
             if (_currentPlayer == PlayerEnum.Player1)
             {
-                ballGameObject.GetComponentsInChildren<Renderer>().ForEach(item => item.material.color = player1Color);
+                ballGameObject.GetComponentInChildren<BallVisual>().SetColor(player1Color);
                 ball.SetPlayerInput(new Player1Input());
                 ball.SetPlayerBelong(PlayerEnum.Player1);
             }
             else
             {
-                ballGameObject.GetComponentsInChildren<Renderer>().ForEach(item => item.material.color = player2Color);
+                ballGameObject.GetComponentInChildren<BallVisual>().SetColor(player2Color);
                 ball.SetPlayerInput(new Player2Input());
                 ball.SetPlayerBelong(PlayerEnum.Player2);
             }
@@ -238,7 +240,6 @@ namespace ChaosBall.Manager
         {
             _playerScoreDict[playerEnum][index] = score;
             _playerDataDict[playerEnum].UpdateScore(_playerScoreDict[playerEnum].Aggregate(0, (pre, cur) => pre + cur));
-            // _playerDataDict[playerEnum].score = _playerScoreDict[playerEnum].Aggregate(0, (pre, cur) => pre + cur);
             OnChangePlayerData?.Invoke(new ReadOnlyDictionary<PlayerEnum, PlayerModel>(_playerDataDict));
         }
 
@@ -248,16 +249,21 @@ namespace ChaosBall.Manager
             OnChangePlayer?.Invoke(_currentPlayer);
         }
 
+        private LevelData GetCurrentLevelData()
+        {
+             return levelDataList.levelList.Find(item => item.level == _currentLevel);
+        }
+
         private IEnumerator SetCameraRoundCheckingMode()
         {
             if (cameraTransform == null) yield break;
             float currentTime = 0;
-            while (currentTime < cameraTransModifyTime && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
+            while (currentTime < cameraTransModifyDuration && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
             {
                 currentTime += Time.deltaTime;
                 cameraTransform.position = Vector3.Lerp(cameraNormalPostion, cameraCheckingPostion,
-                    currentTime / cameraTransModifyTime);
-                cameraTransform.eulerAngles = Vector3.Lerp(cameraNormalRotation, cameraCheckingRotation, currentTime / cameraTransModifyTime);
+                    currentTime / cameraTransModifyDuration);
+                cameraTransform.eulerAngles = Vector3.Lerp(cameraNormalRotation, cameraCheckingRotation, currentTime / cameraTransModifyDuration);
                 yield return null;
             }
             if (cameraTransform == null) yield break;
@@ -269,12 +275,12 @@ namespace ChaosBall.Manager
         {
             if (cameraTransform == null) yield break;
             float currentTime = 0;
-            while (currentTime < cameraTransModifyTime && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
+            while (currentTime < cameraTransModifyDuration && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
             {
                 currentTime += Time.deltaTime;
                 cameraTransform.position = Vector3.Lerp(cameraCheckingPostion,cameraNormalPostion,
-                    currentTime / cameraTransModifyTime);
-                cameraTransform.eulerAngles = Vector3.Lerp(cameraCheckingRotation,cameraNormalRotation, currentTime / cameraTransModifyTime);
+                    currentTime / cameraTransModifyDuration);
+                cameraTransform.eulerAngles = Vector3.Lerp(cameraCheckingRotation,cameraNormalRotation, currentTime / cameraTransModifyDuration);
                 yield return null;
             }
             if (cameraTransform == null) yield break;
