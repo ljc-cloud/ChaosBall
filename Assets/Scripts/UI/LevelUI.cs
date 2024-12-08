@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,15 +7,20 @@ namespace ChaosBall.UI
     {
         [SerializeField] private Text levelNameText;
         [SerializeField] private Image levelImage;
-        [SerializeField] private Text levelDescriptionText;
         [SerializeField] private Transform lockedImage;
+        [SerializeField] private GameObject ballDescriptionPrefab;
+        [SerializeField] private Transform ballDescriptionParent;
 
         public void SetData(LevelData levelData)
         {
             levelNameText.text = levelData.levelName;
             levelImage.sprite = levelData.levelSprite;
-            levelDescriptionText.text = levelData.levelDescription;
             lockedImage.gameObject.SetActive(levelData.isLocked);
+            foreach (var ballDescription in levelData.ballDescriptions)
+            {
+                var descGameObject = Instantiate(ballDescriptionPrefab, ballDescriptionParent);
+                descGameObject.GetComponent<BallDescriptionUI>().SetData(ballDescription.sprite, ballDescription.description);
+            }
         }
     }
 }

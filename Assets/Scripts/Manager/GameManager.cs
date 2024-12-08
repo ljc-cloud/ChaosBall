@@ -29,13 +29,12 @@ namespace ChaosBall.Manager
         [SerializeField] private LevelDataList levelDataList;
         [SerializeField] private Color player1Color;
         [SerializeField] private Color player2Color;
-        [SerializeField] private Vector3 cameraNormalPostion;
+        [SerializeField] private Vector3 cameraNormalPosition;
         [SerializeField] private Vector3 cameraNormalRotation;
-        [SerializeField] private Vector3 cameraCheckingPostion;
+        [SerializeField] private Vector3 cameraCheckingPosition;
         [SerializeField] private Vector3 cameraCheckingRotation;
         [SerializeField] private Transform cameraTransform;
         [SerializeField] private float cameraTransModifyDuration = 1f;
-
         [SerializeField] private GameObject ballCrashParticlePrefab;
         public event Action<PlayerEnum> OnChangePlayer;
         public event Action<ReadOnlyDictionary<PlayerEnum, PlayerModel>> OnChangePlayerData;
@@ -46,11 +45,16 @@ namespace ChaosBall.Manager
 
         private static readonly string ROUND_SWITCH_TEXT = "交换投球权";
         public static readonly int MAX_ROUND = 4;
+        private const int LOCKED = 0;
+        private const int UN_LOCKED = 1;
 
         private int _currentRound = 1;
 
         private Dictionary<PlayerEnum, int[]> _playerScoreDict = new();
         public Dictionary<PlayerEnum, int[]> PlayerScorePoints => _playerScoreDict;
+
+        public LevelEnum CurrentLevel => _currentLevel;
+        public bool RoundChecking { get; private set; }
 
         private Ball _currentBall;
 
@@ -82,11 +86,26 @@ namespace ChaosBall.Manager
             _playerScoreDict.Add(PlayerEnum.Player2, new int[MAX_ROUND]);
         }
 
+        private void Start()
+        {
+            // LoadLevelData();
+        }
+
+        private void LoadLevelData()
+        {
+            foreach (var levelData in levelDataList.levelList)
+            {
+                var locked = PlayerPrefs.GetInt(levelData.level.ToString(), LOCKED) == LOCKED;
+                levelData.isLocked = locked;
+            }
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
             SceneLoader.OnLevelLoadComplete -= OnLevelLoadComplete;
             BallManager.Instance.OnChangeRound -= BallManagerOnChangeRound;
+            Timer.Instance.OnTimeComplete -= CurrentPlayerTimeComplete;
         }
 
         private void OnLevelLoadComplete(LevelEnum currentLevel)
@@ -104,6 +123,7 @@ namespace ChaosBall.Manager
         private void BallManagerOnChangeRound()
         {
             Debug.Log("BallManager OnChangeRound");
+            RoundChecking = true;
             _playerDataDict[_currentPlayer].DecreaseBallLeft();
             OnChangePlayerData?.Invoke(new ReadOnlyDictionary<PlayerEnum, PlayerModel>(_playerDataDict));
             if (IsGameOver())
@@ -112,6 +132,7 @@ namespace ChaosBall.Manager
                 return;
             }
             RoundCheck(false); 
+            RoundChecking = false;
         }
 
         private void CurrentPlayerTimeComplete()
@@ -158,8 +179,6 @@ namespace ChaosBall.Manager
 
         private void RoundCheck(bool timeout)
         {
-            // ballLeft--
-            // _playerDataDict[_currentPlayer].ballLeft--;
             if (_playerDataDict[PlayerEnum.Player1].ballLeft == _playerDataDict[PlayerEnum.Player2].ballLeft)
             {
                 // 回合结束
@@ -204,6 +223,12 @@ namespace ChaosBall.Manager
         {
             GameState = GameStateEnum.GameOver;
             StopCoroutine(SetCameraNormalMode());
+            var index = levelDataList.levelList.FindIndex(item => item.level == CurrentLevel);
+            if (index < levelDataList.levelList.Count - 1)
+            {
+                levelDataList.levelList[index + 1].isLocked = false;
+            }
+            BallManager.Instance.ClearBall();
             // 1. 切换场景
             SceneLoader.LoadSceneAsync(SceneEnum.GameOverScene, _ =>
             {
@@ -211,7 +236,7 @@ namespace ChaosBall.Manager
             });
         }
         
-        //  根据LevelData给的BallPrefab生成 Done!
+        // 根据LevelData给的BallPrefab生成 Done!
         private void SpawnBall()
         {
             int ballIndex = MAX_ROUND - _playerDataDict[_currentPlayer].ballLeft;
@@ -261,13 +286,13 @@ namespace ChaosBall.Manager
             while (currentTime < cameraTransModifyDuration && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
             {
                 currentTime += Time.deltaTime;
-                cameraTransform.position = Vector3.Lerp(cameraNormalPostion, cameraCheckingPostion,
+                cameraTransform.position = Vector3.Lerp(cameraNormalPosition, cameraCheckingPosition,
                     currentTime / cameraTransModifyDuration);
                 cameraTransform.eulerAngles = Vector3.Lerp(cameraNormalRotation, cameraCheckingRotation, currentTime / cameraTransModifyDuration);
                 yield return null;
             }
             if (cameraTransform == null) yield break;
-            cameraTransform.position = cameraCheckingPostion;
+            cameraTransform.position = cameraCheckingPosition;
             cameraTransform.eulerAngles = cameraCheckingRotation;
         }
 
@@ -278,13 +303,13 @@ namespace ChaosBall.Manager
             while (currentTime < cameraTransModifyDuration && (GameState == GameStateEnum.Started || GameState == GameStateEnum.OnMessaging))
             {
                 currentTime += Time.deltaTime;
-                cameraTransform.position = Vector3.Lerp(cameraCheckingPostion,cameraNormalPostion,
+                cameraTransform.position = Vector3.Lerp(cameraCheckingPosition,cameraNormalPosition,
                     currentTime / cameraTransModifyDuration);
                 cameraTransform.eulerAngles = Vector3.Lerp(cameraCheckingRotation,cameraNormalRotation, currentTime / cameraTransModifyDuration);
                 yield return null;
             }
             if (cameraTransform == null) yield break;
-            cameraTransform.position = cameraNormalPostion;
+            cameraTransform.position = cameraNormalPosition;
             cameraTransform.eulerAngles = cameraNormalRotation;
         }
 
@@ -328,6 +353,16 @@ namespace ChaosBall.Manager
         {
             cameraTransform = null;
             _currentBall = null;
+        }
+
+        protected override void OnApplicationQuit()
+        {
+            base.OnApplicationQuit();
+            foreach (var levelData in levelDataList.levelList)
+            {
+                PlayerPrefs.SetInt(levelData.level.ToString(), levelData.isLocked? LOCKED : UN_LOCKED);
+            }
+            PlayerPrefs.Save();
         }
     }
 }

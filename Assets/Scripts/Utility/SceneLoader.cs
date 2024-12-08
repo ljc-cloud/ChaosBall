@@ -30,10 +30,10 @@ namespace ChaosBall.Utility
             SceneManager.LoadScene(sceneEnum.ToString());
         }
 
-        public static void LoadLevel(LevelEnum levelEnum)
-        {
-            SceneManager.LoadScene(levelEnum.ToString());
-        }
+        // public static void LoadLevel(LevelEnum levelEnum)
+        // {
+        //     SceneManager.LoadScene(levelEnum.ToString());
+        // }
         
         public static void LoadLevelAsync(LevelEnum levelEnum, Action<AsyncOperation> action)
         {
@@ -43,6 +43,15 @@ namespace ChaosBall.Utility
                 OnLevelLoadComplete?.Invoke(levelEnum);
             };
             action?.Invoke(asyncOperation);
+        }
+        
+        public static void LoadLevelAsync(LevelEnum levelEnum)
+        { 
+            var asyncOperation = SceneManager.LoadSceneAsync(levelEnum.ToString());
+            asyncOperation.completed += _ =>
+            {
+                OnLevelLoadComplete?.Invoke(levelEnum);
+            };
         }
 
         public static void LoadSceneAsync(SceneEnum sceneEnum, Action<AsyncOperation> action)

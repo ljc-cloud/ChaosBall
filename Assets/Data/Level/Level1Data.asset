@@ -21,4 +21,8 @@ MonoBehaviour:
   - {fileID: 5611937314006890905, guid: 017cfaf389f41534e8b74de86b960733, type: 3}
   - {fileID: 5611937314006890905, guid: 017cfaf389f41534e8b74de86b960733, type: 3}
   - {fileID: 5611937314006890905, guid: 017cfaf389f41534e8b74de86b960733, type: 3}
+  ballDescriptions:
+  - type: NormalBall
+    sprite: {fileID: 21300000, guid: 8a8768ee49af40243bb67c71a4e3f8ab, type: 3}
+    description: "\u666E\u901A\u7684\u7403,\u8C8C\u4F3C\u6CA1\u6709\u522B\u7684\u7528\u5904"
   isLocked: 0

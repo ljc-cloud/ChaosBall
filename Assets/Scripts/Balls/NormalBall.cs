@@ -7,9 +7,6 @@ namespace ChaosBall.Balls
     /// </summary>
     public class NormalBall : Ball
     {
-
-        protected override void EffectOtherBall(Ball other)
-        {
-        }
+        
     }
 }

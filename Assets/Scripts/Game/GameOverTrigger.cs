@@ -1,34 +1,35 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using ChaosBall.Manager;
-using ChaosBall.Model;
 using ChaosBall.UI;
+using ChaosBall.Utility;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ChaosBall.Game
 {
     public class GameOverTrigger : MonoBehaviour
     {
         [SerializeField] private GameObject playerInfoUIPrefab;
+        [SerializeField] private Button playAgainButton;
+        [SerializeField] private Button tryOtherButton;
+        [SerializeField] private Button quitOtherButton;
 
         private bool _animOver;
         
         private void Start()
         {
-            // GameManager.Instance.OnGameOverTriggered += TriggerGameOver;
-            StartCoroutine(SpawnPlayerInfo());
-        }
-
-        private void TriggerGameOver(List<int[]> scores, List<PlayerModel> models)
-        {
-            scores.Sort((x, y) =>
+            playAgainButton.onClick.AddListener(() =>
             {
-                return x.Aggregate(0, (pre, cur) => pre + cur) - y.Aggregate(0, (pre,cur)=> pre + cur);
+                SceneLoader.LoadLevelAsync(GameManager.Instance.CurrentLevel);
             });
-            models.Sort((x, y) => x.score - y.score);
-            // StartCoroutine(SpawnPlayerInfo(scores, models));
+            tryOtherButton.onClick.AddListener(() =>
+            {
+                SceneLoader.LoadScene(SceneEnum.LevelSelectScene);
+            });
+            quitOtherButton.onClick.AddListener(Application.Quit);
+            StartCoroutine(SpawnPlayerInfo());
         }
 
         private IEnumerator SpawnPlayerInfo()

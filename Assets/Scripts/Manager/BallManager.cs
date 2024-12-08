@@ -14,6 +14,7 @@ namespace ChaosBall.Manager
 
         private void Awake()
         {
+            DontDestroyOnLoad(gameObject);
             _ballList = new List<Ball>();
         }
 
@@ -31,7 +32,7 @@ namespace ChaosBall.Manager
             var allScored = _ballList.All(ball => ball.CurrentBallState == BallState.Scored);
             if (allScored)
             {
-                OnChangeRound?.Invoke();
+                OnChangeRound?.Invoke();    
             }
         }
 
@@ -40,10 +41,13 @@ namespace ChaosBall.Manager
             ball.OnBallOutSpace -= OnBallOutSpace;
             ball.OnBallIncreaseScore -= IncreaseBallScore;
             ball.OnBallScoreReset -= ResetBallScore;
+            ball.OnBallScoreCounted -= BallOnOnBallScored;
             _ballList.Remove(ball);
         }
 
         public int IndexAt(Ball ball) => _ballList.IndexOf(ball);
+
+        public void ClearBall() => _ballList.Clear();
 
         private void ResetBallScore(PlayerEnum player, int ballIndex)
         {
@@ -60,7 +64,8 @@ namespace ChaosBall.Manager
             var ball = _ballList[index];
             Destroy(ball.gameObject);
             _ballList.RemoveAt(index);
-            OnChangeRound?.Invoke();
+            if (!GameManager.Instance.RoundChecking)
+                OnChangeRound?.Invoke();
         }
     }
 }

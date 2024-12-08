@@ -31,13 +31,6 @@ namespace ChaosBall.UI
         private void Start()
         {
             InitializeSelectUI();
-            leftButton.onClick.AddListener(SelectPreviousLevel);
-            rightButton.onClick.AddListener(SelectNextLevel);
-            selectButton.onClick.AddListener(() =>
-            {
-                SceneLoader.LoadScene(SceneEnum.LoadScene);
-                SceneLoader.NEXT_LEVEL = levelDataList.levelList[_currentLevelIndex].level;
-            });
         }
 
         private void SelectNextLevel()
@@ -120,6 +113,7 @@ namespace ChaosBall.UI
             
             for (int i = 0; i < levelCount; i++)
             {
+                print("Instantiate LevelInfoUI");
                 var levelInfoUIGameObject = Instantiate(levelInfoUIPrefab, levelInfoParent);
                 levelInfoUIGameObject.GetComponent<LevelUI>().SetData(levelDataList.levelList[i]);
                 
@@ -128,6 +122,14 @@ namespace ChaosBall.UI
                 image.sprite = _currentLevelIndex == i ? currentLevelSprite : otherLevelSprite;
                 _levelPoints[i] = image;
             }
+            
+            leftButton.onClick.AddListener(SelectPreviousLevel);
+            rightButton.onClick.AddListener(SelectNextLevel);
+            selectButton.onClick.AddListener(() =>
+            {
+                SceneLoader.LoadScene(SceneEnum.LoadScene);
+                SceneLoader.NEXT_LEVEL = levelDataList.levelList[_currentLevelIndex].level;
+            });
         }
     }
 

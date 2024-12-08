@@ -205,7 +205,7 @@ Rigidbody:
   m_GameObject: {fileID: 5611937314006890905}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.75
+  m_Drag: 0.85
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -262,7 +262,7 @@ MonoBehaviour:
   arrow: {fileID: 6150483968795960222}
   arrowImage: {fileID: 8757191576099920108}
   arrowClamp: 60
-  arrowRotationRatio: 0.25
+  arrowRotationRatio: 0.4
   maxLaunchForce: 100
   minLaunchForce: 10
   ballBounceRatio: 0.6
@@ -452,7 +452,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6407979035214907386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
+  m_LocalPosition: {x: 0, y: 0, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
