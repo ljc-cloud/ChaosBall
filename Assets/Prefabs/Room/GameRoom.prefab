@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5169688880655203883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8285315948363806101}
+  - component: {fileID: 1618461565114160884}
+  m_Layer: 0
+  m_Name: GameRoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8285315948363806101
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5169688880655203883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1618461565114160884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5169688880655203883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7bfe75b2ffa4793bd107fb7a298adbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyMaterialArray:
+  - {fileID: 2100000, guid: b575f45c74986144ea5701b7dcbb5e35, type: 2}
+  - {fileID: 2100000, guid: 3ca70fb79dbd715409e80bb66564adb5, type: 2}
+  - {fileID: 2100000, guid: 36a324e0ccd62eb46993521408a0cac3, type: 2}
+  - {fileID: 2100000, guid: 1762f4523ecb90746a924368f08b2a88, type: 2}
+  faceMaterialArray:
+  - {fileID: 2100000, guid: 9146c14ebfba8b546adbcff3dc3ccbf5, type: 2}
+  - {fileID: 2100000, guid: 3b6b75e079be3564286de279f7559717, type: 2}
+  - {fileID: 2100000, guid: 0bd2604ce7f274643bb8a8189a93a739, type: 2}
+  - {fileID: 2100000, guid: fd522d915c89c234185aa429839595a5, type: 2}
+  roomPlayerPrefab: {fileID: 3826782931116551858, guid: 3f0592f8ef2504442be3323683ac821e,
+    type: 3}
+  readyButton: {fileID: 0}
+  unreadyButton: {fileID: 0}
+  roomPlayerReadyRequest: {fileID: 0}

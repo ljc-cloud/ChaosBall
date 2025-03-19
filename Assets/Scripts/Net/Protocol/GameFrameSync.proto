@@ -1,0 +1,70 @@
+﻿syntax = "proto3";
+package GameFrameSync;
+
+enum InputType
+{
+  None = 0;
+  MoveLeft = 1;
+  MoveRight = 2;
+  Ready = 3;
+  QuitReady = 4;
+  Shoot = 5;
+}
+
+enum GameState
+{
+  CountToStart = 0;
+  Started = 1;
+  GameOver = 2;
+}
+enum MessageType
+{
+  FrameSync = 0;
+  ACK = 2;
+}
+
+message ReqFrameInputData
+{
+  int32 frameId = 1;
+  int32 playerId = 2;
+  InputType inputType = 3;
+  Vector3D position = 4;
+  float force = 5;
+  Vector3D shootDirection = 6;
+}
+
+message FrameInputData
+{
+  int32 frameId = 1;
+  int32 playerId = 2;
+  InputType inputType = 3;
+  Vector3D position = 4;
+  float force = 5;
+  Vector3D shootDirection = 6;
+}
+message MessageHead
+{
+  int32 index = 1;
+  bool ack = 2;
+  string clientIp = 3;
+}
+message Vector3D
+{
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+//message Position
+//{
+//  Vector3D position = 1;
+//}
+
+message ResFrameSyncData
+{
+  int32 frameId = 1;
+  repeated FrameInputData playersFrameInputData = 2;
+  ReqFrameInputData reqFrameInputData = 3;
+  GameState gameState = 4;
+  MessageHead messageHead = 5;
+  MessageType messageType = 6;
+}
