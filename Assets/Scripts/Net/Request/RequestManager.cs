@@ -29,7 +29,8 @@ namespace ChaosBall.Net.Request
             _mRequestList.Add(new JoinRoomRequest());
             _mRequestList.Add(new CreateRoomRequest());
             _mRequestList.Add(new QuitRoomRequest());
-            _mRequestList.Add(new StartGameResponse());
+            _mRequestList.Add(new ReadyStartGameResponse());
+            _mRequestList.Add(new FinishOperationRequest());
             
             foreach (var request in _mRequestList)
             {

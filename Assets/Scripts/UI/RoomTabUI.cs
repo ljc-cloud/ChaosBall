@@ -1,6 +1,7 @@
 using System;
 using ChaosBall.Model;
 using ChaosBall.Net.Request;
+using ChaosBall.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,7 +38,6 @@ namespace ChaosBall.UI
             if (clickCount == 2)
             {
                 Debug.Log($"进入房间=> {_mRoomCode}");
-                // TODO: 进入房间
                 _mJoinRoomRequest.SendJoinRoomRequest(_mRoomCode, OnJoinRoomSuccess);
             }
         }

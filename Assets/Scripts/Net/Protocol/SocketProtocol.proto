@@ -7,6 +7,7 @@ enum RequestCode
 	User = 1;
 	HeartBeat = 2;
 	Room = 3;
+	Game = 4;
 }
 
 enum ResponseCode
@@ -29,6 +30,8 @@ enum ActionCode
 	PlayerReady = 7;
 	QuitRoom = 8;
 	StartGame = 9;
+	FinishOperation = 10;
+	ReadyStartGame = 11;
 }
 
 enum RoomVisibility
@@ -77,6 +80,9 @@ message MainPack
 	RoomPlayerReadyPack roomPlayerReadyPack = 15;
 	JoinRoomResultPack joinRoomResultPack = 16;
 	RoomPlayerInfoPack roomPlayerInfoPack = 17;
+
+	StartGameResultPack startGameResultPack = 18;
+	FinishOperationPack finishOperationPack = 19;
 }
 
 message SignInPack
@@ -135,6 +141,16 @@ message RoomPlayerInfoPack
 	string username = 2;
 	string nickname = 3;
 	bool ready = 4;
+}
+
+message StartGameResultPack
+{
+	int32 firstPlayerId = 1;
+}
+
+message FinishOperationPack
+{
+	repeated int32 totalScore = 1;
 }
 
 message ClientPack

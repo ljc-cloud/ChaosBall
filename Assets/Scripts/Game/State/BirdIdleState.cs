@@ -1,5 +1,6 @@
 using System;
 using ChaosBall.Inputs;
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -7,7 +8,8 @@ namespace ChaosBall.Game.State
     [Obsolete]
     public class BirdIdleState : BirdState
     {
-        public BirdIdleState(BirdStateManager birdStateManager, Transform targetTransform) : base(birdStateManager, targetTransform)
+        public BirdIdleState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity) 
+            : base(birdStateManager, targetTransform, entity)
         {
             
         }

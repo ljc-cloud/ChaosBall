@@ -1,5 +1,6 @@
 using System;
 using ChaosBall.Model;
+using ChaosBall.Utility;
 using SocketProtocol;
 
 namespace ChaosBall.Net.Request
@@ -37,6 +38,7 @@ namespace ChaosBall.Net.Request
             RoomPlayerReadyPack roomPlayerReadyPack = new RoomPlayerReadyPack { Ready = ready };
 
             string roomCode = GameInterface.Interface.RoomManager.CurrentRoomInfo.roomCode;
+            roomCode = CharsetUtil.DefaultToUTF8(roomCode);
             
             RoomInfoPack roomInfoPack = new RoomInfoPack
             {

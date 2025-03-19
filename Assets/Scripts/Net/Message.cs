@@ -42,7 +42,7 @@ namespace ChaosBall.Net
             int bodyLen = BitConverter.ToInt32(_mBuffer, 0);
             while (true) {
                 if (_mMessageLen >= bodyLen + MESSAGE_HEADER_LEN) {
-                    //MainPack pack = (MainPack)MainPack.Descriptor.Parser.ParseFrom(_mBuffer, MESSAGE_HEADER_LEN, bodyLen);
+                    
                     MainPack pack = MainPack.Parser.ParseFrom(_mBuffer, MESSAGE_HEADER_LEN, bodyLen);
                     onMainPackDeserialize?.Invoke(pack);
                     System.Buffer.BlockCopy(_mBuffer, bodyLen + MESSAGE_HEADER_LEN, 

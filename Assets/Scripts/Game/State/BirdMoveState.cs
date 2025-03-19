@@ -1,5 +1,6 @@
 using System;
 using ChaosBall.Inputs;
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -10,7 +11,8 @@ namespace ChaosBall.Game.State
         private Vector2 _mMoveVector;
         private float _mSpeed = 200f;
 
-        public BirdMoveState(BirdStateManager birdStateManager, Transform targetTransform) : base(birdStateManager, targetTransform)
+        public BirdMoveState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity) 
+            : base(birdStateManager, targetTransform, entity)
         {
             
         }

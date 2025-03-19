@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -7525891773912267763}
   - component: {fileID: 5153858746176059112}
   - component: {fileID: 769699722463825517}
-  - component: {fileID: 8274545887631560092}
+  - component: {fileID: 3653312482856423522}
   m_Layer: 6
   m_Name: _BaseBird
   m_TagString: Untagged
@@ -68,7 +68,7 @@ Rigidbody:
   m_GameObject: {fileID: 1337676565020379518}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.5
+  m_Drag: 0.15
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -120,7 +120,7 @@ MonoBehaviour:
   collideCostParam: 0.805
   collideRotationSpeed: 5
   birdType: 0
---- !u!114 &8274545887631560092
+--- !u!114 &3653312482856423522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,10 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerType: 0
   playerId: 0
+  clientId: 0
   playerInputType: 0
-  playerPosition: {x: 0, y: 0, z: 0}
-  shootForce: 0
-  shootDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &2247558850352811381
 GameObject:
   m_ObjectHideFlags: 0

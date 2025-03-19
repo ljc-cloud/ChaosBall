@@ -11,8 +11,8 @@ namespace ChaosBall.Game.State
     {
         private Vector2 _mMoveVector;
         private readonly float _mSpeed;
-        public BirdUnReadyState(BirdStateManager birdStateManager, Transform targetTransform, float speed) 
-            : base(birdStateManager, targetTransform)
+        public BirdUnReadyState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, float speed) 
+            : base(birdStateManager, targetTransform, entity)
         {
             _mSpeed = speed;
         }
@@ -57,8 +57,8 @@ namespace ChaosBall.Game.State
 
         private void ListenRemote()
         {
-            Debug.Log($"player:{_mBirdStateManager.Entity.playerId} do {_mBirdStateManager.Entity.playerInputType}");
-            GameFrameSyncManager.PlayerInputType playerInputType = _mBirdStateManager.Entity.playerInputType;
+            // Debug.Log($"player:{_mBirdStateManager.Entity.playerId} do {_mBirdStateManager.Entity.playerInputType}");
+            GameFrameSyncManager.PlayerInputType playerInputType = Entity.playerInputType;
             switch (playerInputType)
             {
                 case GameFrameSyncManager.PlayerInputType.None: _mMoveVector = Vector2.zero; break;
@@ -69,12 +69,14 @@ namespace ChaosBall.Game.State
                     break;
                 default: break;
             }
-
-            if (_mTargetTransform.position.sqrMagnitude - _mBirdStateManager.Entity.playerPosition.sqrMagnitude > 0.1f)
-            {
-                _mTargetTransform.position = Vector3.Lerp(_mTargetTransform.position, _mBirdStateManager.Entity.playerPosition
-                    , 1f / 10);
-            }
+            
+            // Debug.Log($"player:{_mBirdStateManager.Entity.playerId} currenPos: {_mBirdStateManager.Entity.playerPosition}");
+            //
+            // if (Mathf.Abs(_mTargetTransform.position.sqrMagnitude - _mBirdStateManager.Entity.playerPosition.sqrMagnitude) > 0.1f)
+            // {
+            //     _mTargetTransform.position = Vector3.Lerp(_mTargetTransform.position, _mBirdStateManager.Entity.playerPosition
+            //         , 1f / 10);
+            // }
         }
 
         private void DoMove()

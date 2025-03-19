@@ -17,15 +17,14 @@ namespace ChaosBall
         
         public event Action<RoomPlayerInfo> OnRoomPlayerJoin;
         public event Action<RoomPlayerInfo> OnRoomPlayerQuit;
-        public event Action<RoomPlayerInfo> OnRoomPlayerReadyChanged; 
+        public event Action<RoomPlayerInfo> OnRoomPlayerReadyChanged;
 
-        // private Dictionary<int, RoomPlayerInfo> _mClientIdToRoomPlayerInfoDict;
+        public event Action OnRoomPlayerAllReady;
 
         public RoomManager()
         {
             RoomPlayerList = new List<RoomPlayerInfo>();
             RoomClientIdList = new();
-            // _mClientIdToRoomPlayerInfoDict = new Dictionary<int, RoomPlayerInfo>();
         }
 
         public override void OnInit()
@@ -73,6 +72,11 @@ namespace ChaosBall
             RoomPlayerInfo roomPlayerInfo = RoomPlayerList.Find(item => item.id == playerId);
             roomPlayerInfo.ready = ready;
             OnRoomPlayerReadyChanged?.Invoke(roomPlayerInfo);
+            bool allReady = RoomPlayerList.All(item => item.ready);
+            if (allReady)
+            {
+                OnRoomPlayerAllReady?.Invoke();
+            }
         }
 
         public void QuitRoom(int playerId)

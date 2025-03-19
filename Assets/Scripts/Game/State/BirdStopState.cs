@@ -1,3 +1,4 @@
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -7,8 +8,8 @@ namespace ChaosBall.Game.State
         private Rigidbody _mRigidbody;
         private IBirdStopBehaviour _mBirdStopBehaviour;
         
-        public BirdStopState(BirdStateManager birdStateManager, Transform targetTransform, Rigidbody rigidbody
-            , IBirdStopBehaviour birdStopBehaviour) : base(birdStateManager, targetTransform)
+        public BirdStopState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, Rigidbody rigidbody
+            , IBirdStopBehaviour birdStopBehaviour) : base(birdStateManager, targetTransform, entity)
         {
             _mRigidbody = rigidbody;
             _mBirdStopBehaviour = birdStopBehaviour;

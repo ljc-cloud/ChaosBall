@@ -1,3 +1,4 @@
+using System.Text;
 using ChaosBall.Model;
 using ChaosBall.Net.Request;
 using TMPro;
@@ -52,6 +53,9 @@ namespace ChaosBall.UI
         {
             string username = usernameInput.text;
             string password = passwordInput.text;
+            
+            Debug.Log("字符编码：" + username);
+            
             if (string.IsNullOrEmpty(username))
             {
                 Debug.LogError("Username is empty");

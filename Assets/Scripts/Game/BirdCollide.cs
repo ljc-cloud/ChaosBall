@@ -22,7 +22,10 @@ namespace ChaosBall.Game
 
         public Vector3 LastVelocity { get; private set; }
         public event Action<Area> OnBirdStayInArea;
-        public event Action<Collision> OnCollideOtherBird;
+        public event Action<Area> OnBirdEnterArea;
+        public event Action<Area> OnBirdExitArea;
+        
+        // public event Action<Collision> OnCollideOtherBird;
         
         private void Awake()
         {
@@ -62,10 +65,6 @@ namespace ChaosBall.Game
             {
                 LastVelocity = _mRigidBody.velocity;
             }
-            else if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Stop)
-            {
-                // LastVelocity = Vector3.zero;
-            }
         }
 
         private void OnCollisionEnter(Collision other)
@@ -88,6 +87,11 @@ namespace ChaosBall.Game
                     }
                     break;
             }
+            
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
             
         }
 

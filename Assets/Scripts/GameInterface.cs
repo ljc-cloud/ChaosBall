@@ -24,7 +24,7 @@ namespace ChaosBall
         public RequestManager RequestManager { get; private set; }
         public UIManager UIManager { get; private set; }
         public GameFrameSyncManager GameFrameSyncManager { get; private set; }
-        
+        // public GameManager GameManager { get; private set; }
         public PlayerInfo PlayerInfo { get; set; }
         public RoomManager RoomManager { get; private set; }
         public SceneLoader SceneLoader { get; private set; }
@@ -53,6 +53,7 @@ namespace ChaosBall
             UIManager.OnInit();
             RoomManager.OnInit();
             GameFrameSyncManager.OnInit();
+            // GameManager.OnInit();
         }
 
         private void Start()
@@ -63,11 +64,6 @@ namespace ChaosBall
         private void OnLoadScene()
         {
             OnSceneLoaded?.Invoke();
-        }
-
-        private void OnDisable()
-        {
-            Debug.Log("GameInterface::OnDisable");
         }
 
         private void OnDestroy()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ChaosBall.Model;
+using ChaosBall.Utility;
 using SocketProtocol;
 using UnityEngine;
 
@@ -46,7 +47,7 @@ namespace ChaosBall.Net.Request
 
             RoomInfoPack roomInfoPack = new RoomInfoPack
             {
-                RoomName = roomInfo.roomName,
+                RoomName = CharsetUtil.DefaultToUTF8(roomInfo.roomName),
                 RoomVisibility = Enum.Parse<SocketProtocol.RoomVisibility>(roomInfo.roomVisibility.ToString()),
             };
             MainPack mainPack = new MainPack

@@ -1,3 +1,4 @@
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -7,8 +8,8 @@ namespace ChaosBall.Game.State
         private Rigidbody _mRigidbody;
         private int _mWaitFrames;
         
-        public BirdCollideState(BirdStateManager birdStateManager, Transform targetTransform, Rigidbody rigidbody)
-            : base(birdStateManager, targetTransform)
+        public BirdCollideState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, Rigidbody rigidbody)
+            : base(birdStateManager, targetTransform, entity)
         {
             _mRigidbody = rigidbody;
         }

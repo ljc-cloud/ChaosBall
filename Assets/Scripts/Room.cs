@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ChaosBall.Net;
+using ChaosBall.Game;
 using ChaosBallServer.Model;
 using UnityEngine;
 
@@ -20,17 +20,17 @@ namespace ChaosBall
                 Entity entity = playerGameObject.GetComponent<Entity>();
                 if (roomPlayerInfo.id == localPlayerId)
                 {
-                    entity.playerType = PlayerType.Local;
+                    entity.playerType = Entity.PlayerType.Local;
                     entity.playerId = localPlayerId;
                 }
                 else
                 {
-                    entity.playerType = PlayerType.Remote;
+                    entity.playerType = Entity.PlayerType.Remote;
                     entity.playerId = roomPlayerInfo.id;
                 }
 
                 GameInterface.Interface.GameFrameSyncManager.AddEntity(entity);
-                position.x += 50f;
+                position.x += 100f;
             }
         }
     }

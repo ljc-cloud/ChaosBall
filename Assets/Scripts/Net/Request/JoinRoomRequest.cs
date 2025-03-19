@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChaosBall.Model;
+using ChaosBall.Utility;
 using ChaosBallServer.Model;
 using SocketProtocol;
 using UnityEngine;
@@ -74,7 +75,7 @@ namespace ChaosBall.Net.Request
         {
             RoomInfoPack roomInfoPack = new RoomInfoPack
             {
-                RoomCode = roomCode,
+                RoomCode = CharsetUtil.DefaultToUTF8(roomCode),
             };
 
             MainPack mainPack = new MainPack

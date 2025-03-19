@@ -11,6 +11,16 @@ namespace ChaosBall.Math
         {
             this.value = value;
         }
+
+        public FixedPoint(float value)
+        {
+            this.value = (int)(value * FractionalMultiplier);
+        }
+
+        public float ToFloat()
+        {
+            return (float)value / FractionalMultiplier;
+        }
     
         public static FixedPoint operator +(FixedPoint a, FixedPoint b)
         {

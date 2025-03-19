@@ -29,7 +29,7 @@ message ReqFrameInputData
   int32 playerId = 2;
   InputType inputType = 3;
   Vector3D position = 4;
-  float force = 5;
+  int32 force = 5;
   Vector3D shootDirection = 6;
 }
 
@@ -39,7 +39,7 @@ message FrameInputData
   int32 playerId = 2;
   InputType inputType = 3;
   Vector3D position = 4;
-  float force = 5;
+  int32 force = 5;
   Vector3D shootDirection = 6;
 }
 message MessageHead
@@ -50,9 +50,9 @@ message MessageHead
 }
 message Vector3D
 {
-  float x = 1;
-  float y = 2;
-  float z = 3;
+  int32 x = 1;
+  int32 y = 2;
+  int32 z = 3;
 }
 //message Position
 //{

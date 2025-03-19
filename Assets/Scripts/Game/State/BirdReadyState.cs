@@ -16,8 +16,8 @@ namespace ChaosBall.Game.State
         private readonly float _mMaxShootForce;
         private readonly float _mReadyShootDuration;
         
-        public BirdReadyState(BirdStateManager birdStateManager, Transform targetTransform,
-            float minShootForce, float maxShootForce, float readyShootDuration) : base(birdStateManager, targetTransform)
+        public BirdReadyState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity,
+            float minShootForce, float maxShootForce, float readyShootDuration) : base(birdStateManager, targetTransform, entity)
         {
             _mMinShootForce = minShootForce;
             _mMaxShootForce = maxShootForce;
@@ -32,7 +32,7 @@ namespace ChaosBall.Game.State
             _mBirdStateManager.BirdAnimation.PlayReady();
             _mBirdStateManager.ArrowForceUI.SetReady(true);
 
-            if (_mBirdStateManager.IsLocal)
+            if (Entity.IsLocal)
             {
                 ChaosBallInputRegister.Instance.OnPlayerShoot += PlayerShoot;
                 ChaosBallInputRegister.Instance.OnPlayerQuitShoot += PlayerQuitShoot;
@@ -52,10 +52,6 @@ namespace ChaosBall.Game.State
 
         public override void Update()
         {
-            if (!_mBirdStateManager.IsLocal)
-            {
-                
-            }
             CalculateShootForce();
         }
 

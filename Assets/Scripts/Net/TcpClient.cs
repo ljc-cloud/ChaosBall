@@ -133,6 +133,9 @@ namespace ChaosBall.Net
                 {
                     Debug.LogError($"Exception: {e}"); 
                 }
+
+                {
+                }
             };
         }
 
@@ -253,6 +256,11 @@ namespace ChaosBall.Net
             {
                 OnClientCloseConnection?.Invoke();
                 _mSocket?.Close();
+                
+                _mSendHeartbeatTimer?.Stop();
+                _mCheckHeartbeatTimer?.Stop();
+                _mReconnectTimer?.Stop();
+                
                 _mSendHeartbeatTimer?.Close();
                 _mCheckHeartbeatTimer?.Close();
                 _mReconnectTimer?.Close();

@@ -1,5 +1,7 @@
 using System;
+using System.Text;
 using ChaosBall.Net.Request;
+using ChaosBall.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

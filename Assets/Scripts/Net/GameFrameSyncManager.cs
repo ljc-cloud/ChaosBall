@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ChaosBall.Game;
 using ChaosBall.Inputs;
+using ChaosBall.Math;
 using GameFrameSync;
 using UnityEngine;
 
@@ -63,7 +65,8 @@ namespace ChaosBall.Net
                 // 同步这一帧
                 List<FrameInputData> frameInputDataList = resFrameSyncData.PlayersFrameInputData.ToList();
 
-                List<FrameInputData> currentFrameInputDataList = frameInputDataList.FindAll(item => item.FrameId == _mSyncedFrameId);
+                List<FrameInputData> currentFrameInputDataList = frameInputDataList.FindAll(item => 
+                    item.FrameId == _mSyncedFrameId);
                 OnFrameSync?.Invoke(currentFrameInputDataList);
             }
             
@@ -81,23 +84,27 @@ namespace ChaosBall.Net
                 PlayerId = localPlayerId,
             };
 
-            Entity localEntity = _mEntities.Find(item => item.playerType is PlayerType.Local);
+            Entity localEntity = _mEntities.Find(item => item.playerType is Entity.PlayerType.Local);
             if (localEntity != null)
             {
-                _mLocalCurrentPosition = localEntity.transform.position;
-                reqFrameInputData.Position = new Vector3D
+                Invoker.Instance.DelegateList.Add(() =>
                 {
-                    X = _mLocalCurrentPosition.x,
-                    Y = _mLocalCurrentPosition.y,
-                    Z = _mLocalCurrentPosition.z
-                };
+                    _mLocalCurrentPosition = localEntity.transform.position;
+                    reqFrameInputData.Position = new Vector3D
+                    {
+                        X = new FixedPoint(_mLocalCurrentPosition.x),
+                        Y = new FixedPoint(_mLocalCurrentPosition.y),
+                        Z = new FixedPoint(_mLocalCurrentPosition.z)
+                    };
+                });
+                
                 reqFrameInputData.ShootDirection = new Vector3D
                 {
-                    X= localEntity.shootDirection.x, 
-                    Y= localEntity.shootDirection.y,
-                    Z  =localEntity.shootDirection.z
+                    X = new FixedPoint(localEntity.shootDirection.x),
+                    Y = new FixedPoint(localEntity.shootDirection.y),
+                    Z = new FixedPoint(localEntity.shootDirection.z),
                 };
-                reqFrameInputData.Force = localEntity.shootForce;
+                reqFrameInputData.Force = new FixedPoint(localEntity.shootForce);
             }
 
             resFrameSyncData.ReqFrameInputData = reqFrameInputData;

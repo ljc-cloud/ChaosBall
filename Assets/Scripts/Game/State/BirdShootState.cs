@@ -1,4 +1,5 @@
 using System;
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -12,12 +13,12 @@ namespace ChaosBall.Game.State
         private Func<float> _mGetShootForce;
         private Func<Vector3> _mGetDirection;
 
-        private int _mWaitFrames = 5;
+        private int _mWaitFrames;
         private float _mOriginVelocityMagnitude;
         
-        public BirdShootState(BirdStateManager birdStateManager, Transform targetTransform, Rigidbody rigidbody
+        public BirdShootState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, Rigidbody rigidbody
             , Func<float> getShootForce, Func<Vector3> getDirection) 
-            : base(birdStateManager, targetTransform)
+            : base(birdStateManager, targetTransform, entity)
         {
             _mRigidBody = rigidbody;
             _mGetShootForce = getShootForce;
@@ -37,7 +38,7 @@ namespace ChaosBall.Game.State
 
             Vector3 direction = Vector3.zero;
             float shootForce = 0f;
-            if (_mBirdStateManager.IsLocal)
+            if (Entity.IsLocal)
             { 
                 direction = _mGetDirection.Invoke(); 
                 shootForce = _mGetShootForce.Invoke();

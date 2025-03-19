@@ -1,4 +1,5 @@
 using System;
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -23,14 +24,16 @@ namespace ChaosBall.Game.State
         
         public BirdStateEnum State { get; protected set; }
         public BirdStateEnum FromStateEnum { get; set; }
+        protected Entity Entity { get; private set; }
 
         protected BirdStateManager _mBirdStateManager;
         protected Transform _mTargetTransform;
 
-        public BirdState(BirdStateManager birdStateManager, Transform targetTransform)
+        public BirdState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity)
         {
             _mBirdStateManager = birdStateManager;
             _mTargetTransform = targetTransform;
+            Entity = entity;
         }
         
         public abstract void Enter();

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using ChaosBall.Model;
 using SocketProtocol;
 using UnityEngine;
@@ -40,6 +41,10 @@ namespace ChaosBall.Net.Request
                 RequestCode = Request,
                 ActionCode = Action
             };
+            
+            username = Encoding.UTF8.GetString(Encoding.Default.GetBytes(username));
+            password = Encoding.UTF8.GetString(Encoding.Default.GetBytes(password));
+            
             SignInPack signInPack = new SignInPack
             {
                 Username = username,

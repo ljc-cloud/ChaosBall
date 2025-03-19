@@ -1,5 +1,7 @@
 using System;
+using System.Text;
 using ChaosBall.Model;
+using ChaosBall.Utility;
 using SocketProtocol;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -38,6 +40,11 @@ namespace ChaosBall.Net.Request
                 RequestCode = Request,
                 ActionCode = Action
             };
+
+            username = CharsetUtil.DefaultToUTF8(username);
+            password = CharsetUtil.DefaultToUTF8(password);
+            nickname = CharsetUtil.DefaultToUTF8(nickname);
+            
             SignUpPack signUpPack = new SignUpPack
             {
                 Username = username,

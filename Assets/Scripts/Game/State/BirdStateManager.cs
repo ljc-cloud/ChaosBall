@@ -1,4 +1,3 @@
-using ChaosBall.Net;
 using ChaosBall.UI;
 using UnityEngine;
 
@@ -24,6 +23,7 @@ namespace ChaosBall.Game.State
         private BirdStopState _mStopState;
         private BirdCountState _mCountState;
         private BirdCollideState _mCollideState;
+        private Entity _mEntity;
 
         private float _mShootForce;
         
@@ -32,23 +32,25 @@ namespace ChaosBall.Game.State
         public BirdAnimation BirdAnimation => birdAnimation;
         public ArrowForceUI ArrowForceUI => arrowForceUI;
         public Entity Entity { get; private set; }
-        public bool IsLocal => Entity.playerType is PlayerType.Local;
+        public bool IsLocal => Entity.playerType is Entity.PlayerType.Local;
 
         private void Awake()
         {
             _mRigidBody = GetComponent<Rigidbody>();
             _mBirdCollide = GetComponent<BirdCollide>();
             Entity = GetComponent<Entity>();
+            _mEntity = GetComponent<Entity>();
         }
 
         private void Start()
         {
-            _mUnReadyState = new BirdUnReadyState(this, transform, speed);
-            _mReadyState = new BirdReadyState(this, transform, minShootForce, maxShootForce, readyShootDuration);
-            _mShootState = new BirdShootState(this, transform, _mRigidBody, GetShootForce, GetDirection);
-            _mStopState = new BirdStopState(this, transform, _mRigidBody, _mBirdStopBehaviour);
-            _mCountState = new BirdCountState(this, transform, _mBirdCollide);
-            _mCollideState = new BirdCollideState(this, transform, _mRigidBody);
+            _mUnReadyState = new BirdUnReadyState(this, transform, _mEntity, speed);
+            _mReadyState = new BirdReadyState(this, transform, _mEntity, minShootForce, maxShootForce,
+                readyShootDuration);
+            _mShootState = new BirdShootState(this, transform, _mEntity, _mRigidBody, GetShootForce, GetDirection);
+            _mStopState = new BirdStopState(this, transform, _mEntity, _mRigidBody, _mBirdStopBehaviour);
+            _mCountState = new BirdCountState(this, transform, _mEntity, _mBirdCollide);
+            _mCollideState = new BirdCollideState(this, transform, _mEntity, _mRigidBody);
 
             // switch (birdType)
             // {

@@ -1,4 +1,5 @@
 using ChaosBall.UI;
+using ChaosBall.Utility;
 using SocketProtocol;
 
 namespace ChaosBall.Net.Request
@@ -38,6 +39,8 @@ namespace ChaosBall.Net.Request
         public void SendQuitRoomRequest()
         {
             string roomCode = GameInterface.Interface.RoomManager.CurrentRoomInfo.roomCode;
+
+            roomCode = CharsetUtil.DefaultToUTF8(roomCode);
 
             RoomInfoPack roomInfoPack = new RoomInfoPack{RoomCode = roomCode};
 

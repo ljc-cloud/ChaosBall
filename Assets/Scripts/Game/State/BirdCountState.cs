@@ -1,3 +1,4 @@
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -7,8 +8,8 @@ namespace ChaosBall.Game.State
         private BirdCollide _mBirdCollide;
 
         private bool _mCounted;
-        public BirdCountState(BirdStateManager birdStateManager, Transform targetTransform, BirdCollide birdCollide) 
-            : base(birdStateManager, targetTransform)
+        public BirdCountState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, BirdCollide birdCollide) 
+            : base(birdStateManager, targetTransform, entity)
         {
             _mBirdCollide = birdCollide;
         }
@@ -17,15 +18,10 @@ namespace ChaosBall.Game.State
         {
             Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Count State Enter");
             State = BirdStateEnum.Count;
-            _mBirdCollide.OnBirdStayInArea += CountScore;
-        }
-        private void CountScore(Area area)
-        {
-            if (_mCounted) return;
-            _mCounted = true;
-            GameManager.Instance.FinishRound(area.Score);
-            _mBirdStateManager.ChangeState(BirdStateEnum.Stop);
-            Debug.Log($"计算分数: {area.Score}");
+            if (Entity.IsLocal)
+            {
+                // GameInterface.Interface.GameManager.FinishOperation(Entity.playerId);
+            }
         }
 
         public override void Update()
@@ -36,7 +32,6 @@ namespace ChaosBall.Game.State
         public override void Exit()
         {
             Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Count State Exit");
-            _mBirdCollide.OnBirdStayInArea -= CountScore;
         }
     }
 }
