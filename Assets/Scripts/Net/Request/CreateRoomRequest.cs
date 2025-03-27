@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using ChaosBall.Model;
 using ChaosBall.Utility;
-using ChaosBallServer.Model;
 using SocketProtocol;
 using UnityEngine;
 
@@ -30,7 +29,7 @@ namespace ChaosBall.Net.Request
                 maxPlayer = roomInfoPack.MaxPlayer,
             };
 
-            PlayerInfo playerInfo = GameInterface.Interface.PlayerInfo;
+            PlayerInfo playerInfo = GameInterface.Interface.LocalPlayerInfo;
 
             RoomPlayerInfo roomPlayerInfo = new RoomPlayerInfo
             {

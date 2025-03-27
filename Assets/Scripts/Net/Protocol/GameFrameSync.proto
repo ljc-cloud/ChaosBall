@@ -31,6 +31,7 @@ message ReqFrameInputData
   Vector3D position = 4;
   int32 force = 5;
   Vector3D shootDirection = 6;
+  Vector3D moveVector = 7;
 }
 
 message FrameInputData
@@ -41,6 +42,7 @@ message FrameInputData
   Vector3D position = 4;
   int32 force = 5;
   Vector3D shootDirection = 6;
+  Vector3D moveVector = 7;
 }
 message MessageHead
 {

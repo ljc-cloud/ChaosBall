@@ -1,6 +1,7 @@
 using System.Linq;
 using ChaosBall.Game;
 using ChaosBall.Model;
+using ChaosBall.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +31,7 @@ namespace ChaosBall.UI
         
         private void InitScoreBoard()
         {
-            string nickname = GameManager.Instance.PlayerTypeInfoDict[playerType].nickname;
+            string nickname = GameManager.Instance.PlayerTypeToPlayerInfoDict[playerType].nickname;
             playerNameText.text = nickname;
             foreach (var image in roundImageArray)
             {
@@ -39,27 +40,25 @@ namespace ChaosBall.UI
             scoreText.text = "0";
         }
 
-        private void OnPlayerScoreBoardChanged(PlayerScoreBoard scoreBoard)
+        private void OnPlayerScoreBoardChanged(Entity.PlayerType type, PlayerScoreBoard scoreBoard)
         {
-            if (scoreBoard.playerType == playerType)
+            if (type != playerType) return;
+            int totalScore = scoreBoard.scoreArray.Aggregate((pre, next) => pre + next);
+            scoreText.text = totalScore.ToString();
+            for (int i = 0; i < roundImageArray.Length; i++)
             {
-                int totalScore = scoreBoard.totalScore.Aggregate((pre, next) => pre + next);
-                scoreText.text = totalScore.ToString();
-                for (int i = 0; i < roundImageArray.Length; i++)
+                if (4 - scoreBoard.operationLeft == i)
                 {
-                    if (scoreBoard.currentRound - 1 == i)
-                    {
-                        roundImageArray[i].sprite = currentOperationSprite;
-                        continue;
-                    }
-                    if (scoreBoard.roundLeft > i)
-                    {
-                        roundImageArray[i].sprite = unusedOperationSprite;
-                    }
-                    else
-                    {
-                        roundImageArray[i].sprite = usedOperationSprite;
-                    }
+                    roundImageArray[i].sprite = currentOperationSprite;
+                    continue;
+                }
+                if (scoreBoard.operationLeft > i)
+                {
+                    roundImageArray[i].sprite = unusedOperationSprite;
+                }
+                else
+                {
+                    roundImageArray[i].sprite = usedOperationSprite;
                 }
             }
         }

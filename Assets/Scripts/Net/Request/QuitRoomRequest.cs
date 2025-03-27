@@ -17,7 +17,7 @@ namespace ChaosBall.Net.Request
             int localClientId = GameInterface.Interface.TcpClient.ClientId;
             int clientId = pack.ClientPack.ClientId;
             
-            int playerId = GameInterface.Interface.PlayerInfo.id;
+            int playerId = GameInterface.Interface.LocalPlayerInfo.id;
             GameInterface.Interface.RoomManager.QuitRoom(playerId);
             
             if (localClientId == clientId)

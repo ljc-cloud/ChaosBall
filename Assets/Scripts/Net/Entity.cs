@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using ChaosBall.Game.State;
-using ChaosBall.Net;
 using GameFrameSync;
 using UnityEngine;
 
-namespace ChaosBall.Game
+namespace ChaosBall.Net
 {
     public class Entity : MonoBehaviour
     {
@@ -15,8 +13,6 @@ namespace ChaosBall.Game
             Remote
         }
         
-        private BirdStateManager _mBirdStateManager;
-        
         public PlayerType playerType;
 
         public int playerId;
@@ -25,17 +21,19 @@ namespace ChaosBall.Game
         public Vector3 playerPosition;
         public float shootForce;
         public Vector3 shootDirection;
+        
+        public Vector3 LocalPlayerPosition { get; private set; }
 
         public bool IsLocal => playerType is PlayerType.Local;
-
-        private void Awake()
-        {
-            _mBirdStateManager = GetComponent<BirdStateManager>();
-        }
 
         private void Start()
         {
             GameInterface.Interface.GameFrameSyncManager.OnFrameSync += OnFrameSync;
+        }
+
+        private void Update()
+        {
+            LocalPlayerPosition = transform.position;
         }
 
         private void OnDestroy()

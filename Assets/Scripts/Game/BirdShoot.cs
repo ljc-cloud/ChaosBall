@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace ChaosBall.Game
 {
-    // TODO: 使用有限状态机实现Bird的各个状态
     [Obsolete]
     public class BirdShoot : MonoBehaviour
     {

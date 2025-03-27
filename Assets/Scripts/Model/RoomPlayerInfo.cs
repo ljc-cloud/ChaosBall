@@ -1,6 +1,4 @@
-using ChaosBall.Model;
-
-namespace ChaosBallServer.Model
+namespace ChaosBall.Model
 {
     public class RoomPlayerInfo : PlayerInfo
     {

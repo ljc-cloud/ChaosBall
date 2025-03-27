@@ -1,22 +1,23 @@
 using System.Collections.Generic;
-using ChaosBall.Game;
-using ChaosBallServer.Model;
+using ChaosBall.Model;
+using ChaosBall.Net;
 using UnityEngine;
 
 namespace ChaosBall
 {
     public class Room : MonoBehaviour
     {
+        [SerializeField] private GameObject playerPrefab;
+        
         private void Start()
         {
             List<RoomPlayerInfo> roomPlayerInfoList = GameInterface.Interface.RoomManager.RoomPlayerList;
-            int localPlayerId = GameInterface.Interface.PlayerInfo.id;
+            int localPlayerId = GameInterface.Interface.LocalPlayerInfo.id;
 
             Vector3 position = new Vector3(-50f, 0, -200f);
-            GameObject prefab = GameInterface.Interface.PlayerPrefab;
             foreach (var roomPlayerInfo in roomPlayerInfoList)
             {
-                GameObject playerGameObject = Instantiate(prefab, position, Quaternion.identity);
+                GameObject playerGameObject = Instantiate(playerPrefab, position, Quaternion.identity);
                 Entity entity = playerGameObject.GetComponent<Entity>();
                 if (roomPlayerInfo.id == localPlayerId)
                 {

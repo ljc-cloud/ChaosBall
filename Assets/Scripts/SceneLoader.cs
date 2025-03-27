@@ -4,26 +4,33 @@ using UnityEngine.SceneManagement;
 
 namespace ChaosBall
 {
-    public enum Scene
+    public enum Scene 
     {
         MainMenuScene,
+        RoomScene,
+        LoadingScene,
         GameScene,
         GameOverScene,
-        RoomScene,
     }
+
     public class SceneLoader
     {
-        
         public event Action OnSceneLoad;
         public event Action OnSceneLoadComplete;
-
+    
         public void LoadScene(Scene scene)
         {
             OnSceneLoad?.Invoke();
-            SceneManager.LoadScene(scene.ToString());
-
+            SceneManager.LoadScene(Scene.LoadingScene.ToString());
+        
             AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Single);
-            loadSceneAsync.completed += _ => OnSceneLoadComplete?.Invoke();
+            loadSceneAsync.completed += _ => OnSceneLoadComplete?.Invoke(); 
+        }
+
+        public AsyncOperation LoadGameSceneAsync()
+        {
+            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(Scene.GameScene.ToString(), LoadSceneMode.Single);
+            return loadSceneAsync;
         }
 
         public void LoadSceneAsync(Scene scene, Action onComplete = null)

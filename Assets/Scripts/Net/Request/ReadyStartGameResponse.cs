@@ -19,9 +19,9 @@ namespace ChaosBall.Net.Request
             Invoker.Instance.DelegateList.Add(() =>
             {
                 GameInterface.Interface.UIManager.ShowMessage("开始游戏!");
-                GameInterface.Interface.SceneLoader.LoadScene(Scene.GameScene);
-                int firstPlayerId = pack.StartGameResultPack.FirstPlayerId;
-                GameManager.Instance.SetFirst(firstPlayerId);
+                GameInterface.Interface.SceneLoader.LoadScene(Scene.LoadingScene);
+                // int firstPlayerId = pack.StartGameResultPack.FirstPlayerId;
+                // GameManager.Instance.SetFirst(firstPlayerId);
             });
 
             GameInterface.Interface.UdpListener.StartListen();

@@ -32,6 +32,8 @@ enum ActionCode
 	StartGame = 9;
 	FinishOperation = 10;
 	ReadyStartGame = 11;
+	UpdatePlayerCoin = 12;
+	LoadGameSceneComplete = 13;
 }
 
 enum RoomVisibility
@@ -46,6 +48,15 @@ enum ReturnCode
 	ReturnNone = 0;
 	Success = 1;
 	Fail = 2;
+}
+
+enum GameState
+{
+	NotStarted = 0;
+	WaitingStart = 1;
+	CountdownToStart = 2;
+	GamePlaying = 3;
+	GameOver = 4;
 }
 
 message HeartbeatPack
@@ -83,6 +94,15 @@ message MainPack
 
 	StartGameResultPack startGameResultPack = 18;
 	FinishOperationPack finishOperationPack = 19;
+	PlayerScoreBoardPack playerScoreBoardPack = 20;
+	RoundPack roundPack = 21;
+
+	GameState currentGameState = 22;
+}
+
+message PlayerCoinPack
+{
+	int32 coin = 1;
 }
 
 message SignInPack
@@ -151,6 +171,17 @@ message StartGameResultPack
 message FinishOperationPack
 {
 	repeated int32 totalScore = 1;
+}
+
+message PlayerScoreBoardPack
+{
+	int32 operationLeft = 1;
+	repeated int32 scoreArray = 2;
+}
+
+message RoundPack
+{
+	int32 currentRound = 1;
 }
 
 message ClientPack

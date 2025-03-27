@@ -5,7 +5,6 @@ using ChaosBall.Net.Request;
 using ChaosBall.So;
 using ChaosBall.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ChaosBall
 {
@@ -16,19 +15,15 @@ namespace ChaosBall
         [SerializeField] private string serverIP;
         [SerializeField] private int serverPort;
         
-        [SerializeField] private GameObject playerPrefab; 
-
         public static GameInterface Interface { get; private set; }
         public TcpClient TcpClient { get; private set; }
         public UdpListener UdpListener { get; private set; }
         public RequestManager RequestManager { get; private set; }
         public UIManager UIManager { get; private set; }
         public GameFrameSyncManager GameFrameSyncManager { get; private set; }
-        // public GameManager GameManager { get; private set; }
-        public PlayerInfo PlayerInfo { get; set; }
+        public PlayerInfo LocalPlayerInfo { get; set; }
         public RoomManager RoomManager { get; private set; }
         public SceneLoader SceneLoader { get; private set; }
-        public GameObject PlayerPrefab => playerPrefab;
 
         public event Action OnSceneLoaded;
         
@@ -54,6 +49,10 @@ namespace ChaosBall
             RoomManager.OnInit();
             GameFrameSyncManager.OnInit();
             // GameManager.OnInit();
+
+#if UNITY_EDITOR
+            serverIP = "127.0.0.1";
+#endif
         }
 
         private void Start()

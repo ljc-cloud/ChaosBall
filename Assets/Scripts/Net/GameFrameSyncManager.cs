@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ChaosBall.Game;
 using ChaosBall.Inputs;
 using ChaosBall.Math;
+using ChaosBall.Utility;
 using GameFrameSync;
 using UnityEngine;
 
@@ -30,14 +29,20 @@ namespace ChaosBall.Net
         
         private PlayerInputEvent _mLocalPlayerInputEvent;
         private Vector3 _mLocalCurrentPosition;
-        private SortedList<int, ResFrameSyncData> _mHistoryFrameSyncData = new();
-        private List<Entity> _mEntities = new();
+        private readonly SortedList<int, ResFrameSyncData> _mHistoryFrameSyncData = new();
+        private readonly List<Entity> _mEntities = new();
         private int _mSyncedFrameId;
+        
+        private ObjectPool<ReqFrameInputData> _mReqFrameInputDataPool;
+        private ObjectPool<Vector3D> _mVector3DPool;
+        
 
         public event Action<List<FrameInputData>> OnFrameSync;
 
         public override void OnInit()
         {
+            _mReqFrameInputDataPool = new ObjectPool<ReqFrameInputData>(()=> new ReqFrameInputData());
+            _mVector3DPool = new ObjectPool<Vector3D>(() => new Vector3D());
             GameInterface.Interface.UdpListener.OnReceiveFrameSync += ServerFrameSyncDataUpdate;
             base.OnInit();
         }
@@ -48,70 +53,78 @@ namespace ChaosBall.Net
             base.OnDestroy();
         }
 
-        [Obsolete]
-        private void UpdatePlayerInput(PlayerInputType playerInputType)
-        {
-            _mLocalPlayerInputEvent.available = true;
-            _mLocalPlayerInputEvent.playerInputType = playerInputType;
-        }
-
         private void ServerFrameSyncDataUpdate(ResFrameSyncData resFrameSyncData)
         {
-            if (resFrameSyncData.FrameId != -1)
+            ReqFrameInputData reqFrameInputData = _mReqFrameInputDataPool.Allocate();
+            Vector3D position = _mVector3DPool.Allocate();
+            Vector3D shootDir = _mVector3DPool.Allocate();
+            try
             {
-                // 缓存上一帧
-                _mHistoryFrameSyncData[resFrameSyncData.FrameId] = resFrameSyncData;
-            
-                // 同步这一帧
-                List<FrameInputData> frameInputDataList = resFrameSyncData.PlayersFrameInputData.ToList();
-
-                List<FrameInputData> currentFrameInputDataList = frameInputDataList.FindAll(item => 
-                    item.FrameId == _mSyncedFrameId);
-                OnFrameSync?.Invoke(currentFrameInputDataList);
-            }
-            
-            _mSyncedFrameId++;
-            
-            // 上传下一帧
-            int localPlayerId = GameInterface.Interface.PlayerInfo.id;
-
-            resFrameSyncData.FrameId = _mSyncedFrameId;
-            _mLocalPlayerInputEvent.playerInputType = ChaosBallInputRegister.Instance.LocalPlayerInputType;
-            ReqFrameInputData reqFrameInputData = new ReqFrameInputData
-            {
-                FrameId = _mSyncedFrameId,
-                InputType = Enum.Parse<GameFrameSync.InputType>(_mLocalPlayerInputEvent.playerInputType.ToString()),
-                PlayerId = localPlayerId,
-            };
-
-            Entity localEntity = _mEntities.Find(item => item.playerType is Entity.PlayerType.Local);
-            if (localEntity != null)
-            {
-                Invoker.Instance.DelegateList.Add(() =>
+                if (resFrameSyncData.FrameId != -1)
                 {
-                    _mLocalCurrentPosition = localEntity.transform.position;
-                    reqFrameInputData.Position = new Vector3D
+                    // 缓存上一帧
+                    _mHistoryFrameSyncData[resFrameSyncData.FrameId] = resFrameSyncData;
+
+                    // 同步这一帧
+                    List<FrameInputData> frameInputDataList = resFrameSyncData.PlayersFrameInputData.ToList();
+
+                    List<FrameInputData> currentFrameInputDataList = frameInputDataList.FindAll(item =>
+                        item.FrameId == _mSyncedFrameId);
+                    OnFrameSync?.Invoke(currentFrameInputDataList);
+                }
+
+                _mSyncedFrameId++;
+
+                // 上传下一帧
+                int localPlayerId = GameInterface.Interface.LocalPlayerInfo.id;
+
+                resFrameSyncData.FrameId = _mSyncedFrameId;
+                _mLocalPlayerInputEvent.playerInputType = ChaosBallInputRegister.Instance.LocalPlayerInputType;
+
+
+                reqFrameInputData.FrameId = _mSyncedFrameId;
+                reqFrameInputData.InputType = Enum.Parse<InputType>(_mLocalPlayerInputEvent.playerInputType.ToString());
+                reqFrameInputData.PlayerId = localPlayerId;
+
+                Entity localEntity = _mEntities.Find(item => item.playerType is Entity.PlayerType.Local);
+                if (localEntity != null)
+                {
+                    _mLocalCurrentPosition = localEntity.LocalPlayerPosition;
+                    position.X = new FixedPoint(_mLocalCurrentPosition.x);
+                    position.Y = new FixedPoint(_mLocalCurrentPosition.y);
+                    position.Z = new FixedPoint(_mLocalCurrentPosition.z);
+                    reqFrameInputData.Position = position;
+                    
+                    shootDir.X = new FixedPoint(localEntity.shootDirection.x);
+                    shootDir.Y = new FixedPoint(localEntity.shootDirection.y);
+                    shootDir.Z = new FixedPoint(localEntity.shootDirection.z);
+                    reqFrameInputData.Position = position;
+                    reqFrameInputData.ShootDirection = new Vector3D
                     {
-                        X = new FixedPoint(_mLocalCurrentPosition.x),
-                        Y = new FixedPoint(_mLocalCurrentPosition.y),
-                        Z = new FixedPoint(_mLocalCurrentPosition.z)
+                        X = new FixedPoint(localEntity.shootDirection.x),
+                        Y = new FixedPoint(localEntity.shootDirection.y),
+                        Z = new FixedPoint(localEntity.shootDirection.z),
                     };
-                });
-                
-                reqFrameInputData.ShootDirection = new Vector3D
-                {
-                    X = new FixedPoint(localEntity.shootDirection.x),
-                    Y = new FixedPoint(localEntity.shootDirection.y),
-                    Z = new FixedPoint(localEntity.shootDirection.z),
-                };
-                reqFrameInputData.Force = new FixedPoint(localEntity.shootForce);
-            }
+                    reqFrameInputData.Force = new FixedPoint(localEntity.shootForce);
+                }
 
-            resFrameSyncData.ReqFrameInputData = reqFrameInputData;
-            GameInterface.Interface.UdpListener.Send(resFrameSyncData);
+                resFrameSyncData.ReqFrameInputData = reqFrameInputData;
+
+                GameInterface.Interface.UdpListener.Send(resFrameSyncData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+            finally
+            {
+                _mReqFrameInputDataPool.Release(reqFrameInputData);
+                _mVector3DPool.Release(position);
+                _mVector3DPool.Release(shootDir);
+            }
         }
 
-        public void AddEntity(Entity entity)
+        public void AddEntity(in Entity entity)
         {
             _mEntities.Add(entity);
         }

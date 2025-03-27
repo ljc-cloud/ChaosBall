@@ -14,6 +14,8 @@ namespace ChaosBall
         public const int WAIT_FRAMES = 5;
         
         public const string AUTHORIZATION_KEY = "authorization";
+        
+        public const int COUNT_DOWN = 3;
 
         private void Awake()
         {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ChaosBall.Model;
 using ChaosBall.Net.Request;
-using ChaosBallServer.Model;
 using UnityEngine;
 
 namespace ChaosBall
@@ -81,7 +80,7 @@ namespace ChaosBall
 
         public void QuitRoom(int playerId)
         {
-            int localPlayerId = GameInterface.Interface.PlayerInfo.id;
+            int localPlayerId = GameInterface.Interface.LocalPlayerInfo.id;
             if (localPlayerId == playerId)
             {
                 CurrentRoomInfo = null;

@@ -22,7 +22,7 @@ namespace ChaosBall.Net.Request
             Debug.Log("Sign Up Success!");
             PlayerInfoPack playerInfoPack = pack.PlayerInfoPack;
             PlayerInfo playerInfo = new PlayerInfo(playerInfoPack);
-            GameInterface.Interface.PlayerInfo = playerInfo;
+            GameInterface.Interface.LocalPlayerInfo = playerInfo;
             
             base.HandleServerSuccessResponse(pack);
         }

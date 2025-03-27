@@ -34,7 +34,6 @@ namespace ChaosBall.Net.Request
         {
             Invoker.Instance.DelegateList.Add(() =>
             {
-                // TODO: NPR
                 if (pack.ReturnMessage != null)
                 {
                     if (!string.IsNullOrEmpty(pack.ReturnMessage.SuccessMessage))

@@ -1,4 +1,6 @@
+using ChaosBall.Model;
 using ChaosBall.Net.Request;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +8,7 @@ namespace ChaosBall.UI
 {
     public class RoomUI : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI roomNameText;
         [SerializeField] private Button quitButton;
         [SerializeField] private Button readyButton;
         [SerializeField] private Button unreadyButton;
@@ -15,6 +18,9 @@ namespace ChaosBall.UI
         
         private void Start()
         {
+            RoomInfo roomInfo = GameInterface.Interface.RoomManager.CurrentRoomInfo;
+            roomNameText.text = roomInfo?.roomName ?? string.Empty;
+
             quitButton.onClick.AddListener(PlayerQuitRoom);
             readyButton.onClick.AddListener(PlayerReady);
             unreadyButton.onClick.AddListener(PlayerUnready);

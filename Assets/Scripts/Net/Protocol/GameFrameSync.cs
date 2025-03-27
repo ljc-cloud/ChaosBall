@@ -24,16 +24,18 @@ namespace GameFrameSync {
     static GameFrameSyncReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChNHYW1lRnJhbWVTeW5jLnByb3RvEg1HYW1lRnJhbWVTeW5jIs4BChFSZXFG",
+            "ChNHYW1lRnJhbWVTeW5jLnByb3RvEg1HYW1lRnJhbWVTeW5jIvsBChFSZXFG",
             "cmFtZUlucHV0RGF0YRIPCgdmcmFtZUlkGAEgASgFEhAKCHBsYXllcklkGAIg",
             "ASgFEisKCWlucHV0VHlwZRgDIAEoDjIYLkdhbWVGcmFtZVN5bmMuSW5wdXRU",
             "eXBlEikKCHBvc2l0aW9uGAQgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
             "RBINCgVmb3JjZRgFIAEoBRIvCg5zaG9vdERpcmVjdGlvbhgGIAEoCzIXLkdh",
-            "bWVGcmFtZVN5bmMuVmVjdG9yM0QiywEKDkZyYW1lSW5wdXREYXRhEg8KB2Zy",
+            "bWVGcmFtZVN5bmMuVmVjdG9yM0QSKwoKbW92ZVZlY3RvchgHIAEoCzIXLkdh",
+            "bWVGcmFtZVN5bmMuVmVjdG9yM0Qi+AEKDkZyYW1lSW5wdXREYXRhEg8KB2Zy",
             "YW1lSWQYASABKAUSEAoIcGxheWVySWQYAiABKAUSKwoJaW5wdXRUeXBlGAMg",
             "ASgOMhguR2FtZUZyYW1lU3luYy5JbnB1dFR5cGUSKQoIcG9zaXRpb24YBCAB",
             "KAsyFy5HYW1lRnJhbWVTeW5jLlZlY3RvcjNEEg0KBWZvcmNlGAUgASgFEi8K",
             "DnNob290RGlyZWN0aW9uGAYgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
+            "RBIrCgptb3ZlVmVjdG9yGAcgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
             "RCI7CgtNZXNzYWdlSGVhZBINCgVpbmRleBgBIAEoBRILCgNhY2sYAiABKAgS",
             "EAoIY2xpZW50SXAYAyABKAkiKwoIVmVjdG9yM0QSCQoBeBgBIAEoBRIJCgF5",
             "GAIgASgFEgkKAXoYAyABKAUirQIKEFJlc0ZyYW1lU3luY0RhdGESDwoHZnJh",
@@ -51,8 +53,8 @@ namespace GameFrameSync {
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameFrameSync.InputType), typeof(global::GameFrameSync.GameState), typeof(global::GameFrameSync.MessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ReqFrameInputData), global::GameFrameSync.ReqFrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.FrameInputData), global::GameFrameSync.FrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ReqFrameInputData), global::GameFrameSync.ReqFrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection", "MoveVector" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.FrameInputData), global::GameFrameSync.FrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection", "MoveVector" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.MessageHead), global::GameFrameSync.MessageHead.Parser, new[]{ "Index", "Ack", "ClientIp" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.Vector3D), global::GameFrameSync.Vector3D.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ResFrameSyncData), global::GameFrameSync.ResFrameSyncData.Parser, new[]{ "FrameId", "PlayersFrameInputData", "ReqFrameInputData", "GameState", "MessageHead", "MessageType" }, null, null, null, null)
@@ -126,6 +128,7 @@ namespace GameFrameSync {
       position_ = other.position_ != null ? other.position_.Clone() : null;
       force_ = other.force_;
       shootDirection_ = other.shootDirection_ != null ? other.shootDirection_.Clone() : null;
+      moveVector_ = other.moveVector_ != null ? other.moveVector_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -207,6 +210,18 @@ namespace GameFrameSync {
       }
     }
 
+    /// <summary>Field number for the "moveVector" field.</summary>
+    public const int MoveVectorFieldNumber = 7;
+    private global::GameFrameSync.Vector3D moveVector_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::GameFrameSync.Vector3D MoveVector {
+      get { return moveVector_; }
+      set {
+        moveVector_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -228,6 +243,7 @@ namespace GameFrameSync {
       if (!object.Equals(Position, other.Position)) return false;
       if (Force != other.Force) return false;
       if (!object.Equals(ShootDirection, other.ShootDirection)) return false;
+      if (!object.Equals(MoveVector, other.MoveVector)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -241,6 +257,7 @@ namespace GameFrameSync {
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Force != 0) hash ^= Force.GetHashCode();
       if (shootDirection_ != null) hash ^= ShootDirection.GetHashCode();
+      if (moveVector_ != null) hash ^= MoveVector.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -283,6 +300,10 @@ namespace GameFrameSync {
         output.WriteRawTag(50);
         output.WriteMessage(ShootDirection);
       }
+      if (moveVector_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(MoveVector);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -317,6 +338,10 @@ namespace GameFrameSync {
         output.WriteRawTag(50);
         output.WriteMessage(ShootDirection);
       }
+      if (moveVector_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(MoveVector);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -344,6 +369,9 @@ namespace GameFrameSync {
       }
       if (shootDirection_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ShootDirection);
+      }
+      if (moveVector_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveVector);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -380,6 +408,12 @@ namespace GameFrameSync {
           ShootDirection = new global::GameFrameSync.Vector3D();
         }
         ShootDirection.MergeFrom(other.ShootDirection);
+      }
+      if (other.moveVector_ != null) {
+        if (moveVector_ == null) {
+          MoveVector = new global::GameFrameSync.Vector3D();
+        }
+        MoveVector.MergeFrom(other.MoveVector);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -428,6 +462,13 @@ namespace GameFrameSync {
               ShootDirection = new global::GameFrameSync.Vector3D();
             }
             input.ReadMessage(ShootDirection);
+            break;
+          }
+          case 58: {
+            if (moveVector_ == null) {
+              MoveVector = new global::GameFrameSync.Vector3D();
+            }
+            input.ReadMessage(MoveVector);
             break;
           }
         }
@@ -479,6 +520,13 @@ namespace GameFrameSync {
             input.ReadMessage(ShootDirection);
             break;
           }
+          case 58: {
+            if (moveVector_ == null) {
+              MoveVector = new global::GameFrameSync.Vector3D();
+            }
+            input.ReadMessage(MoveVector);
+            break;
+          }
         }
       }
     }
@@ -527,6 +575,7 @@ namespace GameFrameSync {
       position_ = other.position_ != null ? other.position_.Clone() : null;
       force_ = other.force_;
       shootDirection_ = other.shootDirection_ != null ? other.shootDirection_.Clone() : null;
+      moveVector_ = other.moveVector_ != null ? other.moveVector_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -608,6 +657,18 @@ namespace GameFrameSync {
       }
     }
 
+    /// <summary>Field number for the "moveVector" field.</summary>
+    public const int MoveVectorFieldNumber = 7;
+    private global::GameFrameSync.Vector3D moveVector_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::GameFrameSync.Vector3D MoveVector {
+      get { return moveVector_; }
+      set {
+        moveVector_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -629,6 +690,7 @@ namespace GameFrameSync {
       if (!object.Equals(Position, other.Position)) return false;
       if (Force != other.Force) return false;
       if (!object.Equals(ShootDirection, other.ShootDirection)) return false;
+      if (!object.Equals(MoveVector, other.MoveVector)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -642,6 +704,7 @@ namespace GameFrameSync {
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Force != 0) hash ^= Force.GetHashCode();
       if (shootDirection_ != null) hash ^= ShootDirection.GetHashCode();
+      if (moveVector_ != null) hash ^= MoveVector.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -684,6 +747,10 @@ namespace GameFrameSync {
         output.WriteRawTag(50);
         output.WriteMessage(ShootDirection);
       }
+      if (moveVector_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(MoveVector);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -718,6 +785,10 @@ namespace GameFrameSync {
         output.WriteRawTag(50);
         output.WriteMessage(ShootDirection);
       }
+      if (moveVector_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(MoveVector);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -745,6 +816,9 @@ namespace GameFrameSync {
       }
       if (shootDirection_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ShootDirection);
+      }
+      if (moveVector_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveVector);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -781,6 +855,12 @@ namespace GameFrameSync {
           ShootDirection = new global::GameFrameSync.Vector3D();
         }
         ShootDirection.MergeFrom(other.ShootDirection);
+      }
+      if (other.moveVector_ != null) {
+        if (moveVector_ == null) {
+          MoveVector = new global::GameFrameSync.Vector3D();
+        }
+        MoveVector.MergeFrom(other.MoveVector);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -831,6 +911,13 @@ namespace GameFrameSync {
             input.ReadMessage(ShootDirection);
             break;
           }
+          case 58: {
+            if (moveVector_ == null) {
+              MoveVector = new global::GameFrameSync.Vector3D();
+            }
+            input.ReadMessage(MoveVector);
+            break;
+          }
         }
       }
     #endif
@@ -878,6 +965,13 @@ namespace GameFrameSync {
               ShootDirection = new global::GameFrameSync.Vector3D();
             }
             input.ReadMessage(ShootDirection);
+            break;
+          }
+          case 58: {
+            if (moveVector_ == null) {
+              MoveVector = new global::GameFrameSync.Vector3D();
+            }
+            input.ReadMessage(MoveVector);
             break;
           }
         }

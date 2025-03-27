@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ChaosBall.Model;
 using ChaosBall.Net.Request;
-using ChaosBallServer.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
