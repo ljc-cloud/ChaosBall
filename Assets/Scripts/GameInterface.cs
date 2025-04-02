@@ -1,4 +1,5 @@
 using System;
+using ChaosBall.Event;
 using ChaosBall.Model;
 using ChaosBall.Net;
 using ChaosBall.Net.Request;
@@ -24,6 +25,7 @@ namespace ChaosBall
         public PlayerInfo LocalPlayerInfo { get; set; }
         public RoomManager RoomManager { get; private set; }
         public SceneLoader SceneLoader { get; private set; }
+        public EventSystem EventSystem { get; private set; }
 
         public event Action OnSceneLoaded;
         
@@ -44,6 +46,7 @@ namespace ChaosBall
             SceneLoader = new SceneLoader();
             RoomManager = new RoomManager();
             GameFrameSyncManager = new GameFrameSyncManager();
+            EventSystem = new EventSystem();
             RequestManager.OnInit();
             UIManager.OnInit();
             RoomManager.OnInit();
@@ -53,11 +56,6 @@ namespace ChaosBall
 #if UNITY_EDITOR
             serverIP = "127.0.0.1";
 #endif
-        }
-
-        private void Start()
-        {
-            SceneLoader.OnSceneLoad += OnLoadScene;
         }
 
         private void OnLoadScene()
@@ -71,8 +69,8 @@ namespace ChaosBall
             RequestManager?.OnDestroy();
             UIManager?.OnDestroy();
             TcpClient.Dispose();
+            UdpListener.Dispose();
             GameFrameSyncManager.OnDestroy();
-            if (SceneLoader != null) SceneLoader.OnSceneLoad -= OnLoadScene;
             SceneLoader = null;
             TcpClient = null;
         }

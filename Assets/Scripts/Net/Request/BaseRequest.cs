@@ -41,7 +41,6 @@ namespace ChaosBall.Net.Request
                         GameInterface.Interface.UIManager.ShowMessage(pack.ReturnMessage.SuccessMessage);
                     }
                 }
-                
                 OnServerSuccessResponse?.Invoke();
             });
         }

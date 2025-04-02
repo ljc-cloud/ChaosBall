@@ -14,6 +14,9 @@ namespace ChaosBall.Game.State
         [SerializeField] private BirdAnimation birdAnimation;
         [SerializeField] private BirdType birdType;
         
+        // Debug
+        public BirdState.BirdStateEnum state;
+        
         private Rigidbody _mRigidBody;
         private BirdCollide _mBirdCollide;
         private IBirdStopBehaviour _mBirdStopBehaviour;
@@ -22,7 +25,7 @@ namespace ChaosBall.Game.State
         private BirdReadyState _mReadyState;
         private BirdShootState _mShootState;
         private BirdStopState _mStopState;
-        private BirdCountState _mCountState;
+        // private BirdCountState _mCountState;
         private BirdCollideState _mCollideState;
         private Entity _mEntity;
 
@@ -47,10 +50,10 @@ namespace ChaosBall.Game.State
         {
             _mUnReadyState = new BirdUnReadyState(this, transform, _mEntity, speed);
             _mReadyState = new BirdReadyState(this, transform, _mEntity, minShootForce, maxShootForce,
-                readyShootDuration);
+                readyShootDuration, ArrowForceUI);
             _mShootState = new BirdShootState(this, transform, _mEntity, _mRigidBody, GetShootForce, GetDirection);
             _mStopState = new BirdStopState(this, transform, _mEntity, _mRigidBody, _mBirdStopBehaviour);
-            _mCountState = new BirdCountState(this, transform, _mEntity, _mBirdCollide);
+            // _mCountState = new BirdCountState(this, transform, _mEntity);
             _mCollideState = new BirdCollideState(this, transform, _mEntity, _mRigidBody);
 
             // switch (birdType)
@@ -88,9 +91,9 @@ namespace ChaosBall.Game.State
                 case BirdState.BirdStateEnum.Stop:
                     CurrentState = _mStopState;
                     break;
-                case BirdState.BirdStateEnum.Count:
-                    CurrentState = _mCountState;
-                    break;
+                // case BirdState.BirdStateEnum.Count:
+                //     // CurrentState = _mCountState;
+                //     break;
                 case BirdState.BirdStateEnum.Collided:
                     CurrentState = _mCollideState;
                     break;

@@ -28,36 +28,35 @@ namespace GameFrameSync {
             "cmFtZUlucHV0RGF0YRIPCgdmcmFtZUlkGAEgASgFEhAKCHBsYXllcklkGAIg",
             "ASgFEisKCWlucHV0VHlwZRgDIAEoDjIYLkdhbWVGcmFtZVN5bmMuSW5wdXRU",
             "eXBlEikKCHBvc2l0aW9uGAQgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
-            "RBINCgVmb3JjZRgFIAEoBRIvCg5zaG9vdERpcmVjdGlvbhgGIAEoCzIXLkdh",
+            "RBINCgVmb3JjZRgFIAEoAhIvCg5zaG9vdERpcmVjdGlvbhgGIAEoCzIXLkdh",
             "bWVGcmFtZVN5bmMuVmVjdG9yM0QSKwoKbW92ZVZlY3RvchgHIAEoCzIXLkdh",
             "bWVGcmFtZVN5bmMuVmVjdG9yM0Qi+AEKDkZyYW1lSW5wdXREYXRhEg8KB2Zy",
             "YW1lSWQYASABKAUSEAoIcGxheWVySWQYAiABKAUSKwoJaW5wdXRUeXBlGAMg",
             "ASgOMhguR2FtZUZyYW1lU3luYy5JbnB1dFR5cGUSKQoIcG9zaXRpb24YBCAB",
-            "KAsyFy5HYW1lRnJhbWVTeW5jLlZlY3RvcjNEEg0KBWZvcmNlGAUgASgFEi8K",
+            "KAsyFy5HYW1lRnJhbWVTeW5jLlZlY3RvcjNEEg0KBWZvcmNlGAUgASgCEi8K",
             "DnNob290RGlyZWN0aW9uGAYgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
             "RBIrCgptb3ZlVmVjdG9yGAcgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
-            "RCI7CgtNZXNzYWdlSGVhZBINCgVpbmRleBgBIAEoBRILCgNhY2sYAiABKAgS",
-            "EAoIY2xpZW50SXAYAyABKAkiKwoIVmVjdG9yM0QSCQoBeBgBIAEoBRIJCgF5",
-            "GAIgASgFEgkKAXoYAyABKAUirQIKEFJlc0ZyYW1lU3luY0RhdGESDwoHZnJh",
-            "bWVJZBgBIAEoBRI8ChVwbGF5ZXJzRnJhbWVJbnB1dERhdGEYAiADKAsyHS5H",
-            "YW1lRnJhbWVTeW5jLkZyYW1lSW5wdXREYXRhEjsKEXJlcUZyYW1lSW5wdXRE",
-            "YXRhGAMgASgLMiAuR2FtZUZyYW1lU3luYy5SZXFGcmFtZUlucHV0RGF0YRIr",
-            "CglnYW1lU3RhdGUYBCABKA4yGC5HYW1lRnJhbWVTeW5jLkdhbWVTdGF0ZRIv",
-            "CgttZXNzYWdlSGVhZBgFIAEoCzIaLkdhbWVGcmFtZVN5bmMuTWVzc2FnZUhl",
-            "YWQSLwoLbWVzc2FnZVR5cGUYBiABKA4yGi5HYW1lRnJhbWVTeW5jLk1lc3Nh",
-            "Z2VUeXBlKlcKCUlucHV0VHlwZRIICgROb25lEAASDAoITW92ZUxlZnQQARIN",
-            "CglNb3ZlUmlnaHQQAhIJCgVSZWFkeRADEg0KCVF1aXRSZWFkeRAEEgkKBVNo",
-            "b290EAUqOAoJR2FtZVN0YXRlEhAKDENvdW50VG9TdGFydBAAEgsKB1N0YXJ0",
-            "ZWQQARIMCghHYW1lT3ZlchACKiUKC01lc3NhZ2VUeXBlEg0KCUZyYW1lU3lu",
-            "YxAAEgcKA0FDSxACYgZwcm90bzM="));
+            "RCIpCgtNZXNzYWdlSGVhZBINCgVpbmRleBgBIAEoBRILCgNhY2sYAiABKAgi",
+            "KwoIVmVjdG9yM0QSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIi",
+            "kgIKEFJlc0ZyYW1lU3luY0RhdGESDwoHZnJhbWVJZBgBIAEoBRI8ChVwbGF5",
+            "ZXJzRnJhbWVJbnB1dERhdGEYAiADKAsyHS5HYW1lRnJhbWVTeW5jLkZyYW1l",
+            "SW5wdXREYXRhEjsKEXJlcUZyYW1lSW5wdXREYXRhGAMgASgLMiAuR2FtZUZy",
+            "YW1lU3luYy5SZXFGcmFtZUlucHV0RGF0YRIvCgttZXNzYWdlSGVhZBgFIAEo",
+            "CzIaLkdhbWVGcmFtZVN5bmMuTWVzc2FnZUhlYWQSLwoLbWVzc2FnZVR5cGUY",
+            "BiABKA4yGi5HYW1lRnJhbWVTeW5jLk1lc3NhZ2VUeXBlEhAKCHJvb21Db2Rl",
+            "GAcgASgJKoABCglJbnB1dFR5cGUSCAoETm9uZRAAEgwKCE1vdmVMZWZ0EAES",
+            "DQoJTW92ZVJpZ2h0EAISCQoFUmVhZHkQAxINCglRdWl0UmVhZHkQBBIJCgVT",
+            "aG9vdBAFEggKBE1vdmUQBhIMCghJbnRlcmFjdBAHEg8KC0ludGVyYWN0QWx0",
+            "EAgqJQoLTWVzc2FnZVR5cGUSDQoJRnJhbWVTeW5jEAASBwoDQUNLEAJiBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameFrameSync.InputType), typeof(global::GameFrameSync.GameState), typeof(global::GameFrameSync.MessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameFrameSync.InputType), typeof(global::GameFrameSync.MessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ReqFrameInputData), global::GameFrameSync.ReqFrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection", "MoveVector" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.FrameInputData), global::GameFrameSync.FrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection", "MoveVector" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.MessageHead), global::GameFrameSync.MessageHead.Parser, new[]{ "Index", "Ack", "ClientIp" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.MessageHead), global::GameFrameSync.MessageHead.Parser, new[]{ "Index", "Ack" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.Vector3D), global::GameFrameSync.Vector3D.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ResFrameSyncData), global::GameFrameSync.ResFrameSyncData.Parser, new[]{ "FrameId", "PlayersFrameInputData", "ReqFrameInputData", "GameState", "MessageHead", "MessageType" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ResFrameSyncData), global::GameFrameSync.ResFrameSyncData.Parser, new[]{ "FrameId", "PlayersFrameInputData", "ReqFrameInputData", "MessageHead", "MessageType", "RoomCode" }, null, null, null, null)
           }));
     }
     #endregion
@@ -71,12 +70,9 @@ namespace GameFrameSync {
     [pbr::OriginalName("Ready")] Ready = 3,
     [pbr::OriginalName("QuitReady")] QuitReady = 4,
     [pbr::OriginalName("Shoot")] Shoot = 5,
-  }
-
-  public enum GameState {
-    [pbr::OriginalName("CountToStart")] CountToStart = 0,
-    [pbr::OriginalName("Started")] Started = 1,
-    [pbr::OriginalName("GameOver")] GameOver = 2,
+    [pbr::OriginalName("Move")] Move = 6,
+    [pbr::OriginalName("Interact")] Interact = 7,
+    [pbr::OriginalName("InteractAlt")] InteractAlt = 8,
   }
 
   public enum MessageType {
@@ -188,10 +184,10 @@ namespace GameFrameSync {
 
     /// <summary>Field number for the "force" field.</summary>
     public const int ForceFieldNumber = 5;
-    private int force_;
+    private float force_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Force {
+    public float Force {
       get { return force_; }
       set {
         force_ = value;
@@ -241,7 +237,7 @@ namespace GameFrameSync {
       if (PlayerId != other.PlayerId) return false;
       if (InputType != other.InputType) return false;
       if (!object.Equals(Position, other.Position)) return false;
-      if (Force != other.Force) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Force, other.Force)) return false;
       if (!object.Equals(ShootDirection, other.ShootDirection)) return false;
       if (!object.Equals(MoveVector, other.MoveVector)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -255,7 +251,7 @@ namespace GameFrameSync {
       if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
       if (InputType != global::GameFrameSync.InputType.None) hash ^= InputType.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
-      if (Force != 0) hash ^= Force.GetHashCode();
+      if (Force != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Force);
       if (shootDirection_ != null) hash ^= ShootDirection.GetHashCode();
       if (moveVector_ != null) hash ^= MoveVector.GetHashCode();
       if (_unknownFields != null) {
@@ -292,9 +288,9 @@ namespace GameFrameSync {
         output.WriteRawTag(34);
         output.WriteMessage(Position);
       }
-      if (Force != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(Force);
+      if (Force != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Force);
       }
       if (shootDirection_ != null) {
         output.WriteRawTag(50);
@@ -330,9 +326,9 @@ namespace GameFrameSync {
         output.WriteRawTag(34);
         output.WriteMessage(Position);
       }
-      if (Force != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(Force);
+      if (Force != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Force);
       }
       if (shootDirection_ != null) {
         output.WriteRawTag(50);
@@ -364,8 +360,8 @@ namespace GameFrameSync {
       if (position_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
       }
-      if (Force != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Force);
+      if (Force != 0F) {
+        size += 1 + 4;
       }
       if (shootDirection_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ShootDirection);
@@ -400,7 +396,7 @@ namespace GameFrameSync {
         }
         Position.MergeFrom(other.Position);
       }
-      if (other.Force != 0) {
+      if (other.Force != 0F) {
         Force = other.Force;
       }
       if (other.shootDirection_ != null) {
@@ -453,8 +449,8 @@ namespace GameFrameSync {
             input.ReadMessage(Position);
             break;
           }
-          case 40: {
-            Force = input.ReadInt32();
+          case 45: {
+            Force = input.ReadFloat();
             break;
           }
           case 50: {
@@ -509,8 +505,8 @@ namespace GameFrameSync {
             input.ReadMessage(Position);
             break;
           }
-          case 40: {
-            Force = input.ReadInt32();
+          case 45: {
+            Force = input.ReadFloat();
             break;
           }
           case 50: {
@@ -635,10 +631,10 @@ namespace GameFrameSync {
 
     /// <summary>Field number for the "force" field.</summary>
     public const int ForceFieldNumber = 5;
-    private int force_;
+    private float force_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Force {
+    public float Force {
       get { return force_; }
       set {
         force_ = value;
@@ -688,7 +684,7 @@ namespace GameFrameSync {
       if (PlayerId != other.PlayerId) return false;
       if (InputType != other.InputType) return false;
       if (!object.Equals(Position, other.Position)) return false;
-      if (Force != other.Force) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Force, other.Force)) return false;
       if (!object.Equals(ShootDirection, other.ShootDirection)) return false;
       if (!object.Equals(MoveVector, other.MoveVector)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -702,7 +698,7 @@ namespace GameFrameSync {
       if (PlayerId != 0) hash ^= PlayerId.GetHashCode();
       if (InputType != global::GameFrameSync.InputType.None) hash ^= InputType.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
-      if (Force != 0) hash ^= Force.GetHashCode();
+      if (Force != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Force);
       if (shootDirection_ != null) hash ^= ShootDirection.GetHashCode();
       if (moveVector_ != null) hash ^= MoveVector.GetHashCode();
       if (_unknownFields != null) {
@@ -739,9 +735,9 @@ namespace GameFrameSync {
         output.WriteRawTag(34);
         output.WriteMessage(Position);
       }
-      if (Force != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(Force);
+      if (Force != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Force);
       }
       if (shootDirection_ != null) {
         output.WriteRawTag(50);
@@ -777,9 +773,9 @@ namespace GameFrameSync {
         output.WriteRawTag(34);
         output.WriteMessage(Position);
       }
-      if (Force != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(Force);
+      if (Force != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(Force);
       }
       if (shootDirection_ != null) {
         output.WriteRawTag(50);
@@ -811,8 +807,8 @@ namespace GameFrameSync {
       if (position_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
       }
-      if (Force != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Force);
+      if (Force != 0F) {
+        size += 1 + 4;
       }
       if (shootDirection_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ShootDirection);
@@ -847,7 +843,7 @@ namespace GameFrameSync {
         }
         Position.MergeFrom(other.Position);
       }
-      if (other.Force != 0) {
+      if (other.Force != 0F) {
         Force = other.Force;
       }
       if (other.shootDirection_ != null) {
@@ -900,8 +896,8 @@ namespace GameFrameSync {
             input.ReadMessage(Position);
             break;
           }
-          case 40: {
-            Force = input.ReadInt32();
+          case 45: {
+            Force = input.ReadFloat();
             break;
           }
           case 50: {
@@ -956,8 +952,8 @@ namespace GameFrameSync {
             input.ReadMessage(Position);
             break;
           }
-          case 40: {
-            Force = input.ReadInt32();
+          case 45: {
+            Force = input.ReadFloat();
             break;
           }
           case 50: {
@@ -1018,7 +1014,6 @@ namespace GameFrameSync {
     public MessageHead(MessageHead other) : this() {
       index_ = other.index_;
       ack_ = other.ack_;
-      clientIp_ = other.clientIp_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1052,18 +1047,6 @@ namespace GameFrameSync {
       }
     }
 
-    /// <summary>Field number for the "clientIp" field.</summary>
-    public const int ClientIpFieldNumber = 3;
-    private string clientIp_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ClientIp {
-      get { return clientIp_; }
-      set {
-        clientIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1081,7 +1064,6 @@ namespace GameFrameSync {
       }
       if (Index != other.Index) return false;
       if (Ack != other.Ack) return false;
-      if (ClientIp != other.ClientIp) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1091,7 +1073,6 @@ namespace GameFrameSync {
       int hash = 1;
       if (Index != 0) hash ^= Index.GetHashCode();
       if (Ack != false) hash ^= Ack.GetHashCode();
-      if (ClientIp.Length != 0) hash ^= ClientIp.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1118,10 +1099,6 @@ namespace GameFrameSync {
         output.WriteRawTag(16);
         output.WriteBool(Ack);
       }
-      if (ClientIp.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ClientIp);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1140,10 +1117,6 @@ namespace GameFrameSync {
         output.WriteRawTag(16);
         output.WriteBool(Ack);
       }
-      if (ClientIp.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ClientIp);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1159,9 +1132,6 @@ namespace GameFrameSync {
       }
       if (Ack != false) {
         size += 1 + 1;
-      }
-      if (ClientIp.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ClientIp);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1180,9 +1150,6 @@ namespace GameFrameSync {
       }
       if (other.Ack != false) {
         Ack = other.Ack;
-      }
-      if (other.ClientIp.Length != 0) {
-        ClientIp = other.ClientIp;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1211,10 +1178,6 @@ namespace GameFrameSync {
             Ack = input.ReadBool();
             break;
           }
-          case 26: {
-            ClientIp = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -1240,10 +1203,6 @@ namespace GameFrameSync {
           }
           case 16: {
             Ack = input.ReadBool();
-            break;
-          }
-          case 26: {
-            ClientIp = input.ReadString();
             break;
           }
         }
@@ -1302,10 +1261,10 @@ namespace GameFrameSync {
 
     /// <summary>Field number for the "x" field.</summary>
     public const int XFieldNumber = 1;
-    private int x_;
+    private float x_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int X {
+    public float X {
       get { return x_; }
       set {
         x_ = value;
@@ -1314,10 +1273,10 @@ namespace GameFrameSync {
 
     /// <summary>Field number for the "y" field.</summary>
     public const int YFieldNumber = 2;
-    private int y_;
+    private float y_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Y {
+    public float Y {
       get { return y_; }
       set {
         y_ = value;
@@ -1326,10 +1285,10 @@ namespace GameFrameSync {
 
     /// <summary>Field number for the "z" field.</summary>
     public const int ZFieldNumber = 3;
-    private int z_;
+    private float z_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Z {
+    public float Z {
       get { return z_; }
       set {
         z_ = value;
@@ -1351,9 +1310,9 @@ namespace GameFrameSync {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (X != other.X) return false;
-      if (Y != other.Y) return false;
-      if (Z != other.Z) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Z, other.Z)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1361,9 +1320,9 @@ namespace GameFrameSync {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (X != 0) hash ^= X.GetHashCode();
-      if (Y != 0) hash ^= Y.GetHashCode();
-      if (Z != 0) hash ^= Z.GetHashCode();
+      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
+      if (Z != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Z);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1382,17 +1341,17 @@ namespace GameFrameSync {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (X != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(X);
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
       }
-      if (Y != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Y);
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
       }
-      if (Z != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(Z);
+      if (Z != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Z);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1404,17 +1363,17 @@ namespace GameFrameSync {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (X != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(X);
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
       }
-      if (Y != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Y);
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
       }
-      if (Z != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(Z);
+      if (Z != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Z);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1426,14 +1385,14 @@ namespace GameFrameSync {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (X != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(X);
+      if (X != 0F) {
+        size += 1 + 4;
       }
-      if (Y != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Y);
+      if (Y != 0F) {
+        size += 1 + 4;
       }
-      if (Z != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Z);
+      if (Z != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1447,13 +1406,13 @@ namespace GameFrameSync {
       if (other == null) {
         return;
       }
-      if (other.X != 0) {
+      if (other.X != 0F) {
         X = other.X;
       }
-      if (other.Y != 0) {
+      if (other.Y != 0F) {
         Y = other.Y;
       }
-      if (other.Z != 0) {
+      if (other.Z != 0F) {
         Z = other.Z;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -1475,16 +1434,16 @@ namespace GameFrameSync {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            X = input.ReadInt32();
+          case 13: {
+            X = input.ReadFloat();
             break;
           }
-          case 16: {
-            Y = input.ReadInt32();
+          case 21: {
+            Y = input.ReadFloat();
             break;
           }
-          case 24: {
-            Z = input.ReadInt32();
+          case 29: {
+            Z = input.ReadFloat();
             break;
           }
         }
@@ -1506,16 +1465,16 @@ namespace GameFrameSync {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            X = input.ReadInt32();
+          case 13: {
+            X = input.ReadFloat();
             break;
           }
-          case 16: {
-            Y = input.ReadInt32();
+          case 21: {
+            Y = input.ReadFloat();
             break;
           }
-          case 24: {
-            Z = input.ReadInt32();
+          case 29: {
+            Z = input.ReadFloat();
             break;
           }
         }
@@ -1563,9 +1522,9 @@ namespace GameFrameSync {
       frameId_ = other.frameId_;
       playersFrameInputData_ = other.playersFrameInputData_.Clone();
       reqFrameInputData_ = other.reqFrameInputData_ != null ? other.reqFrameInputData_.Clone() : null;
-      gameState_ = other.gameState_;
       messageHead_ = other.messageHead_ != null ? other.messageHead_.Clone() : null;
       messageType_ = other.messageType_;
+      roomCode_ = other.roomCode_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1610,18 +1569,6 @@ namespace GameFrameSync {
       }
     }
 
-    /// <summary>Field number for the "gameState" field.</summary>
-    public const int GameStateFieldNumber = 4;
-    private global::GameFrameSync.GameState gameState_ = global::GameFrameSync.GameState.CountToStart;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::GameFrameSync.GameState GameState {
-      get { return gameState_; }
-      set {
-        gameState_ = value;
-      }
-    }
-
     /// <summary>Field number for the "messageHead" field.</summary>
     public const int MessageHeadFieldNumber = 5;
     private global::GameFrameSync.MessageHead messageHead_;
@@ -1646,6 +1593,18 @@ namespace GameFrameSync {
       }
     }
 
+    /// <summary>Field number for the "roomCode" field.</summary>
+    public const int RoomCodeFieldNumber = 7;
+    private string roomCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomCode {
+      get { return roomCode_; }
+      set {
+        roomCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1664,9 +1623,9 @@ namespace GameFrameSync {
       if (FrameId != other.FrameId) return false;
       if(!playersFrameInputData_.Equals(other.playersFrameInputData_)) return false;
       if (!object.Equals(ReqFrameInputData, other.ReqFrameInputData)) return false;
-      if (GameState != other.GameState) return false;
       if (!object.Equals(MessageHead, other.MessageHead)) return false;
       if (MessageType != other.MessageType) return false;
+      if (RoomCode != other.RoomCode) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1677,9 +1636,9 @@ namespace GameFrameSync {
       if (FrameId != 0) hash ^= FrameId.GetHashCode();
       hash ^= playersFrameInputData_.GetHashCode();
       if (reqFrameInputData_ != null) hash ^= ReqFrameInputData.GetHashCode();
-      if (GameState != global::GameFrameSync.GameState.CountToStart) hash ^= GameState.GetHashCode();
       if (messageHead_ != null) hash ^= MessageHead.GetHashCode();
       if (MessageType != global::GameFrameSync.MessageType.FrameSync) hash ^= MessageType.GetHashCode();
+      if (RoomCode.Length != 0) hash ^= RoomCode.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1707,10 +1666,6 @@ namespace GameFrameSync {
         output.WriteRawTag(26);
         output.WriteMessage(ReqFrameInputData);
       }
-      if (GameState != global::GameFrameSync.GameState.CountToStart) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) GameState);
-      }
       if (messageHead_ != null) {
         output.WriteRawTag(42);
         output.WriteMessage(MessageHead);
@@ -1718,6 +1673,10 @@ namespace GameFrameSync {
       if (MessageType != global::GameFrameSync.MessageType.FrameSync) {
         output.WriteRawTag(48);
         output.WriteEnum((int) MessageType);
+      }
+      if (RoomCode.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(RoomCode);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1738,10 +1697,6 @@ namespace GameFrameSync {
         output.WriteRawTag(26);
         output.WriteMessage(ReqFrameInputData);
       }
-      if (GameState != global::GameFrameSync.GameState.CountToStart) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) GameState);
-      }
       if (messageHead_ != null) {
         output.WriteRawTag(42);
         output.WriteMessage(MessageHead);
@@ -1749,6 +1704,10 @@ namespace GameFrameSync {
       if (MessageType != global::GameFrameSync.MessageType.FrameSync) {
         output.WriteRawTag(48);
         output.WriteEnum((int) MessageType);
+      }
+      if (RoomCode.Length != 0) {
+        output.WriteRawTag(58);
+        output.WriteString(RoomCode);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1767,14 +1726,14 @@ namespace GameFrameSync {
       if (reqFrameInputData_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ReqFrameInputData);
       }
-      if (GameState != global::GameFrameSync.GameState.CountToStart) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) GameState);
-      }
       if (messageHead_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MessageHead);
       }
       if (MessageType != global::GameFrameSync.MessageType.FrameSync) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) MessageType);
+      }
+      if (RoomCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomCode);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1798,9 +1757,6 @@ namespace GameFrameSync {
         }
         ReqFrameInputData.MergeFrom(other.ReqFrameInputData);
       }
-      if (other.GameState != global::GameFrameSync.GameState.CountToStart) {
-        GameState = other.GameState;
-      }
       if (other.messageHead_ != null) {
         if (messageHead_ == null) {
           MessageHead = new global::GameFrameSync.MessageHead();
@@ -1809,6 +1765,9 @@ namespace GameFrameSync {
       }
       if (other.MessageType != global::GameFrameSync.MessageType.FrameSync) {
         MessageType = other.MessageType;
+      }
+      if (other.RoomCode.Length != 0) {
+        RoomCode = other.RoomCode;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1844,10 +1803,6 @@ namespace GameFrameSync {
             input.ReadMessage(ReqFrameInputData);
             break;
           }
-          case 32: {
-            GameState = (global::GameFrameSync.GameState) input.ReadEnum();
-            break;
-          }
           case 42: {
             if (messageHead_ == null) {
               MessageHead = new global::GameFrameSync.MessageHead();
@@ -1857,6 +1812,10 @@ namespace GameFrameSync {
           }
           case 48: {
             MessageType = (global::GameFrameSync.MessageType) input.ReadEnum();
+            break;
+          }
+          case 58: {
+            RoomCode = input.ReadString();
             break;
           }
         }
@@ -1893,10 +1852,6 @@ namespace GameFrameSync {
             input.ReadMessage(ReqFrameInputData);
             break;
           }
-          case 32: {
-            GameState = (global::GameFrameSync.GameState) input.ReadEnum();
-            break;
-          }
           case 42: {
             if (messageHead_ == null) {
               MessageHead = new global::GameFrameSync.MessageHead();
@@ -1906,6 +1861,10 @@ namespace GameFrameSync {
           }
           case 48: {
             MessageType = (global::GameFrameSync.MessageType) input.ReadEnum();
+            break;
+          }
+          case 58: {
+            RoomCode = input.ReadString();
             break;
           }
         }

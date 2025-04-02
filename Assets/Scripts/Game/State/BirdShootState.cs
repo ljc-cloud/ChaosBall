@@ -1,5 +1,7 @@
 using System;
+using ChaosBall.Math;
 using ChaosBall.Net;
+using ChaosBall.Utility;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -37,17 +39,19 @@ namespace ChaosBall.Game.State
             _mBirdStateManager.ArrowForceUI.Hide();
 
             Vector3 direction = Vector3.zero;
-            float shootForce = 0f;
+            float shootForce;
             if (Entity.IsLocal)
-            { 
-                direction = _mGetDirection.Invoke(); 
-                shootForce = _mGetShootForce.Invoke();
-                _mBirdStateManager.Entity.SetLocalShoot(direction, shootForce);
+            {
+                Vector3 localDirection = Entity.localShootDirection;
+                direction = new Vector3(MathUtil.GetFloat(localDirection.x)
+                    , MathUtil.GetFloat(localDirection.y),
+                    MathUtil.GetFloat(localDirection.z));
+                shootForce = MathUtil.GetFloat(Entity.localShootForce);
             }
             else
             {
-                direction = _mBirdStateManager.Entity.shootDirection;
-                shootForce = _mBirdStateManager.Entity.shootForce;
+                direction = Entity.shootDirection;
+                shootForce = Entity.shootForce;
             }
             
             _mTargetTransform.forward = direction;

@@ -1,5 +1,8 @@
+using System;
+
 namespace ChaosBall.Math
 {
+    [Obsolete]
     public struct FixedPoint
     {
         private const int FractionalBits = 16;

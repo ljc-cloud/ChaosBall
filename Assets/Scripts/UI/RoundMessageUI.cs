@@ -1,4 +1,6 @@
 using System;
+using ChaosBall.Event.Game;
+using ChaosBall.Utility;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -19,23 +21,30 @@ namespace ChaosBall.UI
 
         private void Start()
         {
-            GameManager.Instance.OnRoundMessaging += OnRoundMessaging;
-            transform.position.Set(1200, 0, 0);
+            GameInterface.Interface.EventSystem.Subscribe<RoundMessageEvent>(OnRoundMessaging);
+            transform.DeActive();
+            transform.localPosition.Set(1200, 0, 0);
             _mCanvasGroup.alpha = 0;
             _mCanvasGroup.blocksRaycasts = false;
         }
 
-        private void OnRoundMessaging(int currentRound, string message)
+        private void OnDestroy()
         {
-            roundText.text = $"回合{currentRound}/4";
-            messageText.text = message;
+            GameInterface.Interface.EventSystem.Unsubscribe<RoundMessageEvent>(OnRoundMessaging);
+        }
+
+        private void OnRoundMessaging(RoundMessageEvent e)
+        {
+            roundText.text = $"回合{e.currentRound}/4";
+            messageText.text = e.message;
+            transform.Active();
             DoMoveFadeIn();
             Invoke(nameof(DoMoveFadeOut), 1f);
         }
 
         private void DoMoveFadeIn()
         {
-            transform.DOMoveX(0, .3f);
+            transform.DOLocalMoveX(0, .3f);
             _mCanvasGroup.DOFade(1, .3f).OnComplete(() =>
             {
                 _mCanvasGroup.blocksRaycasts = true;
@@ -44,7 +53,7 @@ namespace ChaosBall.UI
 
         private void DoMoveFadeOut()
         {
-            transform.DOMoveX(-1200, .3f);
+            transform.DOLocalMoveX(-1200, .3f);
             _mCanvasGroup.DOFade(0, .3f).OnComplete(() =>
             {
                 _mCanvasGroup.blocksRaycasts = false;

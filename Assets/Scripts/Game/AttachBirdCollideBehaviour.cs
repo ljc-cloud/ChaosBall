@@ -1,4 +1,5 @@
 using System;
+using ChaosBall.Event.Game;
 using ChaosBall.Game.State;
 using UnityEngine;
 
@@ -53,7 +54,8 @@ namespace ChaosBall.Game
 
         private void OnDestroy()
         {
-            _mAttachParentCollide.OnAttachParentStop -= OnAttachParentStop;
+            // _mAttachParentCollide.OnAttachParentStop -= OnAttachParentStop;
+            GameInterface.Interface.EventSystem.Unsubscribe<AttachParentStopEvent>(OnAttachParentStop);
         }
 
         // 吸附球实现
@@ -84,7 +86,9 @@ namespace ChaosBall.Game
 
             _mAttachParentCollide = attachParentGameObject.AddComponent<AttachParentCollide>();
             _mAttachParentCollide.CollideCostParam = 0.8f;
-            _mAttachParentCollide.OnAttachParentStop += OnAttachParentStop;
+            
+            GameInterface.Interface.EventSystem.Subscribe<AttachParentStopEvent>(OnAttachParentStop);
+            // _mAttachParentCollide.OnAttachParentStop += OnAttachParentStop;
 
             transform.GetComponent<Collider>().enabled = false;
             _mOtherTransform.GetComponent<Collider>().enabled = false;
@@ -103,7 +107,7 @@ namespace ChaosBall.Game
             _mHasCollided = true;
         }
 
-        private void OnAttachParentStop()
+        private void OnAttachParentStop(AttachParentStopEvent _)
         {
             Debug.Log("吸附球停止移动");
             _mAttachParentStopped = true;

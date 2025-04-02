@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ChaosBall.Event.Game;
 using ChaosBall.So;
 using DG.Tweening;
 using UnityEngine;
@@ -51,33 +52,37 @@ namespace ChaosBall.UI
         private Dictionary<UIPanelType, string> _mUIPanelPathDict = new();
         
         private Stack<BaseUIPanel> _mUIPanelStack = new();
+        
+        private readonly Dictionary<UIPanelType, BaseUIPanel> _mUIPanelPool = new();
 
         public override void OnInit()
         {
             base.OnInit();
             _mCanvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
-            GameInterface.Interface.SceneLoader.OnSceneLoad += OnSceneLoad;
-            GameInterface.Interface.SceneLoader.OnSceneLoadComplete += OnSceneLoadComplete;
+            GameInterface.Interface.EventSystem.Subscribe<SceneLoadEvent>(OnSceneLoad);
+            GameInterface.Interface.EventSystem.Subscribe<SceneLoadCompleteEvent>(OnSceneLoadComplete);
             InitUIPanel();
         }
+        
+        public override void OnDestroy()
+        {
+            GameInterface.Interface.EventSystem.Unsubscribe<SceneLoadCompleteEvent>(OnSceneLoadComplete);
+            GameInterface.Interface.EventSystem.Unsubscribe<SceneLoadEvent>(OnSceneLoad);
+            base.OnDestroy();
+        }
 
-        private void OnSceneLoad()
+        private void OnSceneLoad(SceneLoadEvent _)
         {
             ClearUIPanel();
         }
 
-        private void OnSceneLoadComplete()
+        private void OnSceneLoadComplete(SceneLoadCompleteEvent _)
         {
             Debug.Log("ClearUIPanel");
             // ClearUIPanel();
             _mCanvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
         }
-
-        public override void OnDestroy()
-        {
-            base.OnDestroy();
-        }
-
+        
         public void PushUIPanel(UIPanelType uiPanelType, ShowUIPanelType showUIPanelType)
         {
             Debug.Log($"PushUIPanel,Type: {uiPanelType}");

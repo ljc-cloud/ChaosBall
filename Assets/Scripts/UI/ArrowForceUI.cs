@@ -22,6 +22,8 @@ namespace ChaosBall.UI
         private bool _mForceArrowRotationReverse;
         private Quaternion _mMinRotation;
         private Quaternion _mMaxRotation;
+
+        private float _mForceNormalized;
         
         private void Start()
         {
@@ -58,12 +60,24 @@ namespace ChaosBall.UI
                 _mReadyTimer = 0f;
             }
             
-            forceArrowImage.fillAmount = _mForceArrowReadyReverse
-                ? Mathf.Lerp(1f, 0f, _mReadyTimer / forceArrowReadyDuration)
-                : Mathf.Lerp(0f, 1f, _mReadyTimer / forceArrowReadyDuration);
-            forceArrowImage.color = _mForceArrowReadyReverse
-                ? Color.Lerp(forceMaxColor, forceMinColor, _mReadyTimer / forceArrowReadyDuration)
-                : Color.Lerp(forceMinColor, forceMaxColor, _mReadyTimer / forceArrowReadyDuration);
+            forceArrowImage.fillAmount = _mForceNormalized;
+            float rs = forceMaxColor.r - forceMinColor.r;
+            float gs = forceMaxColor.g - forceMinColor.g;
+            float bs = forceMaxColor.b - forceMinColor.b;
+            
+            float ra = rs * _mForceNormalized;
+            float ga = gs * _mForceNormalized;
+            float ba = bs * _mForceNormalized;
+            
+            forceArrowImage.color = new Color(forceMinColor.r + ra, forceMinColor.g + ga
+                , forceMinColor.b + ba);
+
+            // forceArrowImage.fillAmount = _mForceArrowReadyReverse
+            //     ? Mathf.Lerp(1f, 0f, _mReadyTimer / forceArrowReadyDuration)
+            //     : Mathf.Lerp(0f, 1f, _mReadyTimer / forceArrowReadyDuration);
+            // forceArrowImage.color = _mForceArrowReadyReverse
+            //     ? Color.Lerp(forceMaxColor, forceMinColor, _mReadyTimer / forceArrowReadyDuration)
+            //     : Color.Lerp(forceMinColor, forceMaxColor, _mReadyTimer / forceArrowReadyDuration);
         }
         private void LerpForceArrowDirection()
         {
@@ -88,6 +102,11 @@ namespace ChaosBall.UI
                 forceArrowImage.fillAmount = 1f;
                 forceArrowImage.color = forceMinColor;
             }
+        }
+
+        public void SetForceNormalized(float normalized)
+        {
+            _mForceNormalized = normalized;
         }
 
         public void Hide()

@@ -34,6 +34,9 @@ enum ActionCode
 	ReadyStartGame = 11;
 	UpdatePlayerCoin = 12;
 	LoadGameSceneComplete = 13;
+	ChangeGameState = 14;
+	ChangeRound = 15;
+	ChangeOperation = 16;
 }
 
 enum RoomVisibility
@@ -96,8 +99,9 @@ message MainPack
 	FinishOperationPack finishOperationPack = 19;
 	PlayerScoreBoardPack playerScoreBoardPack = 20;
 	RoundPack roundPack = 21;
+	ChangeOperationPack changeOperationPack = 22;
 
-	GameState currentGameState = 22;
+	GameState currentGameState = 23;
 }
 
 message PlayerCoinPack
@@ -171,6 +175,13 @@ message StartGameResultPack
 message FinishOperationPack
 {
 	repeated int32 totalScore = 1;
+	int32 operationLeft = 2;
+}
+
+message ChangeOperationPack
+{
+	int32 currentOperationPlayerId = 1;
+	int32 operationLeft = 2;
 }
 
 message PlayerScoreBoardPack
@@ -187,7 +198,7 @@ message RoundPack
 message ClientPack
 {
 	int32 clientId = 1;
-	string clientIp = 2;
+	//	string clientIp = 2;
 	int32 udpListenPort = 3;
 }
 

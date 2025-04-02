@@ -59,6 +59,7 @@ namespace ChaosBall
 
         private void OnAllPlayerLoadComplete()
         {
+            // 跳转游戏场景
             _mLoadSceneAsyncOperation.allowSceneActivation = true;
         }
     }

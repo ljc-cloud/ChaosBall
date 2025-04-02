@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ChaosBall.Game;
 using ChaosBall.Model;
 using ChaosBall.Net;
 using UnityEngine;
@@ -9,30 +10,33 @@ namespace ChaosBall
     {
         [SerializeField] private GameObject playerPrefab;
         
-        private void Start()
+        private void Awake()
         {
             List<RoomPlayerInfo> roomPlayerInfoList = GameInterface.Interface.RoomManager.RoomPlayerList;
-            int localPlayerId = GameInterface.Interface.LocalPlayerInfo.id;
-
+            PlayerInfo localPlayerInfo = GameInterface.Interface.LocalPlayerInfo;
+            
             Vector3 position = new Vector3(-50f, 0, -200f);
             foreach (var roomPlayerInfo in roomPlayerInfoList)
             {
                 GameObject playerGameObject = Instantiate(playerPrefab, position, Quaternion.identity);
-                Entity entity = playerGameObject.GetComponent<Entity>();
-                if (roomPlayerInfo.id == localPlayerId)
+                Player player = playerGameObject.GetComponent<Player>();
+                if (roomPlayerInfo.id == localPlayerInfo.id)
                 {
-                    entity.playerType = Entity.PlayerType.Local;
-                    entity.playerId = localPlayerId;
+                    player.playerType = Entity.PlayerType.Local;
+                    player.playerId = localPlayerInfo.id;
+                    player.playerNickname = localPlayerInfo.nickname;
                 }
                 else
                 {
-                    entity.playerType = Entity.PlayerType.Remote;
-                    entity.playerId = roomPlayerInfo.id;
+                    player.playerType = Entity.PlayerType.Remote;
+                    player.playerId = roomPlayerInfo.id;
+                    player.playerNickname = roomPlayerInfo.nickname;
                 }
 
-                GameInterface.Interface.GameFrameSyncManager.AddEntity(entity);
-                position.x += 100f;
+                player.operation = false;
+                GameManager.Instance.AddPlayer(player);
             }
+            
         }
     }
 }

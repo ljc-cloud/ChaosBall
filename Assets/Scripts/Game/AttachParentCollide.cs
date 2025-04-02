@@ -1,5 +1,4 @@
-
-using System;
+using ChaosBall.Event.Game;
 using UnityEngine;
 
 namespace ChaosBall.Game
@@ -14,7 +13,7 @@ namespace ChaosBall.Game
         private Vector3 _mCollideDirection;
         private int _mWaitFrames;
 
-        public event Action OnAttachParentStop;
+        // public event Action OnAttachParentStop;
 
         private void Awake()
         {
@@ -35,7 +34,8 @@ namespace ChaosBall.Game
                 if (_mRigidbody.velocity.magnitude < 30f)
                 {
                     _mRigidbody.velocity = Vector3.zero;
-                    OnAttachParentStop?.Invoke();
+                    GameInterface.Interface.EventSystem.Publish<AttachParentStopEvent>();
+                    // OnAttachParentStop?.Invoke();
                 }
             }
         }

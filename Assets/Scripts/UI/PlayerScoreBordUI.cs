@@ -1,4 +1,5 @@
 using System.Linq;
+using ChaosBall.Event.Game;
 using ChaosBall.Game;
 using ChaosBall.Model;
 using ChaosBall.Net;
@@ -20,39 +21,45 @@ namespace ChaosBall.UI
         
         private void Start()
         {
-            GameManager.Instance.OnPlayerScoreBoardChanged += OnPlayerScoreBoardChanged;
+            GameInterface.Interface.EventSystem.Subscribe<PlayerScoreBoardChangeEvent>(OnPlayerScoreBoardChanged);
+            // GameManager.Instance.OnPlayerScoreBoardChanged += OnPlayerScoreBoardChanged;
             InitScoreBoard();
         }
 
         private void OnDestroy()
         {
-            GameManager.Instance.OnPlayerScoreBoardChanged -= OnPlayerScoreBoardChanged;
+            GameInterface.Interface.EventSystem.Unsubscribe<PlayerScoreBoardChangeEvent>(OnPlayerScoreBoardChanged);
+            // GameManager.Instance.OnPlayerScoreBoardChanged -= OnPlayerScoreBoardChanged;
         }
         
         private void InitScoreBoard()
         {
-            string nickname = GameManager.Instance.PlayerTypeToPlayerInfoDict[playerType].nickname;
-            playerNameText.text = nickname;
-            foreach (var image in roundImageArray)
+            
+            // string nickname = GameManager.Instance.PlayerTypeToPlayerInfoDict[playerType].nickname;
+            if (GameManager.Instance.PlayerTypeToPlayerInfoDict.TryGetValue(playerType, out var playerInfo))
             {
-                image.sprite = unusedOperationSprite;
+                playerNameText.text = playerInfo.nickname;
+                foreach (var image in roundImageArray)
+                {
+                    image.sprite = unusedOperationSprite;
+                }
+                scoreText.text = "0";
             }
-            scoreText.text = "0";
         }
 
-        private void OnPlayerScoreBoardChanged(Entity.PlayerType type, PlayerScoreBoard scoreBoard)
+        private void OnPlayerScoreBoardChanged(PlayerScoreBoardChangeEvent e)
         {
-            if (type != playerType) return;
-            int totalScore = scoreBoard.scoreArray.Aggregate((pre, next) => pre + next);
+            if (e.playerType != playerType) return;
+            int totalScore = e.playerScoreBoard.scoreArray.Aggregate((pre, next) => pre + next);
             scoreText.text = totalScore.ToString();
             for (int i = 0; i < roundImageArray.Length; i++)
             {
-                if (4 - scoreBoard.operationLeft == i)
+                if (4 - e.playerScoreBoard.operationLeft == i)
                 {
                     roundImageArray[i].sprite = currentOperationSprite;
                     continue;
                 }
-                if (scoreBoard.operationLeft > i)
+                if (e.playerScoreBoard.operationLeft > i)
                 {
                     roundImageArray[i].sprite = unusedOperationSprite;
                 }

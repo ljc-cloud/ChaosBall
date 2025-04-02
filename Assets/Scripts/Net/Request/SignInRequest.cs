@@ -50,6 +50,7 @@ namespace ChaosBall.Net.Request
                 Username = username,
                 Password = password
             };
+            
             mainPack.SignInPack = signInPack;
             OnServerSuccessResponse += onSignInSuccess;
             OnServerFailResponse += onSignInFail;

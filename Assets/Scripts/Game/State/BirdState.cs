@@ -18,7 +18,7 @@ namespace ChaosBall.Game.State
             Shoot,
             Collided,
             Stop,
-            Count,
+            // Count,
             Effected,
         }
         

@@ -26,7 +26,7 @@ namespace SocketProtocol {
           string.Concat(
             "ChRTb2NrZXRQcm90b2NvbC5wcm90bxIOU29ja2V0UHJvdG9jb2wiQwoNSGVh",
             "cnRiZWF0UGFjaxIRCgl0cmlnZ2VyZWQYASABKAgSDAoEdHlwZRgCIAEoCRIR",
-            "Cgl0aW1lc3RhbXAYAyABKAMinQkKCE1haW5QYWNrEjAKCWhlYXJ0YmVhdBgB",
+            "Cgl0aW1lc3RhbXAYAyABKAMi3wkKCE1haW5QYWNrEjAKCWhlYXJ0YmVhdBgB",
             "IAEoCzIdLlNvY2tldFByb3RvY29sLkhlYXJ0YmVhdFBhY2sSMAoLcmVxdWVz",
             "dENvZGUYAiABKA4yGy5Tb2NrZXRQcm90b2NvbC5SZXF1ZXN0Q29kZRIyCgxy",
             "ZXNwb25zZUNvZGUYAyABKA4yHC5Tb2NrZXRQcm90b2NvbC5SZXNwb25zZUNv",
@@ -51,52 +51,56 @@ namespace SocketProtocol {
             "axgTIAEoCzIjLlNvY2tldFByb3RvY29sLkZpbmlzaE9wZXJhdGlvblBhY2sS",
             "QgoUcGxheWVyU2NvcmVCb2FyZFBhY2sYFCABKAsyJC5Tb2NrZXRQcm90b2Nv",
             "bC5QbGF5ZXJTY29yZUJvYXJkUGFjaxIsCglyb3VuZFBhY2sYFSABKAsyGS5T",
-            "b2NrZXRQcm90b2NvbC5Sb3VuZFBhY2sSMwoQY3VycmVudEdhbWVTdGF0ZRgW",
-            "IAEoDjIZLlNvY2tldFByb3RvY29sLkdhbWVTdGF0ZSIeCg5QbGF5ZXJDb2lu",
-            "UGFjaxIMCgRjb2luGAEgASgFIjAKClNpZ25JblBhY2sSEAoIdXNlcm5hbWUY",
-            "ASABKAkSEAoIcGFzc3dvcmQYAiABKAkiQgoKU2lnblVwUGFjaxIQCgh1c2Vy",
-            "bmFtZRgBIAEoCRIQCghwYXNzd29yZBgCIAEoCRIQCghuaWNrbmFtZRgDIAEo",
-            "CSJtCg5DcmVhdGVSb29tUGFjaxIQCghyb29tTmFtZRgCIAEoCRI2Cg5yb29t",
-            "VmlzaWJpbGl0eRgDIAEoDjIeLlNvY2tldFByb3RvY29sLlJvb21WaXNpYmls",
-            "aXR5EhEKCW1heFBsYXllchgEIAEoBSKVAQoMUm9vbUluZm9QYWNrEhAKCHJv",
-            "b21Db2RlGAEgASgJEhAKCHJvb21OYW1lGAIgASgJEjYKDnJvb21WaXNpYmls",
-            "aXR5GAMgASgOMh4uU29ja2V0UHJvdG9jb2wuUm9vbVZpc2liaWxpdHkSFgoO",
-            "Y3VycmVudFBsYXllcnMYBCABKAUSEQoJbWF4UGxheWVyGAUgASgFIkoKFFNl",
-            "YXJjaFJvb21SZXN1bHRQYWNrEjIKDHJvb21JbmZvTGlzdBgBIAMoCzIcLlNv",
-            "Y2tldFByb3RvY29sLlJvb21JbmZvUGFjayJUChJKb2luUm9vbVJlc3VsdFBh",
-            "Y2sSPgoScm9vbVBsYXllckluZm9MaXN0GAEgAygLMiIuU29ja2V0UHJvdG9j",
-            "b2wuUm9vbVBsYXllckluZm9QYWNrIiQKE1Jvb21QbGF5ZXJSZWFkeVBhY2sS",
-            "DQoFcmVhZHkYASABKAgiQAoOUGxheWVySW5mb1BhY2sSCgoCaWQYASABKAUS",
-            "EAoIdXNlcm5hbWUYAiABKAkSEAoIbmlja25hbWUYAyABKAkiUwoSUm9vbVBs",
-            "YXllckluZm9QYWNrEgoKAmlkGAEgASgFEhAKCHVzZXJuYW1lGAIgASgJEhAK",
-            "CG5pY2tuYW1lGAMgASgJEg0KBXJlYWR5GAQgASgIIiwKE1N0YXJ0R2FtZVJl",
-            "c3VsdFBhY2sSFQoNZmlyc3RQbGF5ZXJJZBgBIAEoBSIpChNGaW5pc2hPcGVy",
-            "YXRpb25QYWNrEhIKCnRvdGFsU2NvcmUYASADKAUiQQoUUGxheWVyU2NvcmVC",
-            "b2FyZFBhY2sSFQoNb3BlcmF0aW9uTGVmdBgBIAEoBRISCgpzY29yZUFycmF5",
-            "GAIgAygFIiEKCVJvdW5kUGFjaxIUCgxjdXJyZW50Um91bmQYASABKAUiRwoK",
-            "Q2xpZW50UGFjaxIQCghjbGllbnRJZBgBIAEoBRIQCghjbGllbnRJcBgCIAEo",
-            "CRIVCg11ZHBMaXN0ZW5Qb3J0GAMgASgFIj0KDVJldHVybk1lc3NhZ2USFAoM",
-            "ZXJyb3JNZXNzYWdlGAEgASgJEhYKDnN1Y2Nlc3NNZXNzYWdlGAIgASgJKksK",
-            "C1JlcXVlc3RDb2RlEg8KC1JlcXVlc3ROb25lEAASCAoEVXNlchABEg0KCUhl",
-            "YXJ0QmVhdBACEggKBFJvb20QAxIICgRHYW1lEAQqWwoMUmVzcG9uc2VDb2Rl",
-            "EhAKDFJlc3BvbnNlTm9uZRAAEhAKDFVzZXJSZXNwb25zZRABEhUKEUhlYXJ0",
-            "QmVhdFJlc3BvbnNlEAISEAoMUm9vbVJlc3BvbnNlEAMq/AEKCkFjdGlvbkNv",
-            "ZGUSDgoKQWN0aW9uTm9uZRAAEgoKBlNpZ25JbhABEgoKBlNpZ25VcBACEg4K",
-            "CkNyZWF0ZVJvb20QAxIOCgpTZWFyY2hSb29tEAQSEAoMQXNzaWduQ2xpZW50",
-            "EAUSDAoISm9pblJvb20QBhIPCgtQbGF5ZXJSZWFkeRAHEgwKCFF1aXRSb29t",
-            "EAgSDQoJU3RhcnRHYW1lEAkSEwoPRmluaXNoT3BlcmF0aW9uEAoSEgoOUmVh",
-            "ZHlTdGFydEdhbWUQCxIUChBVcGRhdGVQbGF5ZXJDb2luEAwSGQoVTG9hZEdh",
-            "bWVTY2VuZUNvbXBsZXRlEA0qMwoOUm9vbVZpc2liaWxpdHkSCAoETm9uZRAA",
-            "EgoKBlB1YmxpYxABEgsKB1ByaXZhdGUQAiozCgpSZXR1cm5Db2RlEg4KClJl",
-            "dHVybk5vbmUQABILCgdTdWNjZXNzEAESCAoERmFpbBACKmIKCUdhbWVTdGF0",
-            "ZRIOCgpOb3RTdGFydGVkEAASEAoMV2FpdGluZ1N0YXJ0EAESFAoQQ291bnRk",
-            "b3duVG9TdGFydBACEg8KC0dhbWVQbGF5aW5nEAMSDAoIR2FtZU92ZXIQBGIG",
-            "cHJvdG8z"));
+            "b2NrZXRQcm90b2NvbC5Sb3VuZFBhY2sSQAoTY2hhbmdlT3BlcmF0aW9uUGFj",
+            "axgWIAEoCzIjLlNvY2tldFByb3RvY29sLkNoYW5nZU9wZXJhdGlvblBhY2sS",
+            "MwoQY3VycmVudEdhbWVTdGF0ZRgXIAEoDjIZLlNvY2tldFByb3RvY29sLkdh",
+            "bWVTdGF0ZSIeCg5QbGF5ZXJDb2luUGFjaxIMCgRjb2luGAEgASgFIjAKClNp",
+            "Z25JblBhY2sSEAoIdXNlcm5hbWUYASABKAkSEAoIcGFzc3dvcmQYAiABKAki",
+            "QgoKU2lnblVwUGFjaxIQCgh1c2VybmFtZRgBIAEoCRIQCghwYXNzd29yZBgC",
+            "IAEoCRIQCghuaWNrbmFtZRgDIAEoCSJtCg5DcmVhdGVSb29tUGFjaxIQCghy",
+            "b29tTmFtZRgCIAEoCRI2Cg5yb29tVmlzaWJpbGl0eRgDIAEoDjIeLlNvY2tl",
+            "dFByb3RvY29sLlJvb21WaXNpYmlsaXR5EhEKCW1heFBsYXllchgEIAEoBSKV",
+            "AQoMUm9vbUluZm9QYWNrEhAKCHJvb21Db2RlGAEgASgJEhAKCHJvb21OYW1l",
+            "GAIgASgJEjYKDnJvb21WaXNpYmlsaXR5GAMgASgOMh4uU29ja2V0UHJvdG9j",
+            "b2wuUm9vbVZpc2liaWxpdHkSFgoOY3VycmVudFBsYXllcnMYBCABKAUSEQoJ",
+            "bWF4UGxheWVyGAUgASgFIkoKFFNlYXJjaFJvb21SZXN1bHRQYWNrEjIKDHJv",
+            "b21JbmZvTGlzdBgBIAMoCzIcLlNvY2tldFByb3RvY29sLlJvb21JbmZvUGFj",
+            "ayJUChJKb2luUm9vbVJlc3VsdFBhY2sSPgoScm9vbVBsYXllckluZm9MaXN0",
+            "GAEgAygLMiIuU29ja2V0UHJvdG9jb2wuUm9vbVBsYXllckluZm9QYWNrIiQK",
+            "E1Jvb21QbGF5ZXJSZWFkeVBhY2sSDQoFcmVhZHkYASABKAgiQAoOUGxheWVy",
+            "SW5mb1BhY2sSCgoCaWQYASABKAUSEAoIdXNlcm5hbWUYAiABKAkSEAoIbmlj",
+            "a25hbWUYAyABKAkiUwoSUm9vbVBsYXllckluZm9QYWNrEgoKAmlkGAEgASgF",
+            "EhAKCHVzZXJuYW1lGAIgASgJEhAKCG5pY2tuYW1lGAMgASgJEg0KBXJlYWR5",
+            "GAQgASgIIiwKE1N0YXJ0R2FtZVJlc3VsdFBhY2sSFQoNZmlyc3RQbGF5ZXJJ",
+            "ZBgBIAEoBSJAChNGaW5pc2hPcGVyYXRpb25QYWNrEhIKCnRvdGFsU2NvcmUY",
+            "ASADKAUSFQoNb3BlcmF0aW9uTGVmdBgCIAEoBSJOChNDaGFuZ2VPcGVyYXRp",
+            "b25QYWNrEiAKGGN1cnJlbnRPcGVyYXRpb25QbGF5ZXJJZBgBIAEoBRIVCg1v",
+            "cGVyYXRpb25MZWZ0GAIgASgFIkEKFFBsYXllclNjb3JlQm9hcmRQYWNrEhUK",
+            "DW9wZXJhdGlvbkxlZnQYASABKAUSEgoKc2NvcmVBcnJheRgCIAMoBSIhCglS",
+            "b3VuZFBhY2sSFAoMY3VycmVudFJvdW5kGAEgASgFIjUKCkNsaWVudFBhY2sS",
+            "EAoIY2xpZW50SWQYASABKAUSFQoNdWRwTGlzdGVuUG9ydBgDIAEoBSI9Cg1S",
+            "ZXR1cm5NZXNzYWdlEhQKDGVycm9yTWVzc2FnZRgBIAEoCRIWCg5zdWNjZXNz",
+            "TWVzc2FnZRgCIAEoCSpLCgtSZXF1ZXN0Q29kZRIPCgtSZXF1ZXN0Tm9uZRAA",
+            "EggKBFVzZXIQARINCglIZWFydEJlYXQQAhIICgRSb29tEAMSCAoER2FtZRAE",
+            "KlsKDFJlc3BvbnNlQ29kZRIQCgxSZXNwb25zZU5vbmUQABIQCgxVc2VyUmVz",
+            "cG9uc2UQARIVChFIZWFydEJlYXRSZXNwb25zZRACEhAKDFJvb21SZXNwb25z",
+            "ZRADKrcCCgpBY3Rpb25Db2RlEg4KCkFjdGlvbk5vbmUQABIKCgZTaWduSW4Q",
+            "ARIKCgZTaWduVXAQAhIOCgpDcmVhdGVSb29tEAMSDgoKU2VhcmNoUm9vbRAE",
+            "EhAKDEFzc2lnbkNsaWVudBAFEgwKCEpvaW5Sb29tEAYSDwoLUGxheWVyUmVh",
+            "ZHkQBxIMCghRdWl0Um9vbRAIEg0KCVN0YXJ0R2FtZRAJEhMKD0ZpbmlzaE9w",
+            "ZXJhdGlvbhAKEhIKDlJlYWR5U3RhcnRHYW1lEAsSFAoQVXBkYXRlUGxheWVy",
+            "Q29pbhAMEhkKFUxvYWRHYW1lU2NlbmVDb21wbGV0ZRANEhMKD0NoYW5nZUdh",
+            "bWVTdGF0ZRAOEg8KC0NoYW5nZVJvdW5kEA8SEwoPQ2hhbmdlT3BlcmF0aW9u",
+            "EBAqMwoOUm9vbVZpc2liaWxpdHkSCAoETm9uZRAAEgoKBlB1YmxpYxABEgsK",
+            "B1ByaXZhdGUQAiozCgpSZXR1cm5Db2RlEg4KClJldHVybk5vbmUQABILCgdT",
+            "dWNjZXNzEAESCAoERmFpbBACKmIKCUdhbWVTdGF0ZRIOCgpOb3RTdGFydGVk",
+            "EAASEAoMV2FpdGluZ1N0YXJ0EAESFAoQQ291bnRkb3duVG9TdGFydBACEg8K",
+            "C0dhbWVQbGF5aW5nEAMSDAoIR2FtZU92ZXIQBGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::SocketProtocol.RequestCode), typeof(global::SocketProtocol.ResponseCode), typeof(global::SocketProtocol.ActionCode), typeof(global::SocketProtocol.RoomVisibility), typeof(global::SocketProtocol.ReturnCode), typeof(global::SocketProtocol.GameState), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.HeartbeatPack), global::SocketProtocol.HeartbeatPack.Parser, new[]{ "Triggered", "Type", "Timestamp" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.MainPack), global::SocketProtocol.MainPack.Parser, new[]{ "Heartbeat", "RequestCode", "ResponseCode", "ActionCode", "ReturnCode", "SignInPack", "SignUpPack", "PlayerInfoPack", "ReturnMessage", "ClientPack", "CreateRoomPack", "RoomInfoPack", "SearchRoomResultPack", "RoomPlayerReadyPack", "JoinRoomResultPack", "RoomPlayerInfoPack", "StartGameResultPack", "FinishOperationPack", "PlayerScoreBoardPack", "RoundPack", "CurrentGameState" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.MainPack), global::SocketProtocol.MainPack.Parser, new[]{ "Heartbeat", "RequestCode", "ResponseCode", "ActionCode", "ReturnCode", "SignInPack", "SignUpPack", "PlayerInfoPack", "ReturnMessage", "ClientPack", "CreateRoomPack", "RoomInfoPack", "SearchRoomResultPack", "RoomPlayerReadyPack", "JoinRoomResultPack", "RoomPlayerInfoPack", "StartGameResultPack", "FinishOperationPack", "PlayerScoreBoardPack", "RoundPack", "ChangeOperationPack", "CurrentGameState" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.PlayerCoinPack), global::SocketProtocol.PlayerCoinPack.Parser, new[]{ "Coin" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.SignInPack), global::SocketProtocol.SignInPack.Parser, new[]{ "Username", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.SignUpPack), global::SocketProtocol.SignUpPack.Parser, new[]{ "Username", "Password", "Nickname" }, null, null, null, null),
@@ -108,10 +112,11 @@ namespace SocketProtocol {
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.PlayerInfoPack), global::SocketProtocol.PlayerInfoPack.Parser, new[]{ "Id", "Username", "Nickname" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.RoomPlayerInfoPack), global::SocketProtocol.RoomPlayerInfoPack.Parser, new[]{ "Id", "Username", "Nickname", "Ready" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.StartGameResultPack), global::SocketProtocol.StartGameResultPack.Parser, new[]{ "FirstPlayerId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.FinishOperationPack), global::SocketProtocol.FinishOperationPack.Parser, new[]{ "TotalScore" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.FinishOperationPack), global::SocketProtocol.FinishOperationPack.Parser, new[]{ "TotalScore", "OperationLeft" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.ChangeOperationPack), global::SocketProtocol.ChangeOperationPack.Parser, new[]{ "CurrentOperationPlayerId", "OperationLeft" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.PlayerScoreBoardPack), global::SocketProtocol.PlayerScoreBoardPack.Parser, new[]{ "OperationLeft", "ScoreArray" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.RoundPack), global::SocketProtocol.RoundPack.Parser, new[]{ "CurrentRound" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.ClientPack), global::SocketProtocol.ClientPack.Parser, new[]{ "ClientId", "ClientIp", "UdpListenPort" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.ClientPack), global::SocketProtocol.ClientPack.Parser, new[]{ "ClientId", "UdpListenPort" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::SocketProtocol.ReturnMessage), global::SocketProtocol.ReturnMessage.Parser, new[]{ "ErrorMessage", "SuccessMessage" }, null, null, null, null)
           }));
     }
@@ -149,6 +154,9 @@ namespace SocketProtocol {
     [pbr::OriginalName("ReadyStartGame")] ReadyStartGame = 11,
     [pbr::OriginalName("UpdatePlayerCoin")] UpdatePlayerCoin = 12,
     [pbr::OriginalName("LoadGameSceneComplete")] LoadGameSceneComplete = 13,
+    [pbr::OriginalName("ChangeGameState")] ChangeGameState = 14,
+    [pbr::OriginalName("ChangeRound")] ChangeRound = 15,
+    [pbr::OriginalName("ChangeOperation")] ChangeOperation = 16,
   }
 
   public enum RoomVisibility {
@@ -507,6 +515,7 @@ namespace SocketProtocol {
       finishOperationPack_ = other.finishOperationPack_ != null ? other.finishOperationPack_.Clone() : null;
       playerScoreBoardPack_ = other.playerScoreBoardPack_ != null ? other.playerScoreBoardPack_.Clone() : null;
       roundPack_ = other.roundPack_ != null ? other.roundPack_.Clone() : null;
+      changeOperationPack_ = other.changeOperationPack_ != null ? other.changeOperationPack_.Clone() : null;
       currentGameState_ = other.currentGameState_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -757,8 +766,20 @@ namespace SocketProtocol {
       }
     }
 
+    /// <summary>Field number for the "changeOperationPack" field.</summary>
+    public const int ChangeOperationPackFieldNumber = 22;
+    private global::SocketProtocol.ChangeOperationPack changeOperationPack_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::SocketProtocol.ChangeOperationPack ChangeOperationPack {
+      get { return changeOperationPack_; }
+      set {
+        changeOperationPack_ = value;
+      }
+    }
+
     /// <summary>Field number for the "currentGameState" field.</summary>
-    public const int CurrentGameStateFieldNumber = 22;
+    public const int CurrentGameStateFieldNumber = 23;
     private global::SocketProtocol.GameState currentGameState_ = global::SocketProtocol.GameState.NotStarted;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -804,6 +825,7 @@ namespace SocketProtocol {
       if (!object.Equals(FinishOperationPack, other.FinishOperationPack)) return false;
       if (!object.Equals(PlayerScoreBoardPack, other.PlayerScoreBoardPack)) return false;
       if (!object.Equals(RoundPack, other.RoundPack)) return false;
+      if (!object.Equals(ChangeOperationPack, other.ChangeOperationPack)) return false;
       if (CurrentGameState != other.CurrentGameState) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -832,6 +854,7 @@ namespace SocketProtocol {
       if (finishOperationPack_ != null) hash ^= FinishOperationPack.GetHashCode();
       if (playerScoreBoardPack_ != null) hash ^= PlayerScoreBoardPack.GetHashCode();
       if (roundPack_ != null) hash ^= RoundPack.GetHashCode();
+      if (changeOperationPack_ != null) hash ^= ChangeOperationPack.GetHashCode();
       if (CurrentGameState != global::SocketProtocol.GameState.NotStarted) hash ^= CurrentGameState.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -931,8 +954,12 @@ namespace SocketProtocol {
         output.WriteRawTag(170, 1);
         output.WriteMessage(RoundPack);
       }
+      if (changeOperationPack_ != null) {
+        output.WriteRawTag(178, 1);
+        output.WriteMessage(ChangeOperationPack);
+      }
       if (CurrentGameState != global::SocketProtocol.GameState.NotStarted) {
-        output.WriteRawTag(176, 1);
+        output.WriteRawTag(184, 1);
         output.WriteEnum((int) CurrentGameState);
       }
       if (_unknownFields != null) {
@@ -1025,8 +1052,12 @@ namespace SocketProtocol {
         output.WriteRawTag(170, 1);
         output.WriteMessage(RoundPack);
       }
+      if (changeOperationPack_ != null) {
+        output.WriteRawTag(178, 1);
+        output.WriteMessage(ChangeOperationPack);
+      }
       if (CurrentGameState != global::SocketProtocol.GameState.NotStarted) {
-        output.WriteRawTag(176, 1);
+        output.WriteRawTag(184, 1);
         output.WriteEnum((int) CurrentGameState);
       }
       if (_unknownFields != null) {
@@ -1098,6 +1129,9 @@ namespace SocketProtocol {
       }
       if (roundPack_ != null) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(RoundPack);
+      }
+      if (changeOperationPack_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(ChangeOperationPack);
       }
       if (CurrentGameState != global::SocketProtocol.GameState.NotStarted) {
         size += 2 + pb::CodedOutputStream.ComputeEnumSize((int) CurrentGameState);
@@ -1221,6 +1255,12 @@ namespace SocketProtocol {
           RoundPack = new global::SocketProtocol.RoundPack();
         }
         RoundPack.MergeFrom(other.RoundPack);
+      }
+      if (other.changeOperationPack_ != null) {
+        if (changeOperationPack_ == null) {
+          ChangeOperationPack = new global::SocketProtocol.ChangeOperationPack();
+        }
+        ChangeOperationPack.MergeFrom(other.ChangeOperationPack);
       }
       if (other.CurrentGameState != global::SocketProtocol.GameState.NotStarted) {
         CurrentGameState = other.CurrentGameState;
@@ -1372,7 +1412,14 @@ namespace SocketProtocol {
             input.ReadMessage(RoundPack);
             break;
           }
-          case 176: {
+          case 178: {
+            if (changeOperationPack_ == null) {
+              ChangeOperationPack = new global::SocketProtocol.ChangeOperationPack();
+            }
+            input.ReadMessage(ChangeOperationPack);
+            break;
+          }
+          case 184: {
             CurrentGameState = (global::SocketProtocol.GameState) input.ReadEnum();
             break;
           }
@@ -1523,7 +1570,14 @@ namespace SocketProtocol {
             input.ReadMessage(RoundPack);
             break;
           }
-          case 176: {
+          case 178: {
+            if (changeOperationPack_ == null) {
+              ChangeOperationPack = new global::SocketProtocol.ChangeOperationPack();
+            }
+            input.ReadMessage(ChangeOperationPack);
+            break;
+          }
+          case 184: {
             CurrentGameState = (global::SocketProtocol.GameState) input.ReadEnum();
             break;
           }
@@ -4244,6 +4298,7 @@ namespace SocketProtocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public FinishOperationPack(FinishOperationPack other) : this() {
       totalScore_ = other.totalScore_.Clone();
+      operationLeft_ = other.operationLeft_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -4264,6 +4319,18 @@ namespace SocketProtocol {
       get { return totalScore_; }
     }
 
+    /// <summary>Field number for the "operationLeft" field.</summary>
+    public const int OperationLeftFieldNumber = 2;
+    private int operationLeft_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int OperationLeft {
+      get { return operationLeft_; }
+      set {
+        operationLeft_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -4280,6 +4347,7 @@ namespace SocketProtocol {
         return true;
       }
       if(!totalScore_.Equals(other.totalScore_)) return false;
+      if (OperationLeft != other.OperationLeft) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -4288,6 +4356,7 @@ namespace SocketProtocol {
     public override int GetHashCode() {
       int hash = 1;
       hash ^= totalScore_.GetHashCode();
+      if (OperationLeft != 0) hash ^= OperationLeft.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -4307,6 +4376,10 @@ namespace SocketProtocol {
       output.WriteRawMessage(this);
     #else
       totalScore_.WriteTo(output, _repeated_totalScore_codec);
+      if (OperationLeft != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(OperationLeft);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -4318,6 +4391,10 @@ namespace SocketProtocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       totalScore_.WriteTo(ref output, _repeated_totalScore_codec);
+      if (OperationLeft != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(OperationLeft);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -4329,6 +4406,9 @@ namespace SocketProtocol {
     public int CalculateSize() {
       int size = 0;
       size += totalScore_.CalculateSize(_repeated_totalScore_codec);
+      if (OperationLeft != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(OperationLeft);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -4342,6 +4422,9 @@ namespace SocketProtocol {
         return;
       }
       totalScore_.Add(other.totalScore_);
+      if (other.OperationLeft != 0) {
+        OperationLeft = other.OperationLeft;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -4364,6 +4447,10 @@ namespace SocketProtocol {
           case 10:
           case 8: {
             totalScore_.AddEntriesFrom(input, _repeated_totalScore_codec);
+            break;
+          }
+          case 16: {
+            OperationLeft = input.ReadInt32();
             break;
           }
         }
@@ -4390,6 +4477,245 @@ namespace SocketProtocol {
             totalScore_.AddEntriesFrom(ref input, _repeated_totalScore_codec);
             break;
           }
+          case 16: {
+            OperationLeft = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class ChangeOperationPack : pb::IMessage<ChangeOperationPack>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ChangeOperationPack> _parser = new pb::MessageParser<ChangeOperationPack>(() => new ChangeOperationPack());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ChangeOperationPack> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[14]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeOperationPack() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeOperationPack(ChangeOperationPack other) : this() {
+      currentOperationPlayerId_ = other.currentOperationPlayerId_;
+      operationLeft_ = other.operationLeft_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ChangeOperationPack Clone() {
+      return new ChangeOperationPack(this);
+    }
+
+    /// <summary>Field number for the "currentOperationPlayerId" field.</summary>
+    public const int CurrentOperationPlayerIdFieldNumber = 1;
+    private int currentOperationPlayerId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CurrentOperationPlayerId {
+      get { return currentOperationPlayerId_; }
+      set {
+        currentOperationPlayerId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "operationLeft" field.</summary>
+    public const int OperationLeftFieldNumber = 2;
+    private int operationLeft_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int OperationLeft {
+      get { return operationLeft_; }
+      set {
+        operationLeft_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ChangeOperationPack);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ChangeOperationPack other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (CurrentOperationPlayerId != other.CurrentOperationPlayerId) return false;
+      if (OperationLeft != other.OperationLeft) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (CurrentOperationPlayerId != 0) hash ^= CurrentOperationPlayerId.GetHashCode();
+      if (OperationLeft != 0) hash ^= OperationLeft.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (CurrentOperationPlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(CurrentOperationPlayerId);
+      }
+      if (OperationLeft != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(OperationLeft);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (CurrentOperationPlayerId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(CurrentOperationPlayerId);
+      }
+      if (OperationLeft != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(OperationLeft);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (CurrentOperationPlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrentOperationPlayerId);
+      }
+      if (OperationLeft != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(OperationLeft);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ChangeOperationPack other) {
+      if (other == null) {
+        return;
+      }
+      if (other.CurrentOperationPlayerId != 0) {
+        CurrentOperationPlayerId = other.CurrentOperationPlayerId;
+      }
+      if (other.OperationLeft != 0) {
+        OperationLeft = other.OperationLeft;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            CurrentOperationPlayerId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            OperationLeft = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            CurrentOperationPlayerId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            OperationLeft = input.ReadInt32();
+            break;
+          }
         }
       }
     }
@@ -4412,7 +4738,7 @@ namespace SocketProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[14]; }
+      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4638,7 +4964,7 @@ namespace SocketProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[15]; }
+      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4836,7 +5162,7 @@ namespace SocketProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[16]; }
+      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4857,7 +5183,6 @@ namespace SocketProtocol {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ClientPack(ClientPack other) : this() {
       clientId_ = other.clientId_;
-      clientIp_ = other.clientIp_;
       udpListenPort_ = other.udpListenPort_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -4880,21 +5205,12 @@ namespace SocketProtocol {
       }
     }
 
-    /// <summary>Field number for the "clientIp" field.</summary>
-    public const int ClientIpFieldNumber = 2;
-    private string clientIp_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ClientIp {
-      get { return clientIp_; }
-      set {
-        clientIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "udpListenPort" field.</summary>
     public const int UdpListenPortFieldNumber = 3;
     private int udpListenPort_;
+    /// <summary>
+    ///	string clientIp = 2;
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int UdpListenPort {
@@ -4920,7 +5236,6 @@ namespace SocketProtocol {
         return true;
       }
       if (ClientId != other.ClientId) return false;
-      if (ClientIp != other.ClientIp) return false;
       if (UdpListenPort != other.UdpListenPort) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -4930,7 +5245,6 @@ namespace SocketProtocol {
     public override int GetHashCode() {
       int hash = 1;
       if (ClientId != 0) hash ^= ClientId.GetHashCode();
-      if (ClientIp.Length != 0) hash ^= ClientIp.GetHashCode();
       if (UdpListenPort != 0) hash ^= UdpListenPort.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -4954,10 +5268,6 @@ namespace SocketProtocol {
         output.WriteRawTag(8);
         output.WriteInt32(ClientId);
       }
-      if (ClientIp.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(ClientIp);
-      }
       if (UdpListenPort != 0) {
         output.WriteRawTag(24);
         output.WriteInt32(UdpListenPort);
@@ -4976,10 +5286,6 @@ namespace SocketProtocol {
         output.WriteRawTag(8);
         output.WriteInt32(ClientId);
       }
-      if (ClientIp.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(ClientIp);
-      }
       if (UdpListenPort != 0) {
         output.WriteRawTag(24);
         output.WriteInt32(UdpListenPort);
@@ -4996,9 +5302,6 @@ namespace SocketProtocol {
       int size = 0;
       if (ClientId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ClientId);
-      }
-      if (ClientIp.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ClientIp);
       }
       if (UdpListenPort != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(UdpListenPort);
@@ -5017,9 +5320,6 @@ namespace SocketProtocol {
       }
       if (other.ClientId != 0) {
         ClientId = other.ClientId;
-      }
-      if (other.ClientIp.Length != 0) {
-        ClientIp = other.ClientIp;
       }
       if (other.UdpListenPort != 0) {
         UdpListenPort = other.UdpListenPort;
@@ -5045,10 +5345,6 @@ namespace SocketProtocol {
             break;
           case 8: {
             ClientId = input.ReadInt32();
-            break;
-          }
-          case 18: {
-            ClientIp = input.ReadString();
             break;
           }
           case 24: {
@@ -5078,10 +5374,6 @@ namespace SocketProtocol {
             ClientId = input.ReadInt32();
             break;
           }
-          case 18: {
-            ClientIp = input.ReadString();
-            break;
-          }
           case 24: {
             UdpListenPort = input.ReadInt32();
             break;
@@ -5108,7 +5400,7 @@ namespace SocketProtocol {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[17]; }
+      get { return global::SocketProtocol.SocketProtocolReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

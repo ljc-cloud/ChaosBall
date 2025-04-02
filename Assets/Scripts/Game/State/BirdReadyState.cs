@@ -1,5 +1,7 @@
 using ChaosBall.Inputs;
+using ChaosBall.Math;
 using ChaosBall.Net;
+using ChaosBall.UI;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -16,12 +18,15 @@ namespace ChaosBall.Game.State
         private readonly float _mMaxShootForce;
         private readonly float _mReadyShootDuration;
         
+        private ArrowForceUI _mArrowForceUI;
+        
         public BirdReadyState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity,
-            float minShootForce, float maxShootForce, float readyShootDuration) : base(birdStateManager, targetTransform, entity)
+            float minShootForce, float maxShootForce, float readyShootDuration, ArrowForceUI arrowForceUI) : base(birdStateManager, targetTransform, entity)
         {
             _mMinShootForce = minShootForce;
             _mMaxShootForce = maxShootForce;
             _mReadyShootDuration = readyShootDuration;
+            _mArrowForceUI = arrowForceUI;
         }
 
         public override void Enter()
@@ -34,17 +39,24 @@ namespace ChaosBall.Game.State
 
             if (Entity.IsLocal)
             {
-                ChaosBallInputRegister.Instance.OnPlayerShoot += PlayerShoot;
-                ChaosBallInputRegister.Instance.OnPlayerQuitShoot += PlayerQuitShoot;
+                ChaosBallInputRegister.Instance.OnPlayerShoot += Shoot;
+                ChaosBallInputRegister.Instance.OnPlayerQuitShoot += QuitShoot;
             }
         }
         
-        private void PlayerShoot()
+        private void Shoot()
         {
             if (_mQuitReady) return;
+            // if (Entity.IsLocal)
+            // {
+            //     Vector3 localDirection = _mBirdStateManager.GetDirection();
+            //     float localForce = Entity.localShootForce;
+            //     Entity.localShootDirection = localDirection;
+            //     Entity.localShootForce = localForce;
+            // }
             _mBirdStateManager.ChangeState(BirdStateEnum.Shoot);
         }
-        private void PlayerQuitShoot()
+        private void QuitShoot()
         {
             _mQuitReady = true;
             _mBirdStateManager.ChangeState(BirdStateEnum.UnReady);
@@ -52,6 +64,10 @@ namespace ChaosBall.Game.State
 
         public override void Update()
         {
+            if (!Entity.IsLocal)
+            {
+                ListenRemote();
+            }
             CalculateShootForce();
         }
 
@@ -61,10 +77,10 @@ namespace ChaosBall.Game.State
             switch (playerInputType)
             {
                 case GameFrameSyncManager.PlayerInputType.Shoot:
-                    PlayerShoot();
+                    Shoot();
                     break;
                 case GameFrameSyncManager.PlayerInputType.QuitReady:
-                    PlayerQuitShoot();
+                    QuitShoot();
                     break;
                 default: break;
             }
@@ -82,15 +98,20 @@ namespace ChaosBall.Game.State
             
             float force = _mReverse? Mathf.Lerp(_mMaxShootForce, _mMinShootForce, _mTimer / _mReadyShootDuration)
                 : Mathf.Lerp(_mMinShootForce, _mMaxShootForce, _mTimer / _mReadyShootDuration);
-            _mBirdStateManager.SetShootForce(force);
-            
+            if (Entity.IsLocal)
+            {
+                Entity.localShootForce = force;
+            }
+
+            float forceNormalized = force / _mMaxShootForce;
+            _mArrowForceUI.SetForceNormalized(forceNormalized);
         }
         
         public override void Exit()
         {
             Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Ready State Exit");
-            ChaosBallInputRegister.Instance.OnPlayerShoot -= PlayerShoot;
-            ChaosBallInputRegister.Instance.OnPlayerQuitShoot -= PlayerQuitShoot;
+            ChaosBallInputRegister.Instance.OnPlayerShoot -= Shoot;
+            ChaosBallInputRegister.Instance.OnPlayerQuitShoot -= QuitShoot;
         }
     }
 }

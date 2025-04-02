@@ -1,5 +1,6 @@
 using ChaosBall.Inputs;
 using ChaosBall.Net;
+using ChaosBall.UI;
 using UnityEngine;
 
 namespace ChaosBall.Game.State
@@ -11,7 +12,9 @@ namespace ChaosBall.Game.State
     {
         private Vector2 _mMoveVector;
         private readonly float _mSpeed;
-        public BirdUnReadyState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, float speed) 
+        
+        public BirdUnReadyState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity
+            , float speed) 
             : base(birdStateManager, targetTransform, entity)
         {
             _mSpeed = speed;
@@ -24,7 +27,7 @@ namespace ChaosBall.Game.State
             _mBirdStateManager.BirdAnimation.PlayIdle();
             _mBirdStateManager.ArrowForceUI.SetReady(false);
 
-            if (_mBirdStateManager.IsLocal)
+            if (Entity.IsLocal)
             {
                 ChaosBallInputRegister.Instance.OnPlayerChangePosition += BirdChangePosition;
                 ChaosBallInputRegister.Instance.OnPlayerStop += BirdMoveStop;
@@ -47,17 +50,15 @@ namespace ChaosBall.Game.State
 
         public override void Update()
         {
-            if (!_mBirdStateManager.IsLocal)
+            if (!Entity.IsLocal)
             {
                 ListenRemote();
             }
             DoMove();
-            
         }
 
         private void ListenRemote()
         {
-            // Debug.Log($"player:{_mBirdStateManager.Entity.playerId} do {_mBirdStateManager.Entity.playerInputType}");
             GameFrameSyncManager.PlayerInputType playerInputType = Entity.playerInputType;
             switch (playerInputType)
             {
@@ -67,16 +68,12 @@ namespace ChaosBall.Game.State
                 case GameFrameSyncManager.PlayerInputType.Ready: 
                     _mBirdStateManager.ChangeState(BirdStateEnum.Ready);
                     break;
-                default: break;
             }
-            
-            // Debug.Log($"player:{_mBirdStateManager.Entity.playerId} currenPos: {_mBirdStateManager.Entity.playerPosition}");
-            //
-            // if (Mathf.Abs(_mTargetTransform.position.sqrMagnitude - _mBirdStateManager.Entity.playerPosition.sqrMagnitude) > 0.1f)
-            // {
-            //     _mTargetTransform.position = Vector3.Lerp(_mTargetTransform.position, _mBirdStateManager.Entity.playerPosition
-            //         , 1f / 10);
-            // }
+            // TODO: 移动插值
+            Vector3 birdPosition = Entity.birdPosition;
+            Debug.Log($"Lerp Position: {birdPosition}");
+            _mTargetTransform.position =
+                Vector3.Lerp(_mTargetTransform.position, birdPosition, 0.5f * Time.deltaTime);
         }
 
         private void DoMove()
@@ -91,7 +88,7 @@ namespace ChaosBall.Game.State
                 _mBirdStateManager.BirdAnimation.PlayMoveL();
             }
         }
-
+        
         public override void Exit()
         {
             Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Unready State Exit");

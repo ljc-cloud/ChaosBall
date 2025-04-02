@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
+using ChaosBall.Event.Game;
 using ChaosBall.Game.State;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ChaosBall.Game
@@ -21,11 +21,6 @@ namespace ChaosBall.Game
         private IBirdCollideBehaviour _mBirdCollideBehaviour;
 
         public Vector3 LastVelocity { get; private set; }
-        public event Action<Area> OnBirdStayInArea;
-        public event Action<Area> OnBirdEnterArea;
-        public event Action<Area> OnBirdExitArea;
-        
-        // public event Action<Collision> OnCollideOtherBird;
         
         private void Awake()
         {
@@ -92,35 +87,47 @@ namespace ChaosBall.Game
 
         private void OnTriggerEnter(Collider other)
         {
-            
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (_mBirdStateManager.Initialized && _mBirdStateManager.CurrentState.State is 
-                    (BirdState.BirdStateEnum.Stop or BirdState.BirdStateEnum.Count) && 
-                other.gameObject.layer == GameAssets.AREA_LAYER)
+            if (other.gameObject.layer == GameAssets.AREA_LAYER)
             {
-                float areaLayerDetectOffset = .5f;
-                int size = Physics.OverlapSphereNonAlloc(transform.position + Vector3.up * _mBirdRadius
-                    , _mBirdRadius + areaLayerDetectOffset, _mAreaTriggerArray
-                    , 1 << GameAssets.AREA_LAYER, QueryTriggerInteraction.Collide);
-                if (size == 0)
+                Area area = other.transform.GetComponent<Area>();
+                GameInterface.Interface.EventSystem.Publish(new BirdEnterAreaEvent
                 {
-                    Debug.LogError("Not Collide With Area!");
-                    return;
-                }
-                Area[] areaArray = _mAreaTriggerArray.Select(item => item?.transform.GetComponent<Area>()).ToArray();
-                
-                Array.Sort(areaArray);
-                Area correctArea = areaArray[^1];
-                OnBirdStayInArea?.Invoke(correctArea);
+                    area = area,
+                });
             }
         }
 
+        // private void OnTriggerStay(Collider other)
+        // {
+        //     if (_mBirdStateManager.Initialized && _mBirdStateManager.CurrentState.State is 
+        //             (BirdState.BirdStateEnum.Stop or BirdState.BirdStateEnum.Count) && 
+        //         other.gameObject.layer == GameAssets.AREA_LAYER)
+        //     {
+        //         float areaLayerDetectOffset = .5f;
+        //         int size = Physics.OverlapSphereNonAlloc(transform.position + Vector3.up * _mBirdRadius
+        //             , _mBirdRadius + areaLayerDetectOffset, _mAreaTriggerArray
+        //             , 1 << GameAssets.AREA_LAYER, QueryTriggerInteraction.Collide);
+        //         if (size == 0)
+        //         {
+        //             Debug.LogError("Not Collide With Area!");
+        //             return;
+        //         }
+        //         Area[] areaArray = _mAreaTriggerArray.Select(item => item?.transform.GetComponent<Area>()).ToArray();
+        //         
+        //         Array.Sort(areaArray);
+        //         Area correctArea = areaArray[^1];
+        //         GameInterface.Interface.EventSystem.Publish(new BirdStayInAreaEvent { area = correctArea });
+        //         // OnBirdStayInArea?.Invoke(correctArea);
+        //     }
+        // }
+
         private void OnTriggerExit(Collider other)
         {
-            
+            if (other.gameObject.layer == GameAssets.AREA_LAYER)
+            {
+                Area area = other.transform.GetComponent<Area>();
+                GameInterface.Interface.EventSystem.Publish(new BirdExitAreaEvent());
+            }
         }
 
         private void OnDrawGizmos()

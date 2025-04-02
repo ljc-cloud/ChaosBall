@@ -1,5 +1,9 @@
 using System;
+using System.Runtime.InteropServices;
+using ChaosBall.Event.Game;
+using ChaosBall.Utility;
 using SocketProtocol;
+using UnityEngine;
 
 namespace ChaosBall.Net.Request
 {
@@ -11,20 +15,18 @@ namespace ChaosBall.Net.Request
             Action = ActionCode.LoadGameSceneComplete;
         }
 
+        private GameState _mChangeState;
+
         protected override void HandleServerSuccessResponse(MainPack pack)
         {
-            // KitchenGameManager.Instance.SetCurrentGameState(KitchenGameManager.State.CountdownToStart);
-
-            GameState gameState = Enum.Parse<GameState>(pack.CurrentGameState.ToString());
-            GameManager.Instance.SetCurrentGameState(gameState);
+            Debug.Log("LoadGameSceneCompleteRequest:LoadGameScene...");
+            base.HandleServerSuccessResponse(pack);
             int? firstPlayerId = pack.StartGameResultPack?.FirstPlayerId;
             
             if (firstPlayerId.HasValue)
             {
                 GameManager.Instance.SetFirst(firstPlayerId.Value);
             }
-            
-            base.HandleServerSuccessResponse(pack);
         }
         
         protected override void HandleServerFailResponse(MainPack pack)
@@ -38,7 +40,10 @@ namespace ChaosBall.Net.Request
             string roomCode = GameInterface.Interface.RoomManager.CurrentRoomInfo.roomCode;
 
             PlayerInfoPack playerInfoPack = new PlayerInfoPack { Id = playerId };
-            RoomInfoPack roomInfoPack = new RoomInfoPack { RoomCode = roomCode };
+            RoomInfoPack roomInfoPack = new RoomInfoPack
+            {
+                RoomCode = CharsetUtil.DefaultToUTF8(roomCode),
+            };
             MainPack mainPack = new MainPack
             {
                 RequestCode = Request,

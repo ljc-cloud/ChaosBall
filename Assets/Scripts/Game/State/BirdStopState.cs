@@ -1,3 +1,4 @@
+using ChaosBall.Event.Game;
 using ChaosBall.Net;
 using UnityEngine;
 
@@ -24,10 +25,11 @@ namespace ChaosBall.Game.State
             
             _mBirdStopBehaviour?.OnStop();
             
-            if (FromStateEnum is BirdStateEnum.Shoot or BirdStateEnum.Effected or BirdStateEnum.Collided)
-            {
-                _mBirdStateManager.ChangeState(BirdStateEnum.Count);
-            }
+            GameInterface.Interface.EventSystem.Publish<BirdStopEvent>();
+            // if (FromStateEnum is BirdStateEnum.Shoot or BirdStateEnum.Effected or BirdStateEnum.Collided)
+            // {
+            //     _mBirdStateManager.ChangeState(BirdStateEnum.Count);
+            // }
         }
 
         public override void Update()

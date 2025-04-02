@@ -768,7 +768,7 @@ namespace CartoonFX
 			GUILayout.Space(8);
 
 			//Resize window if needed
-			if (Event.current.type == EventType.Repaint)
+			if (UnityEngine.Event.current.type == EventType.Repaint)
 			{
 				float h = GUILayoutUtility.GetLastRect().yMax;
 				if (lastHeight != h)
@@ -1858,7 +1858,8 @@ namespace CartoonFX
 		{
 			Rect position = GUILayoutUtility.GetRect(0f, float.MaxValue, height, height, LineStyle);
 
-			if (Event.current.type == EventType.Repaint)
+			
+			if (UnityEngine.Event.current.type == EventType.Repaint)
 			{
 				Color orgColor = GUI.color;
 				GUI.color = orgColor * color;

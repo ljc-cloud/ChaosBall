@@ -151,6 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42cb19d2daa44a641a8242b52d74123a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  birdPrefabArray:
+  - {fileID: 6366080408650949703, guid: 548ea121b71c0d54aa3ae22a9596bc94, type: 3}
+  - {fileID: 6366080408650949703, guid: 548ea121b71c0d54aa3ae22a9596bc94, type: 3}
+  - {fileID: 6366080408650949703, guid: 548ea121b71c0d54aa3ae22a9596bc94, type: 3}
+  - {fileID: 6366080408650949703, guid: 548ea121b71c0d54aa3ae22a9596bc94, type: 3}
 --- !u!4 &79865474
 Transform:
   m_ObjectHideFlags: 0
@@ -678,8 +683,6 @@ MonoBehaviour:
   uiPanelSoListSo: {fileID: 11400000, guid: c89859747d90e424a98d23b88b0ff8cc, type: 2}
   serverIP: 192.168.31.206
   serverPort: 8080
-  playerPrefab: {fileID: 6366080408650949703, guid: 548ea121b71c0d54aa3ae22a9596bc94,
-    type: 3}
 --- !u!4 &1266983530
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChaosBall.Event;
 using ChaosBall.Model;
 using ChaosBall.Net.Request;
 using UnityEngine;
@@ -14,11 +15,11 @@ namespace ChaosBall
         public List<RoomPlayerInfo> RoomPlayerList { get; private set; }
         public List<int> RoomClientIdList { get; private set; }
         
-        public event Action<RoomPlayerInfo> OnRoomPlayerJoin;
-        public event Action<RoomPlayerInfo> OnRoomPlayerQuit;
-        public event Action<RoomPlayerInfo> OnRoomPlayerReadyChanged;
+        // public event Action<RoomPlayerInfo> OnRoomPlayerJoin;
+        // public event Action<RoomPlayerInfo> OnRoomPlayerQuit;
+        // public event Action<RoomPlayerInfo> OnRoomPlayerReadyChanged;
 
-        public event Action OnRoomPlayerAllReady;
+        // public event Action OnRoomPlayerAllReady;
 
         public RoomManager()
         {
@@ -45,36 +46,38 @@ namespace ChaosBall
 
         public void JoinRoom(RoomInfo roomInfo, List<RoomPlayerInfo> roomPlayerList)
         {
-            JoinedRoom = true;
+            Debug.Log($"JoinRoom::CurrentRoomInfo: {CurrentRoomInfo}");
             CurrentRoomInfo = roomInfo;
+            JoinedRoom = true;
             RoomPlayerList = roomPlayerList;
         }
 
         public void AddAllRoomPlayer(RoomInfo roomInfo, List<RoomPlayerInfo> roomPlayerList)
         {
-            JoinedRoom = true;
             CurrentRoomInfo = roomInfo;
+            JoinedRoom = true;
             RoomPlayerList = roomPlayerList;
         }
 
         public void JoinNewRoomPlayer(RoomPlayerInfo roomPlayerInfo)
         {
-            Debug.Log("JoinNewRoomPlayer!!!");
+            Debug.Log($"JoinNewRoomPlayer::CurrentRoomInfo: {CurrentRoomInfo}");
             RoomPlayerList.Add(roomPlayerInfo);
-
-            Debug.Log("触发JoinRoom!!!");
-            OnRoomPlayerJoin?.Invoke(roomPlayerInfo);
+            // OnRoomPlayerJoin?.Invoke(roomPlayerInfo);
+            GameInterface.Interface.EventSystem.Publish(new RoomPlayerJoinEvent{ roomPlayerInfo = roomPlayerInfo});
         }
 
         public void RoomPlayerReady(int playerId, bool ready)
         {
             RoomPlayerInfo roomPlayerInfo = RoomPlayerList.Find(item => item.id == playerId);
             roomPlayerInfo.ready = ready;
-            OnRoomPlayerReadyChanged?.Invoke(roomPlayerInfo);
+            GameInterface.Interface.EventSystem.Publish(new RoomPlayerReadyChangeEvent { roomPlayerInfo = roomPlayerInfo });
+            // OnRoomPlayerReadyChanged?.Invoke(roomPlayerInfo);
             bool allReady = RoomPlayerList.All(item => item.ready);
             if (allReady)
             {
-                OnRoomPlayerAllReady?.Invoke();
+                GameInterface.Interface.EventSystem.Publish<RoomPlayerAllReadyEvent>();
+                // OnRoomPlayerAllReady?.Invoke();
             }
         }
 
@@ -88,8 +91,9 @@ namespace ChaosBall
             }
             RoomPlayerInfo roomPlayerInfo = RoomPlayerList.Find(item => item.id == playerId);
             RoomPlayerList.Remove(roomPlayerInfo);
-
-            OnRoomPlayerQuit?.Invoke(roomPlayerInfo);
+            
+            GameInterface.Interface.EventSystem.Publish(new RoomPlayerQuitEvent { roomPlayerInfo = roomPlayerInfo });
+            // OnRoomPlayerQuit?.Invoke(roomPlayerInfo);
         }
     }
 }

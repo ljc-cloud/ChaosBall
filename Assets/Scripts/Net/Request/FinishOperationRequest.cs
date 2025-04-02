@@ -1,4 +1,5 @@
 using System.Linq;
+using ChaosBall.Utility;
 using SocketProtocol;
 
 namespace ChaosBall.Net.Request
@@ -21,10 +22,8 @@ namespace ChaosBall.Net.Request
             int operationLeft = playerScoreBoardPack.OperationLeft;
             int[] scoreArray = playerScoreBoardPack.ScoreArray.ToArray();
 
-            int currentRound = pack.RoundPack.CurrentRound;
-
             GameManager.Instance.UpdatePlayerScoreBoard(playerId, operationLeft, scoreArray);
-            GameManager.Instance.ChangeCurrentRound(currentRound);
+            // GameManager.Instance.ChangeCurrentRound(currentRound);
         }
 
         protected override void HandleServerFailResponse(MainPack pack)
@@ -37,8 +36,9 @@ namespace ChaosBall.Net.Request
             int localPlayerId = GameInterface.Interface.LocalPlayerInfo.id;
 
             PlayerInfoPack playerInfoPack = new PlayerInfoPack { Id = localPlayerId };
+            string roomCode = GameInterface.Interface.RoomManager.CurrentRoomInfo.roomCode;
             RoomInfoPack roomInfoPack = new RoomInfoPack
-                { RoomCode = GameInterface.Interface.RoomManager.CurrentRoomInfo.roomCode };
+                { RoomCode = CharsetUtil.DefaultToUTF8(roomCode) };
 
             FinishOperationPack finishOperationPack = new FinishOperationPack{ TotalScore = { totalScore }};
 

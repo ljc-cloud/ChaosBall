@@ -21,6 +21,7 @@ namespace ChaosBall.Net
         private Timer _mSendHeartbeatTimer;
         private Timer _mCheckHeartbeatTimer;
         private Timer _mReconnectTimer;
+        private int _mReconnectCount = 0;
         
         public int ClientId { get; private set; }
         public string ClientIp { get; private set; }
@@ -66,6 +67,13 @@ namespace ChaosBall.Net
                 _mCheckHeartbeatTimer.Elapsed += CheckHeartbeatTimeout;
                 _mCheckHeartbeatTimer.Start();
 
+                _mReconnectTimer = new Timer(GameAssets.RECONNECT_INTERVAL_MS)
+                {
+                    AutoReset = true,
+                    Enabled = false
+                };
+                _mReconnectTimer.Elapsed += HandleReconnect;
+
                 StartReceive();
             }
             catch (SocketException e)
@@ -85,58 +93,46 @@ namespace ChaosBall.Net
             {
                 Debug.Log("服务器心跳未返回，尝试重新连接");
                 CloseSocket();
+                
                 ReConnectSocket();
             }
         }
 
         private void ReConnectSocket()
         {
-            int reconnect = 5;
-            int reconnectInterval = 5000;
-            _mReconnectTimer = new Timer(reconnectInterval)
+            _mReconnectTimer.Start();
+        }
+        private void HandleReconnect(object sender, ElapsedEventArgs e)
+        {
+            try
             {
-                AutoReset = true,
-                Enabled = true
-            };
-            int reconnectCount = 0;
+                _mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                _mSocket.Connect(new IPEndPoint(IPAddress.Parse(_mIpAddress), _mPort));
 
-            _mReconnectTimer.Elapsed += (_, _) =>
+                _mReconnectTimer.Stop();
+                _mSendHeartbeatTimer.Start();
+                _mCheckHeartbeatTimer.Start();
+                _mLastPongTime = DateTime.Now;
+
+                // 重连后，完成登录操作
+                Invoker.Instance.DelegateList.Add(ReSignInByAuthorization);
+
+                Debug.Log("重连成功!");
+                StartReceive();
+            }
+            catch (SocketException ex)
             {
-                try
+                _mReconnectCount++;
+                Debug.LogError($"重连失败，次数：{_mReconnectCount}");
+                if (_mReconnectCount > GameAssets.RECONNECT_COUNT_MAX)
                 {
-                    _mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    _mSocket.Connect(new IPEndPoint(IPAddress.Parse(_mIpAddress), _mPort));
-                    
-                    _mReconnectTimer.Close();
-                    _mSendHeartbeatTimer.Start();
-                    _mCheckHeartbeatTimer.Start();
-                    _mLastPongTime = DateTime.Now;
-                    
-                    // 重连后，完成登录操作
-                    Invoker.Instance.DelegateList.Add(ReSignInByAuthorization);
-                    
-                    Debug.Log("重连成功!");
-                    StartReceive();
+                    _mReconnectTimer.Stop();
                 }
-                catch (SocketException e)
-                {
-                    reconnectCount++;
-                    Debug.LogError($"Socket 重连失败,尝试次数:{reconnectCount}," + e.Message);
-                    if (reconnectCount > reconnect)
-                    {
-                        Debug.LogError($"Socket 尝试重连失败!");
-                        _mCheckHeartbeatTimer.Close();
-                        _mReconnectTimer.Close();
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"Exception: {e}"); 
-                }
-
-                {
-                }
-            };
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"重连失败, {ex}");
+            }
         }
 
         private void ReSignInByAuthorization()
@@ -243,7 +239,7 @@ namespace ChaosBall.Net
             {
                 Debug.Log($"当前客户端Id: {ClientId}");
                 ClientId = pack.ClientPack.ClientId;
-                GameInterface.Interface.UdpListener.UdpListenPort = pack.ClientPack.UdpListenPort;
+                // GameInterface.Interface.UdpListener.UdpListenPort = pack.ClientPack.UdpListenPort;
                 return;
             }
             OnServerResponse?.Invoke(pack);
@@ -255,15 +251,12 @@ namespace ChaosBall.Net
             if (_mSocket != null)
             {
                 OnClientCloseConnection?.Invoke();
-                _mSocket?.Close();
+                _mSocket.Shutdown(SocketShutdown.Both);
+                _mSocket.Close();
                 
                 _mSendHeartbeatTimer?.Stop();
                 _mCheckHeartbeatTimer?.Stop();
                 _mReconnectTimer?.Stop();
-                
-                _mSendHeartbeatTimer?.Close();
-                _mCheckHeartbeatTimer?.Close();
-                _mReconnectTimer?.Close();
             }
         }
         
@@ -276,7 +269,7 @@ namespace ChaosBall.Net
                     pack.ClientPack = new ClientPack
                     {
                         ClientId = ClientId,
-                        // ClientIp = ClientIp
+                        UdpListenPort = GameInterface.Interface.UdpListener.UdpListenPort,
                     };
                     _mSocket.Send(Message.GetPackData(pack));
                 }
@@ -312,6 +305,7 @@ namespace ChaosBall.Net
             _mSocket?.Dispose();
             _mSendHeartbeatTimer?.Dispose();
             _mCheckHeartbeatTimer?.Dispose();
+            _mReconnectTimer.Stop();
             _mReconnectTimer?.Dispose();
         }
     }

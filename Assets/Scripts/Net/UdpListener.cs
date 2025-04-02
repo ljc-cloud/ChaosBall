@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using ChaosBall.Utility;
@@ -9,42 +8,36 @@ using UnityEngine;
 
 namespace ChaosBall.Net
 {
-    public class UdpListener
+    public class UdpListener : IDisposable
     {
         private UdpClient _mUdpClient;
         private int _mCurrentDataSequence = 0;
 
         private readonly ObjectPool<ResFrameSyncData> _mResFrameSyncDataPool;
         private readonly ObjectPool<MessageHead> _mMessageHeadPool;
-        public int UdpListenPort { get; set; }
+        public int UdpListenPort { get; private set; }
+        public bool Disposed { get; private set; }
         public IPEndPoint RemoteEp { get; private set; }
         public event Action<ResFrameSyncData> OnReceiveFrameSync;
         public UdpListener()
         {
             _mResFrameSyncDataPool = new ObjectPool<ResFrameSyncData>(() => new ResFrameSyncData());
             _mMessageHeadPool = new ObjectPool<MessageHead>(() => new MessageHead());
+            
+            _mUdpClient = new UdpClient(0, AddressFamily.InterNetwork);
+            IPEndPoint clientLocalEndPoint = _mUdpClient.Client.LocalEndPoint as IPEndPoint;
+            UdpListenPort = clientLocalEndPoint.Port;
+            Debug.Log("Current UDP available port:" + UdpListenPort);
         }
 
         public void StartListen()
         {
-            try
-            {
-                _mUdpClient = new UdpClient(UdpListenPort, AddressFamily.InterNetwork);
-            }
-            catch (SocketException e)
-            {
-                Debug.LogError("UDP SocketError:" + e);
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Exception:" + e);
-            }
-            Debug.Log($"UDP listen port: {UdpListenPort}");
             StartReceive();
         }
 
         private void StartReceive()
         {
+            if (Disposed) return;
             try
             {
                 _mUdpClient.BeginReceive(ReceiveCallback, null);
@@ -61,6 +54,7 @@ namespace ChaosBall.Net
 
         private void ReceiveCallback(IAsyncResult iar)
         {
+            if (Disposed) return;
             try
             {
                 IPEndPoint remoteEp = new IPEndPoint(IPAddress.Any, 0);
@@ -92,6 +86,7 @@ namespace ChaosBall.Net
         
         public void Send(in ResFrameSyncData resFrameSyncData)
         {
+            if (Disposed) return;
             MessageHead messageHead = _mMessageHeadPool.Allocate();
             messageHead.Index = _mCurrentDataSequence;
             
@@ -122,10 +117,11 @@ namespace ChaosBall.Net
 
         private void SendAck(int index)
         {
+            if (Disposed) return;
             MessageHead messageHead = _mMessageHeadPool.Allocate();
             messageHead.Index = index;
             messageHead.Ack = true;
-            messageHead.ClientIp = GameInterface.Interface.TcpClient.ClientIp;
+            // messageHead.ClientIp = GameInterface.Interface.TcpClient.ClientIp;
 
             ResFrameSyncData resFrameSyncData = _mResFrameSyncDataPool.Allocate();
             resFrameSyncData.MessageHead = messageHead;
@@ -151,6 +147,11 @@ namespace ChaosBall.Net
             }
         }
 
+        private void Close()
+        {
+            _mUdpClient.Close();
+        }
+
         private byte[] Serialize(ResFrameSyncData resFrameSyncData)
         {
             byte[] data = resFrameSyncData.ToByteArray();
@@ -161,6 +162,13 @@ namespace ChaosBall.Net
         {
             ResFrameSyncData resFrameSyncData = ResFrameSyncData.Parser.ParseFrom(data);
             return resFrameSyncData;
+        }
+
+        public void Dispose()
+        {
+            Close();
+            _mUdpClient?.Dispose();
+            Disposed = true;
         }
     }
 }

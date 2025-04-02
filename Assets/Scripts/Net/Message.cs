@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Google.Protobuf;
 using SocketProtocol;
+using UnityEngine;
 
 // using SocketProtocol;
 
@@ -42,12 +43,25 @@ namespace ChaosBall.Net
             int bodyLen = BitConverter.ToInt32(_mBuffer, 0);
             while (true) {
                 if (_mMessageLen >= bodyLen + MESSAGE_HEADER_LEN) {
-                    
-                    MainPack pack = MainPack.Parser.ParseFrom(_mBuffer, MESSAGE_HEADER_LEN, bodyLen);
-                    onMainPackDeserialize?.Invoke(pack);
-                    System.Buffer.BlockCopy(_mBuffer, bodyLen + MESSAGE_HEADER_LEN, 
-                        _mBuffer, 0, _mMessageLen - (bodyLen + MESSAGE_HEADER_LEN));
-                    _mMessageLen -= (bodyLen + MESSAGE_HEADER_LEN);
+
+                    try
+                    {
+                        MainPack pack = MainPack.Parser.ParseFrom(_mBuffer, MESSAGE_HEADER_LEN, bodyLen);
+                        onMainPackDeserialize?.Invoke(pack);
+                        // System.Buffer.BlockCopy(_mBuffer, bodyLen + MESSAGE_HEADER_LEN,
+                        //     _mBuffer, 0, _mMessageLen - (bodyLen + MESSAGE_HEADER_LEN));
+                        // _mMessageLen -= (bodyLen + MESSAGE_HEADER_LEN);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError($"Message Parse Exception: {ex}");
+                    }
+                    finally
+                    {
+                        System.Buffer.BlockCopy(_mBuffer, bodyLen + MESSAGE_HEADER_LEN,
+                            _mBuffer, 0, _mMessageLen - (bodyLen + MESSAGE_HEADER_LEN));
+                        _mMessageLen -= (bodyLen + MESSAGE_HEADER_LEN);
+                    }
                 }
                 else
                 {

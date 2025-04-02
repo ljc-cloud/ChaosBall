@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChaosBall.Event;
 using ChaosBall.Model;
 using ChaosBall.Net.Request;
 using UnityEngine;
@@ -26,19 +27,25 @@ namespace ChaosBall
             _mRoomPlayerPositionAvailable = new bool[roomPlayerPositionArray.Length];
             Array.Fill(_mRoomPlayerPositionAvailable, true);
             
-            GameInterface.Interface.RoomManager.OnRoomPlayerJoin += OnRoomPlayerJoin;
-            GameInterface.Interface.RoomManager.OnRoomPlayerQuit += OnRoomPlayerQuit;
-            GameInterface.Interface.RoomManager.OnRoomPlayerReadyChanged += OnRoomPlayerReadyChanged;
+            // GameInterface.Interface.RoomManager.OnRoomPlayerJoin += OnRoomPlayerJoin;
+            GameInterface.Interface.EventSystem.Subscribe<RoomPlayerJoinEvent>(OnRoomPlayerJoin);
+            GameInterface.Interface.EventSystem.Subscribe<RoomPlayerQuitEvent>(OnRoomPlayerQuit);
+            // GameInterface.Interface.RoomManager.OnRoomPlayerQuit += OnRoomPlayerQuit;
+            GameInterface.Interface.EventSystem.Subscribe<RoomPlayerReadyChangeEvent>(OnRoomPlayerReadyChanged);
+            // GameInterface.Interface.RoomManager.OnRoomPlayerReadyChanged += OnRoomPlayerReadyChanged;
             SpawnRoomPlayers();
         }
         private void OnDestroy()
         {
-            GameInterface.Interface.RoomManager.OnRoomPlayerJoin -= OnRoomPlayerJoin;
-            GameInterface.Interface.RoomManager.OnRoomPlayerQuit -= OnRoomPlayerQuit;
-            GameInterface.Interface.RoomManager.OnRoomPlayerReadyChanged -= OnRoomPlayerReadyChanged;
+            // GameInterface.Interface.RoomManager.OnRoomPlayerJoin -= OnRoomPlayerJoin;
+            GameInterface.Interface.EventSystem.Unsubscribe<RoomPlayerJoinEvent>(OnRoomPlayerJoin);
+            GameInterface.Interface.EventSystem.Unsubscribe<RoomPlayerQuitEvent>(OnRoomPlayerQuit);
+            GameInterface.Interface.EventSystem.Unsubscribe<RoomPlayerReadyChangeEvent>(OnRoomPlayerReadyChanged);
+            // GameInterface.Interface.RoomManager.OnRoomPlayerQuit -= OnRoomPlayerQuit;
+            // GameInterface.Interface.RoomManager.OnRoomPlayerReadyChanged -= OnRoomPlayerReadyChanged;
         }
 
-        private void OnRoomPlayerJoin(RoomPlayerInfo roomPlayerInfo)
+        private void OnRoomPlayerJoin(RoomPlayerJoinEvent e)
         {
             Invoker.Instance.DelegateList.Add(() =>
             {
@@ -54,27 +61,27 @@ namespace ChaosBall
                     }
                 }
                 
-                RoomPlayer roomPlayer = SpawnRoomPlayer(availableIndex, roomPlayerInfo);
-                _mRoomPlayerInfoToRoomPlayerDict.Add(roomPlayerInfo, roomPlayer);
+                RoomPlayer roomPlayer = SpawnRoomPlayer(availableIndex, e.roomPlayerInfo);
+                _mRoomPlayerInfoToRoomPlayerDict.Add(e.roomPlayerInfo, roomPlayer);
             });
         }
-        private void OnRoomPlayerQuit(RoomPlayerInfo roomPlayerInfo)
+        private void OnRoomPlayerQuit(RoomPlayerQuitEvent e)
         {
             Invoker.Instance.DelegateList.Add(() =>
             {
-                RoomPlayer roomPlayer = _mRoomPlayerInfoToRoomPlayerDict[roomPlayerInfo];
-                _mRoomPlayerInfoToRoomPlayerDict.Remove(roomPlayerInfo);
+                RoomPlayer roomPlayer = _mRoomPlayerInfoToRoomPlayerDict[e.roomPlayerInfo];
+                _mRoomPlayerInfoToRoomPlayerDict.Remove(e.roomPlayerInfo);
                 int playerIndex = roomPlayer.RoomIndex;
                 _mRoomPlayerPositionAvailable[playerIndex] = true;
                 Destroy(roomPlayer.gameObject);
             });
         }
-        private void OnRoomPlayerReadyChanged(RoomPlayerInfo roomPlayerInfo)
+        private void OnRoomPlayerReadyChanged(RoomPlayerReadyChangeEvent e)
         {
             Invoker.Instance.DelegateList.Add(() =>
             {
-                RoomPlayer roomPlayer = _mRoomPlayerInfoToRoomPlayerDict[roomPlayerInfo];
-                roomPlayer.SetReady(roomPlayerInfo.ready);
+                RoomPlayer roomPlayer = _mRoomPlayerInfoToRoomPlayerDict[e.roomPlayerInfo];
+                roomPlayer.SetReady(e.roomPlayerInfo.ready);
                 // int localPlayerId = GameInterface.Interface.PlayerInfo.id;
             });
         }

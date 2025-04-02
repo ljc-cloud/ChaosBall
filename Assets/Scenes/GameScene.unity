@@ -377,8 +377,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Player
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bf030db1db29a0847a565c9d0d45f4f3, type: 2}
-  m_sharedMaterial: {fileID: 7278534772885388294, guid: bf030db1db29a0847a565c9d0d45f4f3,
+  m_fontAsset: {fileID: 11400000, guid: b8581c0fc90284a46bdd89de23480a54, type: 2}
+  m_sharedMaterial: {fileID: -3467062496022674246, guid: b8581c0fc90284a46bdd89de23480a54,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -654,6 +654,7 @@ GameObject:
   m_Component:
   - component: {fileID: 276427294}
   - component: {fileID: 276427295}
+  - component: {fileID: 276427296}
   m_Layer: 5
   m_Name: RoundScoreUI
   m_TagString: Untagged
@@ -699,6 +700,18 @@ MonoBehaviour:
   roundText: {fileID: 1020415853}
   localPlayerRoundScoreUI: {fileID: 1286927235}
   remotePlayerRoundScoreUI: {fileID: 1013993585}
+--- !u!225 &276427296
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276427293}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,7 +878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ba240d886a497f8e4254431d06e0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6366080408650949703, guid: 548ea121b71c0d54aa3ae22a9596bc94,
+  playerPrefab: {fileID: 3172145480555349150, guid: d9735460c91cbc64383c92f6f8340e8e,
     type: 3}
 --- !u!4 &353309307
 Transform:
@@ -1102,7 +1115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400340918}
   m_Layer: 5
-  m_Name: CounterUI
+  m_Name: TimerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3270,8 +3283,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Player
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bf030db1db29a0847a565c9d0d45f4f3, type: 2}
-  m_sharedMaterial: {fileID: 7278534772885388294, guid: bf030db1db29a0847a565c9d0d45f4f3,
+  m_fontAsset: {fileID: 11400000, guid: b8581c0fc90284a46bdd89de23480a54, type: 2}
+  m_sharedMaterial: {fileID: -3467062496022674246, guid: b8581c0fc90284a46bdd89de23480a54,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3302,7 +3315,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3432,13 +3445,14 @@ GameObject:
   - component: {fileID: 1157343849}
   - component: {fileID: 1157343851}
   - component: {fileID: 1157343850}
+  - component: {fileID: 1157343852}
   m_Layer: 5
   m_Name: RoundMessageUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1157343849
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3480,6 +3494,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157343848}
   m_CullTransparentMesh: 1
+--- !u!114 &1157343852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157343848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9159e6df75fe43b38d9a4663ee9168ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roundText: {fileID: 1858839309}
+  messageText: {fileID: 722453351}
 --- !u!1 &1221617670
 GameObject:
   m_ObjectHideFlags: 0
@@ -4749,13 +4777,14 @@ GameObject:
   - component: {fileID: 1710085701}
   - component: {fileID: 1710085703}
   - component: {fileID: 1710085702}
+  - component: {fileID: 1710085704}
   m_Layer: 5
   m_Name: GameMessageUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1710085701
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4811,6 +4840,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
+--- !u!114 &1710085704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710085700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec6c323cf8c493fac2c92b6015004fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageText: {fileID: 652938439}
 --- !u!1 &1713812125
 GameObject:
   m_ObjectHideFlags: 0
@@ -5537,13 +5579,14 @@ GameObject:
   - component: {fileID: 1998293515}
   - component: {fileID: 1998293514}
   - component: {fileID: 1998293513}
+  - component: {fileID: 1998293516}
   m_Layer: 5
   m_Name: CountdownUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1998293512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5673,6 +5716,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998293511}
   m_CullTransparentMesh: 1
+--- !u!225 &1998293516
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998293511}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2010774136
 GameObject:
   m_ObjectHideFlags: 0
