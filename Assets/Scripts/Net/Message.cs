@@ -65,6 +65,8 @@ namespace ChaosBall.Net
                 }
                 else
                 {
+                    _mMessageLen = 0;
+                    Array.Fill<byte>(_mBuffer, 0);
                     break;
                 }
             }
