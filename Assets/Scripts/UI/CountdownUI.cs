@@ -8,14 +8,14 @@ namespace ChaosBall.UI
 {
     public class CountdownUI : MonoBehaviour
     {
-        private TextMeshProUGUI _mCountdownText;
+        private TextMeshProUGUI _countdownText;
 
-        private CanvasGroup _mCanvasGroup;
+        private CanvasGroup _canvasGroup;
         
         private void Awake()
         {
-            _mCountdownText = GetComponent<TextMeshProUGUI>();
-            _mCanvasGroup = GetComponent<CanvasGroup>();
+            _countdownText = GetComponent<TextMeshProUGUI>();
+            _canvasGroup = GetComponent<CanvasGroup>();
         }
 
         private void Start()
@@ -52,12 +52,12 @@ namespace ChaosBall.UI
         private void OnCountdown(CountdownChangeEvent e)
         {
             Debug.Log($"Countdown:{e.countdown}");
-            _mCountdownText.text = e.countdown.ToString();
+            _countdownText.text = e.countdown.ToString();
             transform.DOShakeRotation(0.4f);
             if (e.countdown <= 1)
             {
-                _mCanvasGroup.alpha = 0;
-                _mCanvasGroup.blocksRaycasts = false;
+                _canvasGroup.alpha = 0;
+                _canvasGroup.blocksRaycasts = false;
             }
         }
     }

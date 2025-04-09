@@ -1,6 +1,5 @@
-using System;
-using ChaosBall.Math;
 using ChaosBall.Net;
+using ChaosBall.UI;
 using ChaosBall.Utility;
 using UnityEngine;
 
@@ -11,79 +10,83 @@ namespace ChaosBall.Game.State
     /// </summary>
     public class BirdShootState : BirdState
     {
-        private Rigidbody _mRigidBody;
-        private Func<float> _mGetShootForce;
-        private Func<Vector3> _mGetDirection;
+        private Transform _transform;
+        private Rigidbody _rigidBody;
+        private int _waitFrames;
+        private float _originVelocityMagnitude;
+        private ArrowForceUI _arrowForceUI;
 
-        private int _mWaitFrames;
-        private float _mOriginVelocityMagnitude;
-        
-        public BirdShootState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, Rigidbody rigidbody
-            , Func<float> getShootForce, Func<Vector3> getDirection) 
-            : base(birdStateManager, targetTransform, entity)
+        public BirdShootState(BirdStateMachine birdStateMachine, BirdAnimation birdAnimation, Entity entity,
+            Transform transform, Rigidbody rigidbody
+            , ArrowForceUI arrowForceUI)
+            : base(birdStateMachine, birdAnimation, entity)
         {
-            _mRigidBody = rigidbody;
-            _mGetShootForce = getShootForce;
-            _mGetDirection = getDirection;
+            _transform = transform;
+            _rigidBody = rigidbody;
+            _arrowForceUI = arrowForceUI;
         }
 
         public override void Enter()
         {
-            Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Shoot State Enter");
+            Debug.Log($"Bird:{_transform.gameObject.name} Shoot State Enter");
             State = BirdStateEnum.Shoot;
-            _mWaitFrames = GameAssets.WAIT_FRAMES;
-            _mBirdStateManager.BirdAnimation.SetCurrentAnimationSpeed(1f);
+            _waitFrames = GameAssets.WAIT_FRAMES;
+            Animation.SetCurrentAnimationSpeed(1f);
             
-            _mBirdStateManager.BirdAnimation.PlayShoot();
+            Animation.PlayShoot();
             
-            _mBirdStateManager.ArrowForceUI.Hide();
+            _arrowForceUI.Hide();
 
             Vector3 direction = Vector3.zero;
             float shootForce;
-            if (Entity.IsLocal)
-            {
-                Vector3 localDirection = Entity.localShootDirection;
-                direction = new Vector3(MathUtil.GetFloat(localDirection.x)
-                    , MathUtil.GetFloat(localDirection.y),
-                    MathUtil.GetFloat(localDirection.z));
-                shootForce = MathUtil.GetFloat(Entity.localShootForce);
-            }
-            else
-            {
-                direction = Entity.shootDirection;
-                shootForce = Entity.shootForce;
-            }
+            // if (Entity.IsLocal)
+            // {
+            //     Vector3 localDirection = Entity.localShootDirection;
+            //     direction = new Vector3(MathUtil.GetFloat(localDirection.x)
+            //         , MathUtil.GetFloat(localDirection.y),
+            //         MathUtil.GetFloat(localDirection.z));
+            //     shootForce = MathUtil.GetFloat(Entity.localShootForce);
+            // }
+            // else
+            // {
+            //     direction = Entity.shootDirection;
+            //     shootForce = Entity.shootForce;
+            // }
+            // direction = Entity.shootDirection;
+            direction = Entity.shootDirection;
+            shootForce = Entity.shootForce;
             
-            _mTargetTransform.forward = direction;
-            _mRigidBody.AddForce(direction * shootForce, ForceMode.Impulse);
+            _transform.forward = direction;
+            Debug.Log($"Shoot direction: {direction}");
+            _rigidBody.AddForce(direction * shootForce, ForceMode.Impulse);
         }
 
         public override void Update()
         {
-            if (_mRigidBody.velocity.sqrMagnitude <= 900f)
+            if (_rigidBody.velocity.sqrMagnitude <= 900f)
             {
-                if (_mWaitFrames > 0)
+                if (_waitFrames > 0)
                 {
-                    _mWaitFrames--;
+                    _waitFrames--;
                 }
                 else
                 {
-                    _mBirdStateManager.ChangeState(BirdStateEnum.Stop);
+                    BirdStateMachine.ChangeState(BirdStateEnum.Stop);
                 }
             }
             else
             {
-                _mOriginVelocityMagnitude = Mathf.Max(_mRigidBody.velocity.magnitude, _mOriginVelocityMagnitude);
-                float normalizedSpeed = _mRigidBody.velocity.magnitude / _mOriginVelocityMagnitude;
-                _mBirdStateManager.BirdAnimation.SetCurrentAnimationSpeed(normalizedSpeed);
+                _originVelocityMagnitude = Mathf.Max(_rigidBody.velocity.magnitude, _originVelocityMagnitude);
+                float normalizedSpeed = _rigidBody.velocity.magnitude / _originVelocityMagnitude;
+                Animation.SetCurrentAnimationSpeed(normalizedSpeed);
             }
         }
 
         public override void Exit()
         {
-            _mRigidBody.velocity = Vector3.zero;
-            _mBirdStateManager.BirdAnimation.SetCurrentAnimationSpeed(1f);
-            Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Shoot State Exit");
+            _rigidBody.velocity = Vector3.zero;
+            Animation.SetCurrentAnimationSpeed(1f);
+            Debug.Log($"Bird:{_transform.gameObject.name} Shoot State Exit");
         }
     }
 }

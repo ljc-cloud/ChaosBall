@@ -39,26 +39,19 @@ namespace ChaosBall.UI
             messageText.text = e.message;
             transform.Active();
             DoMoveFadeIn();
-            Invoke(nameof(DoMoveFadeOut), 1f);
+            Invoke(nameof(DoMoveFadeOut), 2f);
         }
 
         private void DoMoveFadeIn()
         {
             transform.DOLocalMoveX(0, .3f);
-            _mCanvasGroup.DOFade(1, .3f).OnComplete(() =>
-            {
-                _mCanvasGroup.blocksRaycasts = true;
-            });
+            _mCanvasGroup.DOFade(1, .3f);
         }
 
         private void DoMoveFadeOut()
         {
             transform.DOLocalMoveX(-1200, .3f);
-            _mCanvasGroup.DOFade(0, .3f).OnComplete(() =>
-            {
-                _mCanvasGroup.blocksRaycasts = false;
-                transform.position.Set(1200, 0, 0);
-            });
+            _mCanvasGroup.DOFade(0, .3f);
         }
     }
 }

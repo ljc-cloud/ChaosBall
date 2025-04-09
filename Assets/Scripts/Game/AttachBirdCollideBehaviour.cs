@@ -9,34 +9,34 @@ namespace ChaosBall.Game
     {
         // [SerializeField] private Transform attachParent;
         
-        private BirdStateManager _mBirdStateManager;
-        private Rigidbody _mRigidbody;
+        private BirdStateMachine _birdStateMachine;
+        private Rigidbody _rigidbody;
         public Vector3 LastVelocity { get; private set; }
 
-        private Vector3 _mPositionConstraint1;
-        private Vector3 _mPositionConstraint2;
+        private Vector3 _positionConstraint1;
+        private Vector3 _positionConstraint2;
 
-        private Transform _mAttachParentTransform;
-        private Transform _mOtherTransform;
-        private AttachParentCollide _mAttachParentCollide;
-        private bool _mHasCollided;
-        private bool _mAttachParentStopped;
+        private Transform _attachParentTransform;
+        private Transform _otherTransform;
+        private AttachParentCollide _attachParentCollide;
+        private bool _hasCollided;
+        private bool _attachParentStopped;
 
         private void Awake()
         {
-            _mBirdStateManager = GetComponent<BirdStateManager>();
-            _mRigidbody = GetComponent<Rigidbody>();
+            _birdStateMachine = GetComponent<BirdStateMachine>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Update()
         {
-            if (!_mHasCollided || _mAttachParentStopped) return;
+            if (!_hasCollided || _attachParentStopped) return;
             // transform.localPosition = Vector3.ClampMagnitude(transform.localPosition, _mPositionConstraint1);
             // _mOtherTransform.localPosition = Vector3.ClampMagnitude(_mOtherTransform.localPosition, _mPositionConstraint2);
 
-            transform.localPosition = _mPositionConstraint1;
-            _mOtherTransform.localPosition = _mPositionConstraint2;
-            _mAttachParentTransform.rotation = Quaternion.LookRotation(_mOtherTransform.position - transform.position);
+            transform.localPosition = _positionConstraint1;
+            _otherTransform.localPosition = _positionConstraint2;
+            _attachParentTransform.rotation = Quaternion.LookRotation(_otherTransform.position - transform.position);
             
             
             // transform.localPosition = Vector3.ClampMagnitude(transform.localPosition, _mBird1PositionConstraint);
@@ -45,10 +45,10 @@ namespace ChaosBall.Game
 
         private void LateUpdate()
         {
-            if (!_mBirdStateManager.Initialized) return;
-            if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Shoot)
+            if (!_birdStateMachine.Initialized) return;
+            if (_birdStateMachine.CurrentState.State is BirdState.BirdStateEnum.Shoot)
             {
-                LastVelocity = _mRigidbody.velocity;
+                LastVelocity = _rigidbody.velocity;
             }
         }
 
@@ -61,16 +61,16 @@ namespace ChaosBall.Game
         // 吸附球实现
         public void OnCollideOtherBird(Transform thisTransform, Collision other)
         {
-            Debug.Log("LastVelocity: " + LastVelocity);
+            // Debug.Log("LastVelocity: " + LastVelocity);
             
-            other.transform.GetComponent<BirdStateManager>().ChangeState(BirdState.BirdStateEnum.Effected);
+            other.transform.GetComponent<BirdStateMachine>().ChangeState(BirdState.BirdStateEnum.Effected);
             
-            _mOtherTransform = other.transform;
+            _otherTransform = other.transform;
 
             GameObject attachParentGameObject = new GameObject("AttachParent");
-            _mAttachParentTransform = attachParentGameObject.transform;
-            _mAttachParentTransform.position = (transform.position + _mOtherTransform.position) / 2f;
-            _mAttachParentTransform.rotation = Quaternion.LookRotation(_mOtherTransform.position - transform.position);
+            _attachParentTransform = attachParentGameObject.transform;
+            _attachParentTransform.position = (transform.position + _otherTransform.position) / 2f;
+            _attachParentTransform.rotation = Quaternion.LookRotation(_otherTransform.position - transform.position);
 
             CapsuleCollider capsuleCollider = attachParentGameObject.AddComponent<CapsuleCollider>();
             capsuleCollider.radius = 16f;
@@ -84,42 +84,42 @@ namespace ChaosBall.Game
                                                 RigidbodyConstraints.FreezeRotationZ;
             attachParentRigidbody.drag = 0.1f;
 
-            _mAttachParentCollide = attachParentGameObject.AddComponent<AttachParentCollide>();
-            _mAttachParentCollide.CollideCostParam = 0.8f;
+            _attachParentCollide = attachParentGameObject.AddComponent<AttachParentCollide>();
+            _attachParentCollide.CollideCostParam = 0.8f;
             
             GameInterface.Interface.EventSystem.Subscribe<AttachParentStopEvent>(OnAttachParentStop);
             // _mAttachParentCollide.OnAttachParentStop += OnAttachParentStop;
 
             transform.GetComponent<Collider>().enabled = false;
-            _mOtherTransform.GetComponent<Collider>().enabled = false;
+            _otherTransform.GetComponent<Collider>().enabled = false;
             
             transform.SetParent(attachParentGameObject.transform);
-            _mOtherTransform.SetParent(attachParentGameObject.transform);
+            _otherTransform.SetParent(attachParentGameObject.transform);
 
-            _mPositionConstraint1 = transform.localPosition;
-            _mPositionConstraint2 = _mOtherTransform.localPosition;
+            _positionConstraint1 = transform.localPosition;
+            _positionConstraint2 = _otherTransform.localPosition;
 
             attachParentRigidbody.velocity = LastVelocity;
             
             // _mOtherTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
             // _mRigidbody.velocity = Vector3.zero;
 
-            _mHasCollided = true;
+            _hasCollided = true;
         }
 
         private void OnAttachParentStop(AttachParentStopEvent _)
         {
-            Debug.Log("吸附球停止移动");
-            _mAttachParentStopped = true;
+            // Debug.Log("吸附球停止移动");
+            _attachParentStopped = true;
             transform.SetParent(null);
-            _mOtherTransform.SetParent(null);
+            _otherTransform.SetParent(null);
 
             transform.GetComponent<Collider>().enabled = true;
-            _mOtherTransform.GetComponent<Collider>().enabled = true;
+            _otherTransform.GetComponent<Collider>().enabled = true;
             
-            _mOtherTransform.GetComponent<BirdStateManager>().ChangeState(BirdState.BirdStateEnum.Stop);
+            _otherTransform.GetComponent<BirdStateMachine>().ChangeState(BirdState.BirdStateEnum.Stop);
             
-            Destroy(_mAttachParentCollide.gameObject);
+            Destroy(_attachParentCollide.gameObject);
         }
     }
 }

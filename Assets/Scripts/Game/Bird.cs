@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ChaosBall.Event.Game;
+using ChaosBall.Game.State;
+using ChaosBall.Net;
+using ChaosBall.UI;
 using UnityEngine;
 
 namespace ChaosBall.Game
@@ -16,11 +20,15 @@ namespace ChaosBall.Game
         /// </summary>
         public int Score { get; private set; }
 
+        private BirdCollide _birdCollide;
         private float _mBirdRadius;
         private Collider[] _mAreaTriggerArray;
-
+        
+        private Stack<int> _scoreStack = new();
+        
         private void Awake()
         {
+            _birdCollide = GetComponent<BirdCollide>();
             _mBirdRadius = GetComponent<SphereCollider>().radius;
             int size = Enum.GetValues(typeof(Area.AreaType)).Length;
             _mAreaTriggerArray = new Collider[size];
@@ -28,14 +36,33 @@ namespace ChaosBall.Game
 
         private void Start()
         {
-            GameInterface.Interface.EventSystem.Subscribe<BirdEnterAreaEvent>(OnBirdEnterArea);
-            GameInterface.Interface.EventSystem.Subscribe<BirdExitAreaEvent>(OnBirdExitArea);
+            _birdCollide.OnBirdEnterArea += OnBirdEnterArea;
+            _birdCollide.OnBirdExitArea += OnBirdExitArea;
         }
 
         private void OnDestroy()
         {
-            GameInterface.Interface.EventSystem.Unsubscribe<BirdEnterAreaEvent>(OnBirdEnterArea);
-            GameInterface.Interface.EventSystem.Unsubscribe<BirdExitAreaEvent>(OnBirdExitArea);
+            _birdCollide.OnBirdEnterArea -= OnBirdEnterArea;
+            _birdCollide.OnBirdExitArea -= OnBirdExitArea;
+        }
+
+        private void OnBirdEnterArea(object sender, BirdCollide.OnBirdEnterAreaEventArgs e)
+        {
+            Area area = e.area;
+            Debug.Log($"Enter area: {area.Score}");
+            _scoreStack.Push(area.Score);
+            Score = _scoreStack.Peek();
+            Debug.Log($"Enter, Score: {Score}");
+        }
+        private void OnBirdExitArea(object sender, EventArgs e)
+        {
+            int pop = _scoreStack.Pop();
+            Debug.Log($"Exit area: {pop}");
+            if (_scoreStack.TryPeek(out var score))
+            {
+                Score = score;
+            }
+            Debug.Log($"Exit, Score: {Score}");
         }
 
         private void CalcScore(/*BirdCalcScoreEvent _*/)
@@ -54,15 +81,6 @@ namespace ChaosBall.Game
             Array.Sort(areaArray);
             Area correctArea = areaArray[^1];
             Score = correctArea.Score;
-        }
-
-        private void OnBirdEnterArea(BirdEnterAreaEvent e)
-        {
-            Score = e.area.Score;
-        }
-        private void OnBirdExitArea(BirdExitAreaEvent e)
-        {
-            Score = 0;
         }
     }
 }

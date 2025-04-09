@@ -13,9 +13,14 @@ namespace ChaosBall.UI
         {
             startButton.onClick.AddListener(() =>
             {
-                GameInterface.Interface.UIManager.PushUIPanel(
-                    GameInterface.Interface.TcpClient.IsOnline ? UIPanelType.RoomListUI : UIPanelType.SignInUI,
-                    ShowUIPanelType.FadeIn);
+                if (GameInterface.Interface.TcpClient.IsOnline)
+                {
+                    GameInterface.Interface.UIManager.PushUIPanel(UIPanelType.RoomListUI, ShowUIPanelType.FadeIn);
+                }
+                else
+                {
+                    GameInterface.Interface.UIManager.PushUIPanelAppend(UIPanelType.SignInUI, ShowUIPanelType.FadeIn);
+                }
             });
             quitButton.onClick.AddListener(() =>
             {

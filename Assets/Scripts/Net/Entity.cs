@@ -54,6 +54,14 @@ namespace ChaosBall.Net
         /// </summary>
         public Vector3 localShootDirection;
         /// <summary>
+        /// 箭头旋转Z轴（远程）
+        /// </summary>
+        public float arrowRotationZ;
+        /// <summary>
+        /// 箭头旋转Z轴（本地）
+        /// </summary>
+        public float localArrowRotationZ;
+        /// <summary>
         /// 是否正在操作
         /// </summary>
         public bool operation;
@@ -61,6 +69,13 @@ namespace ChaosBall.Net
         // public Vector3 LocalBirdPosition { get; private set; }
 
         public bool IsLocal => playerType is PlayerType.Local;
+        
+        public class OnPlayerInputChangedEventArgs : EventArgs
+        {
+            public GameFrameSyncManager.PlayerInputType inputType;
+        }
+        
+        public event EventHandler<OnPlayerInputChangedEventArgs> OnPlayerInputChanged;
 
         private void Start()
         {
@@ -71,6 +86,8 @@ namespace ChaosBall.Net
         {
             localBirdPosition = transform.position;
             localShootDirection = -arrowForceUI.transform.TransformDirection(arrowForceUI.transform.forward);
+            localArrowRotationZ = arrowForceUI.transform.localRotation.z;
+            // localShootDirection = arrowForceUI.transform.forward;
         }
 
         private void OnDestroy()
@@ -86,16 +103,16 @@ namespace ChaosBall.Net
                 playerInputType = Enum.Parse<GameFrameSyncManager.PlayerInputType>(frameInputData.InputType.ToString());
                 if (frameInputData.Position != null)
                 {
-                    birdPosition = new Vector3(frameInputData.Position.X
-                        , frameInputData.Position.Y
-                        , frameInputData.Position.Z);
+                    birdPosition = new Vector3(frameInputData.Position.X, 0
+                        , frameInputData.Position.Y);
                 }
 
                 if (frameInputData.ShootDirection != null)
                 {
-                    shootDirection = new Vector3(frameInputData.ShootDirection.X
-                        , frameInputData.ShootDirection.Y,
-                        frameInputData.ShootDirection.Z);
+                    shootDirection = new Vector3(frameInputData.ShootDirection.X, 0
+                        , frameInputData.ShootDirection.Y);
+                    Debug.Log($"Synced direction:({frameInputData.ShootDirection.X}" +
+                              $",{frameInputData.ShootDirection.Y})");
                 }
                 shootForce = frameInputData.Force;
                 Debug.Log($"player:{playerId}收到同步消息, frameId:{frameInputData.FrameId}, " +
@@ -103,12 +120,6 @@ namespace ChaosBall.Net
                           $"position: {birdPosition}");
             }
         }
-
-        // public void SetLocalShoot(Vector3 direction, int force)
-        // {
-        //     localShootDirection = direction;
-        //     localShootForce = force;
-        // }
     }
     
 }

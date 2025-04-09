@@ -25,10 +25,11 @@ message ReqFrameInputData
   int32 frameId = 1;
   int32 playerId = 2;
   InputType inputType = 3;
-  Vector3D position = 4;
+  Vector2D position = 4;
   float force = 5;
-  Vector3D shootDirection = 6;
-  Vector3D moveVector = 7;
+  float arrowRotationZ = 6;
+  Vector2D shootDirection = 7;
+  Vector2D moveVector = 8;
 }
 
 message FrameInputData
@@ -36,10 +37,11 @@ message FrameInputData
   int32 frameId = 1;
   int32 playerId = 2;
   InputType inputType = 3;
-  Vector3D position = 4;
+  Vector2D position = 4;
   float force = 5;
-  Vector3D shootDirection = 6;
-  Vector3D moveVector = 7;
+  float arrowRotationZ = 6;
+  Vector2D shootDirection = 7;
+  Vector2D moveVector = 8;
 }
 message MessageHead
 {
@@ -51,6 +53,11 @@ message Vector3D
   float x = 1;
   float y = 2;
   float z = 3;
+}
+message Vector2D
+{
+  float x = 1;
+  float y = 2;
 }
 
 message ResFrameSyncData

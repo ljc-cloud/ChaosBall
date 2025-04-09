@@ -37,21 +37,14 @@ namespace ChaosBall.UI
 
         private void DoMoveFadeIn()
         {
-            transform.DOMoveX(0, .3f);
-            _mCanvasGroup.DOFade(1, .3f).OnComplete(() =>
-            {
-                _mCanvasGroup.blocksRaycasts = true;
-            });
+            transform.DOLocalMoveX(0, .3f);
+            _mCanvasGroup.DOFade(1, .3f);
         }
 
         private void DoMoveFadeOut()
         {
-            transform.DOMoveX(-1200, .3f);
-            _mCanvasGroup.DOFade(0, .3f).OnComplete(() =>
-            {
-                _mCanvasGroup.blocksRaycasts = false;
-                transform.position.Set(1200, 0, 0);
-            });
+            transform.DOLocalMoveX(-1200, .3f);
+            _mCanvasGroup.DOFade(0, .3f);
         }
     }
 }

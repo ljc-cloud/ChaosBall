@@ -31,8 +31,8 @@ namespace ChaosBall.UI
             _mForceArrowReadyReverse = false;
             _mForceArrowRotationReverse = false;
             
-            Vector3 minEulerAngle = new Vector3(0, 0, minForceArrowRotation);
-            Vector3 maxEulerAngle = new Vector3(0, 0, maxForceArrowRotation);
+            Vector3 minEulerAngle = new Vector3(90,0, minForceArrowRotation);
+            Vector3 maxEulerAngle = new Vector3(90,0, maxForceArrowRotation);
             _mMinRotation = Quaternion.Euler(minEulerAngle);
             _mMaxRotation = Quaternion.Euler(maxEulerAngle);
         }
@@ -87,7 +87,7 @@ namespace ChaosBall.UI
                 _mForceArrowRotationReverse = !_mForceArrowRotationReverse;
                 _mRotationTimer = 0f;
             }
-            transform.localRotation = _mForceArrowRotationReverse
+            transform.rotation = _mForceArrowRotationReverse
                 ? Quaternion.Slerp(_mMaxRotation, _mMinRotation, _mRotationTimer / forceArrowRotationDuration)
                 : Quaternion.Slerp(_mMinRotation, _mMaxRotation, _mRotationTimer / forceArrowRotationDuration);
         }

@@ -27,22 +27,16 @@ namespace ChaosBall
             _mRoomPlayerPositionAvailable = new bool[roomPlayerPositionArray.Length];
             Array.Fill(_mRoomPlayerPositionAvailable, true);
             
-            // GameInterface.Interface.RoomManager.OnRoomPlayerJoin += OnRoomPlayerJoin;
             GameInterface.Interface.EventSystem.Subscribe<RoomPlayerJoinEvent>(OnRoomPlayerJoin);
             GameInterface.Interface.EventSystem.Subscribe<RoomPlayerQuitEvent>(OnRoomPlayerQuit);
-            // GameInterface.Interface.RoomManager.OnRoomPlayerQuit += OnRoomPlayerQuit;
             GameInterface.Interface.EventSystem.Subscribe<RoomPlayerReadyChangeEvent>(OnRoomPlayerReadyChanged);
-            // GameInterface.Interface.RoomManager.OnRoomPlayerReadyChanged += OnRoomPlayerReadyChanged;
             SpawnRoomPlayers();
         }
         private void OnDestroy()
         {
-            // GameInterface.Interface.RoomManager.OnRoomPlayerJoin -= OnRoomPlayerJoin;
             GameInterface.Interface.EventSystem.Unsubscribe<RoomPlayerJoinEvent>(OnRoomPlayerJoin);
             GameInterface.Interface.EventSystem.Unsubscribe<RoomPlayerQuitEvent>(OnRoomPlayerQuit);
             GameInterface.Interface.EventSystem.Unsubscribe<RoomPlayerReadyChangeEvent>(OnRoomPlayerReadyChanged);
-            // GameInterface.Interface.RoomManager.OnRoomPlayerQuit -= OnRoomPlayerQuit;
-            // GameInterface.Interface.RoomManager.OnRoomPlayerReadyChanged -= OnRoomPlayerReadyChanged;
         }
 
         private void OnRoomPlayerJoin(RoomPlayerJoinEvent e)

@@ -26,8 +26,6 @@ namespace ChaosBall
         public RoomManager RoomManager { get; private set; }
         public SceneLoader SceneLoader { get; private set; }
         public EventSystem EventSystem { get; private set; }
-
-        public event Action OnSceneLoaded;
         
         private void Awake()
         {
@@ -51,16 +49,12 @@ namespace ChaosBall
             UIManager.OnInit();
             RoomManager.OnInit();
             GameFrameSyncManager.OnInit();
-            // GameManager.OnInit();
+            
+            UIManager.PushUIPanel(UIPanelType.MainMenuUI, ShowUIPanelType.FadeIn);
 
 #if UNITY_EDITOR
             serverIP = "127.0.0.1";
 #endif
-        }
-
-        private void OnLoadScene()
-        {
-            OnSceneLoaded?.Invoke();
         }
 
         private void OnDestroy()
@@ -68,9 +62,9 @@ namespace ChaosBall
             Debug.Log("GameInterface::OnDestroy");
             RequestManager?.OnDestroy();
             UIManager?.OnDestroy();
-            TcpClient.Dispose();
-            UdpListener.Dispose();
-            GameFrameSyncManager.OnDestroy();
+            TcpClient?.Dispose();
+            UdpListener?.Dispose();
+            GameFrameSyncManager?.OnDestroy();
             SceneLoader = null;
             TcpClient = null;
         }

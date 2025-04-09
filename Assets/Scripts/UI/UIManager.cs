@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ChaosBall.Event.Game;
+using ChaosBall.Event.Net;
 using ChaosBall.So;
 using DG.Tweening;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace ChaosBall.UI
 {
@@ -41,143 +42,347 @@ namespace ChaosBall.UI
         public const float UIHIDE_END_POSITION = -500f;
         public const float UISHOW_DURATION = .3f;
         
-        private RectTransform _mCanvas;
-        private UIPanelSoListSo _mUIPanelSoListSo;
+        private RectTransform _canvas;
+        private UIPanelSoListSo _uiPanelSoListSo;
         public UIManager(UIPanelSoListSo uiPanelSoListSo)
         {
-            _mUIPanelSoListSo = uiPanelSoListSo;
+            _uiPanelSoListSo = uiPanelSoListSo;
         }
         
-        private Dictionary<UIPanelType, BaseUIPanel> _mUIPanelDict = new();
-        private Dictionary<UIPanelType, string> _mUIPanelPathDict = new();
+        private int _currentLayer;
+        private readonly Dictionary<UIPanelType, BaseUIPanel> _uiPanelDict = new();
+        private readonly Dictionary<UIPanelType, string> _uiPanelPathDict = new();
         
-        private Stack<BaseUIPanel> _mUIPanelStack = new();
-        
-        private readonly Dictionary<UIPanelType, BaseUIPanel> _mUIPanelPool = new();
+        private readonly Stack<BaseUIPanel> _uiPanelStack = new();
+        private readonly LinkedList<BaseUIPanel> _uiPanelList = new();
+        // private readonly SortedList<int, BaseUIPanel> _uiPanelList = new();
+
+        private static readonly UIPanelType[] UnLoginUIPanelArray = { UIPanelType.SignInUI, UIPanelType.SignUpUI };
 
         public override void OnInit()
         {
             base.OnInit();
-            _mCanvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
-            GameInterface.Interface.EventSystem.Subscribe<SceneLoadEvent>(OnSceneLoad);
-            GameInterface.Interface.EventSystem.Subscribe<SceneLoadCompleteEvent>(OnSceneLoadComplete);
+            
+            _canvas = GameObject.Find("UIPanelCanvas").GetComponent<RectTransform>();
+            GameObject.DontDestroyOnLoad(_canvas.gameObject);
             InitUIPanel();
+            
+            GameInterface.Interface.EventSystem.Subscribe<PlayerSignInEvent>(OnPlayerSignIn);
         }
-        
+
+        private void OnPlayerSignIn(PlayerSignInEvent _)
+        {
+            List<BaseUIPanel> uiPanelToRemove = new();
+            foreach (var uiPanel in _uiPanelList)
+            {
+                if (UnLoginUIPanelArray.Contains(uiPanel.UIType))
+                {
+                    uiPanelToRemove.Add(uiPanel);
+                }
+            }
+            foreach (var uiPanel in uiPanelToRemove)
+            {
+                _uiPanelList.Remove(uiPanel);
+            }
+        }
+
         public override void OnDestroy()
         {
-            GameInterface.Interface.EventSystem.Unsubscribe<SceneLoadCompleteEvent>(OnSceneLoadComplete);
-            GameInterface.Interface.EventSystem.Unsubscribe<SceneLoadEvent>(OnSceneLoad);
+            GameInterface.Interface.EventSystem.Unsubscribe<PlayerSignInEvent>(OnPlayerSignIn);
             base.OnDestroy();
         }
-
-        private void OnSceneLoad(SceneLoadEvent _)
-        {
-            ClearUIPanel();
-        }
-
-        private void OnSceneLoadComplete(SceneLoadCompleteEvent _)
-        {
-            Debug.Log("ClearUIPanel");
-            // ClearUIPanel();
-            _mCanvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
-        }
         
+        /// <summary>
+        /// 显示指定UI（将栈顶UI隐藏）
+        /// </summary>
+        /// <param name="uiPanelType"></param>
+        /// <param name="showUIPanelType"></param>
         public void PushUIPanel(UIPanelType uiPanelType, ShowUIPanelType showUIPanelType)
         {
-            Debug.Log($"PushUIPanel,Type: {uiPanelType}");
-            // stack栈顶ui隐藏
-            if (_mUIPanelStack.TryPeek(out var uiPanel))
-            {
-                HideUIPanel(uiPanel.transform, HideUIPanelType.MoveFadeOut);
-            }
+            #region SortedList
+            //
+            // Debug.Log($"PushUIPanel,Type: {uiPanelType}");
+            // if (_uiPanelList.Count > 0)
+            // {
+            //     BaseUIPanel uiPanel = _uiPanelList[_currentLayer];
+            //     HideUIPanel(uiPanel.transform, HideUIPanelType.MoveFadeOut);
+            //     _currentLayer = uiPanel.Layer - 1;
+            // }
+            //
+            // // BaseUIPanel baseUIPanel;
+            // if (_uiPanelDict.TryGetValue(uiPanelType, out var panel))
+            // {
+            //     DoShowUIPanel(panel, showUIPanelType);
+            // }
+            // else
+            // {
+            //     SpawnUIPanelAsync(uiPanelType, baseUIPanel =>
+            //     {
+            //         DoShowUIPanel(baseUIPanel, showUIPanelType);
+            //     });
+            // }
 
-            if (_mUIPanelDict.TryGetValue(uiPanelType, out var panel))
+            #endregion
+
+            #region Stack
+
+            // 栈顶UI隐藏
+            // if (_uiPanelStack.TryPeek(out BaseUIPanel peekUIPanel))
+            // {
+            //     HideUIPanel(peekUIPanel.transform, HideUIPanelType.FadeOut);
+            // }
+            //
+            // PushUIPanelInternal(uiPanelType, showUIPanelType);
+
+            #endregion
+
+
+            #region LinkedList
+
+            // 链表结尾UI隐藏
+            if (_uiPanelList.Count > 0)
             {
-                panel.OnBeforeShow();
-                ShowUIPanel(panel.transform, showUIPanelType);
-                _mUIPanelStack.Push(panel);
-                panel.OnShow();
-                panel.OnAfterShow();
+                BaseUIPanel topUiPanel = _uiPanelList.Last.Value;
+                HideUIPanelInternal(topUiPanel, HideUIPanelType.FadeOut);
             }
-            else
-            {
-                SpawnUIPanelAsync(uiPanelType, baseUIPanel =>
-                {
-                    baseUIPanel.OnBeforeShow();
-                    ShowUIPanel(baseUIPanel.transform, showUIPanelType);
-                    _mUIPanelStack.Push(baseUIPanel);
-                    baseUIPanel.OnShow();
-                    baseUIPanel.OnAfterShow();
-                });
-            }
+            PushUIPanelAppend(uiPanelType, showUIPanelType);
+            
+            #endregion
         }
 
-        public void PushUIPanelNotHide(UIPanelType uiPanelType, ShowUIPanelType showUIPanelType)
+        private void DoShowUIPanel(BaseUIPanel uiPanel, ShowUIPanelType showUIPanelType)
         {
-            if (_mUIPanelDict.TryGetValue(uiPanelType, out var panel))
+            #region Stack
+
+            // 缓存中存在，将UI对象压入栈中
+            // _uiPanelStack.Push(uiPanel);
+            // uiPanel.OnBeforeShow();
+            // ShowUIPanel(uiPanel.transform, showUIPanelType);
+            // uiPanel.OnShow();
+            // uiPanel.OnAfterShow();
+
+            #endregion
+            
+            #region LinkedList
+
+            _uiPanelList.AddLast(uiPanel);
+            ShowUIPanelInternal(uiPanel, showUIPanelType);
+
+            #endregion
+        }
+
+        /// <summary>
+        /// 显示指定UI（栈顶UI不隐藏）
+        /// </summary>
+        /// <param name="uiPanelType"></param>
+        /// <param name="showUIPanelType"></param>
+        public void PushUIPanelAppend(UIPanelType uiPanelType, ShowUIPanelType showUIPanelType)
+        {
+            #region SortedList
+
+            // if (_uiPanelDict.TryGetValue(uiPanelType, out var panel))
+            // {
+            //     DoShowUIPanel(panel, showUIPanelType);
+            // }
+            // else
+            // {
+            //     SpawnUIPanelAsync(uiPanelType, baseUIPanel =>
+            //     {
+            //         DoShowUIPanel(baseUIPanel, showUIPanelType);
+            //     });
+            // }
+
+            #endregion
+
+            #region Stack
+
+            // 栈顶UI隐藏
+            // if (_uiPanelStack.TryPeek(out BaseUIPanel peekUIPanel))
+            // {
+            //     HideUIPanel(peekUIPanel.transform, HideUIPanelType.FadeOut);
+            // }
+            //
+            // // 尝试在缓存中获取UI对象
+            // if (_uiPanelDict.TryGetValue(uiPanelType, out BaseUIPanel uiPanel))
+            // {
+            //     // 缓存中存在，将UI对象压入栈中
+            //     DoShowUIPanel(uiPanel, showUIPanelType);
+            // }
+            // else
+            // {
+            //     // 如果缓存中不存在改UI对象，则生成
+            //     SpawnUIPanelAsync(uiPanelType, spawnedUIPanel =>
+            //     {
+            //         DoShowUIPanel(spawnedUIPanel, showUIPanelType);
+            //     });
+            // }
+
+            #endregion
+
+            #region LinkedList
+
+            if (_uiPanelDict.TryGetValue(uiPanelType, out var panel))
             {
-                panel.OnBeforeShow();
-                ShowUIPanel(panel.transform, showUIPanelType);
-                _mUIPanelStack.Push(panel);
-                panel.OnShow();
-                panel.OnAfterShow();
+                DoShowUIPanel(panel, showUIPanelType);
             }
             else
             {
                 SpawnUIPanelAsync(uiPanelType, baseUIPanel =>
                 {
-                    baseUIPanel.OnBeforeShow();
-                    ShowUIPanel(baseUIPanel.transform, showUIPanelType);
-                    _mUIPanelStack.Push(baseUIPanel);
-                    baseUIPanel.OnShow();
-                    baseUIPanel.OnAfterShow();
+                    DoShowUIPanel(baseUIPanel, showUIPanelType);
                 });
             }
+
+            #endregion
         }
 
+        
+        /// <summary>
+        /// 将栈顶UI隐藏并弹出
+        /// </summary>
         public void PopUIPanel()
         {
-            // stack 栈顶ui隐藏并弹出
-            if (_mUIPanelStack.TryPop(out var uiPanel))
+            #region SotedList
+
+            // // stack 栈顶ui隐藏并弹出
+            // if (_uiPanelList.Count == 0) return;
+            // BaseUIPanel uiPanel = _uiPanelList[_currentLayer];
+            // HideUIPanel(uiPanel.transform, HideUIPanelType.MoveFadeOut);
+            // _uiPanelList.Remove(uiPanel.Layer);
+            // _currentLayer = uiPanel.Layer - 1;
+            //
+            // Debug.Log($"CurrentLayerPop:{_currentLayer}");
+            //
+            // if (_uiPanelList.Count == 0) return;
+            // uiPanel = _uiPanelList[_currentLayer];
+            // uiPanel.OnBeforeShow();
+            // ShowUIPanel(uiPanel.transform, ShowUIPanelType.MoveFadeIn);
+            // uiPanel.OnShow();
+            // uiPanel.OnAfterShow();
+            //
+            // _currentLayer = uiPanel.Layer;
+            // Debug.Log($"CurrentLayerPop:{_currentLayer}");
+
+            #endregion
+
+            #region Stack
+
+            // // 将栈顶UI隐藏并弹出
+            // if (_uiPanelStack.TryPop(out BaseUIPanel uiPanel))
+            // {
+            //     HideUIPanel(uiPanel.transform, HideUIPanelType.FadeOut);
+            // }
+            //
+            // // 将现在的栈顶UI显示
+            // if (_uiPanelStack.TryPeek(out uiPanel))
+            // {
+            //     DoShowUIPanel(uiPanel, ShowUIPanelType.FadeIn);
+            // }
+
+            #endregion
+
+            #region LinkedList
+            
+            if (_uiPanelList.Count == 0) return;
+            
+            var lastUIPanel = _uiPanelList.Last?.Value;
+            if (_uiPanelList.Count > 0 && lastUIPanel != null)
             {
-                Debug.Log("当前PopUI:" + uiPanel.name);
-                HideUIPanel(uiPanel.transform, HideUIPanelType.MoveFadeOut);
+                HideUIPanelInternal(lastUIPanel, HideUIPanelType.FadeOut);
+                _uiPanelList.RemoveLast();
             }
             
-            // stack 栈顶ui显示
-            if (_mUIPanelStack.TryPeek(out var panel))
+            lastUIPanel = _uiPanelList.Last?.Value;
+            if (_uiPanelList.Count > 0 && lastUIPanel != null)
             {
-                panel.OnBeforeShow();
-                ShowUIPanel(panel.transform, ShowUIPanelType.MoveFadeIn);
-                panel.OnShow();
-                panel.OnAfterShow();
+                ShowUIPanelInternal(lastUIPanel, ShowUIPanelType.FadeIn);
+            }
+            
+            #endregion
+        }
+        
+        /// <summary>
+        /// 隐藏并移除UI
+        /// </summary>
+        /// <param name="uiPanelType"></param>
+        public void HideAndRemoveUIPanel(UIPanelType uiPanelType)
+        {
+            BaseUIPanel uiPanelToRemove = null;
+            foreach (var uiPanel in _uiPanelList)
+            {
+                if (uiPanel.UIType == uiPanelType)
+                {
+                    HideUIPanelInternal(uiPanel, HideUIPanelType.FadeOut);
+                    uiPanelToRemove = uiPanel;
+                }
+            }
+
+            if (uiPanelToRemove != null)
+            {
+                _uiPanelList.Remove(uiPanelToRemove);
+            }
+        }
+
+        /// <summary>
+        /// 隐藏UI
+        /// </summary>
+        /// <param name="uiPanelType"></param>
+        public void HideUIPanel(UIPanelType uiPanelType)
+        {
+            foreach (var uiPanel in _uiPanelList)
+            {
+                if (uiPanel.UIType == uiPanelType)
+                {
+                    HideUIPanelInternal(uiPanel, HideUIPanelType.FadeOut);
+                    return;
+                }
             }
         }
 
         public void PopUIPanelNotShow()
         {
-            // stack 栈顶ui隐藏并弹出
-            if (_mUIPanelStack.TryPop(out var uiPanel))
+
+            #region SortedList
+
+            // if (_uiPanelList.Count == 0) return;
+            // BaseUIPanel uiPanel = _uiPanelList[_currentLayer];
+            // HideUIPanel(uiPanel.transform, HideUIPanelType.MoveFadeOut);
+            // _uiPanelList.Remove(uiPanel.Layer);
+            //
+            // if (_uiPanelList.Count == 0) return;
+            // uiPanel = _uiPanelList[_currentLayer];
+            // _currentLayer = uiPanel.Layer;
+
+            #endregion
+            
+            #region Stack
+            
+            // 将栈顶UI隐藏并弹出
+            // if (_uiPanelStack.TryPop(out BaseUIPanel uiPanel))
+            // {
+            //     HideUIPanel(uiPanel.transform, HideUIPanelType.FadeOut);
+            // }
+            
+            #endregion
+
+            #region LinkedList
+
+            if (_uiPanelList.Count == 0) return;
+            
+            var lastUIPanel = _uiPanelList.Last?.Value;
+            if (_uiPanelList.Count > 0 && lastUIPanel != null)
             {
-                HideUIPanel(uiPanel.transform, HideUIPanelType.MoveFadeOut);
-            }
-        }
-
-        public void PopUIPanelNoAction()
-        {
-            if (_mUIPanelStack.TryPop(out var uiPanel))
-            {
-                Debug.Log("当前PopUI:" + uiPanel.name);
-
+                HideUIPanelInternal(lastUIPanel, HideUIPanelType.FadeOut);
+                _uiPanelList.RemoveLast();
             }
 
+            #endregion
         }
 
         public void ShowMessage(string message)
         {
             if (string.IsNullOrEmpty(message)) return;
-            if (_mUIPanelDict.TryGetValue(UIPanelType.MessageUI, out var uiPanel))
+            if (_uiPanelDict.TryGetValue(UIPanelType.MessageUI, out var uiPanel))
             {
                 MessageUI messageUI = uiPanel as MessageUI;
                 messageUI?.ShowMessage(message);
@@ -192,54 +397,38 @@ namespace ChaosBall.UI
             }
         }
 
-        public void HideAllUIPanel()
+        private void ShowUIPanelInternal(BaseUIPanel uiPanel, ShowUIPanelType showUIPanelType)
         {
-            foreach (var panel in _mUIPanelStack)
+            uiPanel.OnShow();
+            CanvasGroup canvasGroup = uiPanel.transform.GetComponent<CanvasGroup>();
+            canvasGroup.DOFade(1, UISHOW_DURATION).OnComplete(() =>
             {
-                HideUIPanel(panel.transform, HideUIPanelType.FadeOut);
-            }
-        }
-        
-        public void ClearUIPanel()
-        {
-            // HideAllUIPanel();
-            
-            Debug.Log("清除所有UI");
-            _mUIPanelStack.Clear();
-            foreach (var baseUIPanel in _mUIPanelDict.Values)
-            {
-                Object.Destroy(baseUIPanel.gameObject);
-            }
-            _mUIPanelDict.Clear();
-        }
-
-        private void ShowUIPanel(Transform uiTransform, ShowUIPanelType showUIPanelType)
-        {
-            CanvasGroup canvasGroup = uiTransform.GetComponent<CanvasGroup>();
-            canvasGroup.DOFade(1, UISHOW_DURATION);
+                
+            });
             if (showUIPanelType is ShowUIPanelType.MoveFadeIn)
             {
-                uiTransform.DOLocalMoveX(UISHOW_END_POSITION, UISHOW_DURATION);
+                uiPanel.transform.DOLocalMoveX(UISHOW_END_POSITION, UISHOW_DURATION);
             }
             else
             {
-                uiTransform.localPosition = new Vector3(UISHOW_END_POSITION
-                    , uiTransform.localPosition.y, 0);
+                uiPanel.transform.localPosition = new Vector3(UISHOW_END_POSITION
+                    , uiPanel.transform.localPosition.y, 0);
             }
             
             canvasGroup.blocksRaycasts = true;
         }
 
-        private void HideUIPanel(Transform uiTransform, HideUIPanelType hideUIPanelType)
+        private void HideUIPanelInternal(BaseUIPanel uiPanel, HideUIPanelType hideUIPanelType)
         {
+            uiPanel.OnHide();
             void OnComplete()
             {
-                uiTransform.localPosition = new Vector3(UISHOW_START_POSITION, uiTransform.localPosition.y, 0);
+                uiPanel.transform.localPosition = new Vector3(UISHOW_START_POSITION, uiPanel.transform.localPosition.y, 0);
             }
-            CanvasGroup canvasGroup = uiTransform.GetComponent<CanvasGroup>();
+            CanvasGroup canvasGroup = uiPanel.transform.GetComponent<CanvasGroup>();
             if (hideUIPanelType is HideUIPanelType.MoveFadeOut)
             {
-                uiTransform.DOLocalMoveX(UIHIDE_END_POSITION, UISHOW_DURATION);
+                uiPanel.transform.DOLocalMoveX(UIHIDE_END_POSITION, UISHOW_DURATION);
             }
             canvasGroup.DOFade(0, UISHOW_DURATION).OnComplete(OnComplete);
             canvasGroup.blocksRaycasts = false;
@@ -247,13 +436,14 @@ namespace ChaosBall.UI
 
         private BaseUIPanel SpawnUIPanel(UIPanelType uiPanelType)
         {
-            if (_mUIPanelPathDict.TryGetValue(uiPanelType, out string path))
+            if (_uiPanelPathDict.TryGetValue(uiPanelType, out string path))
             {
                 Debug.Log($"Spawn UI, Type:{uiPanelType}, Path:{path}");
                 GameObject uiPrefab = Resources.Load<GameObject>(path);
-                GameObject uiGameObject = GameObject.Instantiate(uiPrefab, _mCanvas);
+                GameObject uiGameObject = GameObject.Instantiate(uiPrefab, _canvas);
                 BaseUIPanel baseUIPanel = uiGameObject.GetComponent<BaseUIPanel>();
-                _mUIPanelDict[uiPanelType] = baseUIPanel;
+                baseUIPanel.UIType = uiPanelType;
+                _uiPanelDict[uiPanelType] = baseUIPanel;
                 CanvasGroup canvasGroup = uiGameObject.GetComponent<CanvasGroup>();
                 canvasGroup.alpha = 0f;
                 canvasGroup.blocksRaycasts = false;
@@ -269,21 +459,23 @@ namespace ChaosBall.UI
 
         private void SpawnUIPanelAsync(UIPanelType uiPanelType, Action<BaseUIPanel> onComplete)
         {
-            if (_mUIPanelPathDict.TryGetValue(uiPanelType, out string path))
+            if (_uiPanelPathDict.TryGetValue(uiPanelType, out string path))
             {
                 Debug.Log($"Spawn UI, Type:{uiPanelType}, Path:{path}");
                 ResourceRequest resourceRequest = Resources.LoadAsync<GameObject>(path);
                 resourceRequest.completed += _ =>
                 {
                     GameObject uiPrefab = resourceRequest.asset as GameObject;
-                    GameObject uiGameObject = GameObject.Instantiate(uiPrefab, _mCanvas);
+                    GameObject uiGameObject = GameObject.Instantiate(uiPrefab, _canvas);
                     BaseUIPanel baseUIPanel = uiGameObject.GetComponent<BaseUIPanel>();
-                    _mUIPanelDict[uiPanelType] = baseUIPanel;
+                    baseUIPanel.UIType = uiPanelType;
+                    _uiPanelDict[uiPanelType] = baseUIPanel;
                     CanvasGroup canvasGroup = uiGameObject.GetComponent<CanvasGroup>();
                     canvasGroup.alpha = 0f;
                     canvasGroup.blocksRaycasts = false;
                     baseUIPanel.OnInit();
                     onComplete?.Invoke(baseUIPanel);
+                    
                 };
             }
             else
@@ -294,10 +486,10 @@ namespace ChaosBall.UI
 
         private void InitUIPanel()
         {
-            foreach (var uiPanelSo in _mUIPanelSoListSo.uIPanelSoList)
+            foreach (var uiPanelSo in _uiPanelSoListSo.uIPanelSoList)
             {
                 Debug.Log($"UIAdd,Type:{uiPanelSo.uIPanelType},Path:{uiPanelSo.path}");
-                _mUIPanelPathDict.Add(uiPanelSo.uIPanelType, uiPanelSo.path);
+                _uiPanelPathDict.Add(uiPanelSo.uIPanelType, uiPanelSo.path);
             }
         }
     }

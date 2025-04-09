@@ -9,11 +9,11 @@ namespace ChaosBall.UI
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField, Range(1, 5)] private float existTime;
 
-        private CanvasGroup _mCanvasGroup;
+        private CanvasGroup _canvasGroup;
 
         private void Awake()
         {
-            _mCanvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup = GetComponent<CanvasGroup>();
         }
 
         public void ShowMessage(string message)
@@ -25,13 +25,13 @@ namespace ChaosBall.UI
 
         private void FadeInMessage()
         {
-            _mCanvasGroup.DOFade(1f, .2f);
+            _canvasGroup.DOFade(1f, .2f);
             messageText.CrossFadeAlpha(1f, .2f, true);
         }
 
         private void FadeOutMessage()
         {
-            _mCanvasGroup.DOFade(0f, .2f);
+            _canvasGroup.DOFade(0f, .2f);
             messageText.CrossFadeAlpha(0f, .2f, true);
         }
         

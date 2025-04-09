@@ -24,38 +24,40 @@ namespace GameFrameSync {
     static GameFrameSyncReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChNHYW1lRnJhbWVTeW5jLnByb3RvEg1HYW1lRnJhbWVTeW5jIvsBChFSZXFG",
+            "ChNHYW1lRnJhbWVTeW5jLnByb3RvEg1HYW1lRnJhbWVTeW5jIpMCChFSZXFG",
             "cmFtZUlucHV0RGF0YRIPCgdmcmFtZUlkGAEgASgFEhAKCHBsYXllcklkGAIg",
             "ASgFEisKCWlucHV0VHlwZRgDIAEoDjIYLkdhbWVGcmFtZVN5bmMuSW5wdXRU",
-            "eXBlEikKCHBvc2l0aW9uGAQgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
-            "RBINCgVmb3JjZRgFIAEoAhIvCg5zaG9vdERpcmVjdGlvbhgGIAEoCzIXLkdh",
-            "bWVGcmFtZVN5bmMuVmVjdG9yM0QSKwoKbW92ZVZlY3RvchgHIAEoCzIXLkdh",
-            "bWVGcmFtZVN5bmMuVmVjdG9yM0Qi+AEKDkZyYW1lSW5wdXREYXRhEg8KB2Zy",
-            "YW1lSWQYASABKAUSEAoIcGxheWVySWQYAiABKAUSKwoJaW5wdXRUeXBlGAMg",
-            "ASgOMhguR2FtZUZyYW1lU3luYy5JbnB1dFR5cGUSKQoIcG9zaXRpb24YBCAB",
-            "KAsyFy5HYW1lRnJhbWVTeW5jLlZlY3RvcjNEEg0KBWZvcmNlGAUgASgCEi8K",
-            "DnNob290RGlyZWN0aW9uGAYgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
-            "RBIrCgptb3ZlVmVjdG9yGAcgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iz",
-            "RCIpCgtNZXNzYWdlSGVhZBINCgVpbmRleBgBIAEoBRILCgNhY2sYAiABKAgi",
-            "KwoIVmVjdG9yM0QSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIi",
-            "kgIKEFJlc0ZyYW1lU3luY0RhdGESDwoHZnJhbWVJZBgBIAEoBRI8ChVwbGF5",
-            "ZXJzRnJhbWVJbnB1dERhdGEYAiADKAsyHS5HYW1lRnJhbWVTeW5jLkZyYW1l",
-            "SW5wdXREYXRhEjsKEXJlcUZyYW1lSW5wdXREYXRhGAMgASgLMiAuR2FtZUZy",
-            "YW1lU3luYy5SZXFGcmFtZUlucHV0RGF0YRIvCgttZXNzYWdlSGVhZBgFIAEo",
-            "CzIaLkdhbWVGcmFtZVN5bmMuTWVzc2FnZUhlYWQSLwoLbWVzc2FnZVR5cGUY",
-            "BiABKA4yGi5HYW1lRnJhbWVTeW5jLk1lc3NhZ2VUeXBlEhAKCHJvb21Db2Rl",
-            "GAcgASgJKoABCglJbnB1dFR5cGUSCAoETm9uZRAAEgwKCE1vdmVMZWZ0EAES",
-            "DQoJTW92ZVJpZ2h0EAISCQoFUmVhZHkQAxINCglRdWl0UmVhZHkQBBIJCgVT",
-            "aG9vdBAFEggKBE1vdmUQBhIMCghJbnRlcmFjdBAHEg8KC0ludGVyYWN0QWx0",
-            "EAgqJQoLTWVzc2FnZVR5cGUSDQoJRnJhbWVTeW5jEAASBwoDQUNLEAJiBnBy",
-            "b3RvMw=="));
+            "eXBlEikKCHBvc2l0aW9uGAQgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0b3Iy",
+            "RBINCgVmb3JjZRgFIAEoAhIWCg5hcnJvd1JvdGF0aW9uWhgGIAEoAhIvCg5z",
+            "aG9vdERpcmVjdGlvbhgHIAEoCzIXLkdhbWVGcmFtZVN5bmMuVmVjdG9yMkQS",
+            "KwoKbW92ZVZlY3RvchgIIAEoCzIXLkdhbWVGcmFtZVN5bmMuVmVjdG9yMkQi",
+            "kAIKDkZyYW1lSW5wdXREYXRhEg8KB2ZyYW1lSWQYASABKAUSEAoIcGxheWVy",
+            "SWQYAiABKAUSKwoJaW5wdXRUeXBlGAMgASgOMhguR2FtZUZyYW1lU3luYy5J",
+            "bnB1dFR5cGUSKQoIcG9zaXRpb24YBCABKAsyFy5HYW1lRnJhbWVTeW5jLlZl",
+            "Y3RvcjJEEg0KBWZvcmNlGAUgASgCEhYKDmFycm93Um90YXRpb25aGAYgASgC",
+            "Ei8KDnNob290RGlyZWN0aW9uGAcgASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0",
+            "b3IyRBIrCgptb3ZlVmVjdG9yGAggASgLMhcuR2FtZUZyYW1lU3luYy5WZWN0",
+            "b3IyRCIpCgtNZXNzYWdlSGVhZBINCgVpbmRleBgBIAEoBRILCgNhY2sYAiAB",
+            "KAgiKwoIVmVjdG9yM0QSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyAB",
+            "KAIiIAoIVmVjdG9yMkQSCQoBeBgBIAEoAhIJCgF5GAIgASgCIpICChBSZXNG",
+            "cmFtZVN5bmNEYXRhEg8KB2ZyYW1lSWQYASABKAUSPAoVcGxheWVyc0ZyYW1l",
+            "SW5wdXREYXRhGAIgAygLMh0uR2FtZUZyYW1lU3luYy5GcmFtZUlucHV0RGF0",
+            "YRI7ChFyZXFGcmFtZUlucHV0RGF0YRgDIAEoCzIgLkdhbWVGcmFtZVN5bmMu",
+            "UmVxRnJhbWVJbnB1dERhdGESLwoLbWVzc2FnZUhlYWQYBSABKAsyGi5HYW1l",
+            "RnJhbWVTeW5jLk1lc3NhZ2VIZWFkEi8KC21lc3NhZ2VUeXBlGAYgASgOMhou",
+            "R2FtZUZyYW1lU3luYy5NZXNzYWdlVHlwZRIQCghyb29tQ29kZRgHIAEoCSqA",
+            "AQoJSW5wdXRUeXBlEggKBE5vbmUQABIMCghNb3ZlTGVmdBABEg0KCU1vdmVS",
+            "aWdodBACEgkKBVJlYWR5EAMSDQoJUXVpdFJlYWR5EAQSCQoFU2hvb3QQBRII",
+            "CgRNb3ZlEAYSDAoISW50ZXJhY3QQBxIPCgtJbnRlcmFjdEFsdBAIKiUKC01l",
+            "c3NhZ2VUeXBlEg0KCUZyYW1lU3luYxAAEgcKA0FDSxACYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::GameFrameSync.InputType), typeof(global::GameFrameSync.MessageType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ReqFrameInputData), global::GameFrameSync.ReqFrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection", "MoveVector" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.FrameInputData), global::GameFrameSync.FrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ShootDirection", "MoveVector" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ReqFrameInputData), global::GameFrameSync.ReqFrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ArrowRotationZ", "ShootDirection", "MoveVector" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.FrameInputData), global::GameFrameSync.FrameInputData.Parser, new[]{ "FrameId", "PlayerId", "InputType", "Position", "Force", "ArrowRotationZ", "ShootDirection", "MoveVector" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.MessageHead), global::GameFrameSync.MessageHead.Parser, new[]{ "Index", "Ack" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.Vector3D), global::GameFrameSync.Vector3D.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.Vector2D), global::GameFrameSync.Vector2D.Parser, new[]{ "X", "Y" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::GameFrameSync.ResFrameSyncData), global::GameFrameSync.ResFrameSyncData.Parser, new[]{ "FrameId", "PlayersFrameInputData", "ReqFrameInputData", "MessageHead", "MessageType", "RoomCode" }, null, null, null, null)
           }));
     }
@@ -123,6 +125,7 @@ namespace GameFrameSync {
       inputType_ = other.inputType_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       force_ = other.force_;
+      arrowRotationZ_ = other.arrowRotationZ_;
       shootDirection_ = other.shootDirection_ != null ? other.shootDirection_.Clone() : null;
       moveVector_ = other.moveVector_ != null ? other.moveVector_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -172,10 +175,10 @@ namespace GameFrameSync {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 4;
-    private global::GameFrameSync.Vector3D position_;
+    private global::GameFrameSync.Vector2D position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::GameFrameSync.Vector3D Position {
+    public global::GameFrameSync.Vector2D Position {
       get { return position_; }
       set {
         position_ = value;
@@ -194,12 +197,24 @@ namespace GameFrameSync {
       }
     }
 
-    /// <summary>Field number for the "shootDirection" field.</summary>
-    public const int ShootDirectionFieldNumber = 6;
-    private global::GameFrameSync.Vector3D shootDirection_;
+    /// <summary>Field number for the "arrowRotationZ" field.</summary>
+    public const int ArrowRotationZFieldNumber = 6;
+    private float arrowRotationZ_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::GameFrameSync.Vector3D ShootDirection {
+    public float ArrowRotationZ {
+      get { return arrowRotationZ_; }
+      set {
+        arrowRotationZ_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "shootDirection" field.</summary>
+    public const int ShootDirectionFieldNumber = 7;
+    private global::GameFrameSync.Vector2D shootDirection_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::GameFrameSync.Vector2D ShootDirection {
       get { return shootDirection_; }
       set {
         shootDirection_ = value;
@@ -207,11 +222,11 @@ namespace GameFrameSync {
     }
 
     /// <summary>Field number for the "moveVector" field.</summary>
-    public const int MoveVectorFieldNumber = 7;
-    private global::GameFrameSync.Vector3D moveVector_;
+    public const int MoveVectorFieldNumber = 8;
+    private global::GameFrameSync.Vector2D moveVector_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::GameFrameSync.Vector3D MoveVector {
+    public global::GameFrameSync.Vector2D MoveVector {
       get { return moveVector_; }
       set {
         moveVector_ = value;
@@ -238,6 +253,7 @@ namespace GameFrameSync {
       if (InputType != other.InputType) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Force, other.Force)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(ArrowRotationZ, other.ArrowRotationZ)) return false;
       if (!object.Equals(ShootDirection, other.ShootDirection)) return false;
       if (!object.Equals(MoveVector, other.MoveVector)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -252,6 +268,7 @@ namespace GameFrameSync {
       if (InputType != global::GameFrameSync.InputType.None) hash ^= InputType.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Force != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Force);
+      if (ArrowRotationZ != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(ArrowRotationZ);
       if (shootDirection_ != null) hash ^= ShootDirection.GetHashCode();
       if (moveVector_ != null) hash ^= MoveVector.GetHashCode();
       if (_unknownFields != null) {
@@ -292,12 +309,16 @@ namespace GameFrameSync {
         output.WriteRawTag(45);
         output.WriteFloat(Force);
       }
+      if (ArrowRotationZ != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(ArrowRotationZ);
+      }
       if (shootDirection_ != null) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(ShootDirection);
       }
       if (moveVector_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(MoveVector);
       }
       if (_unknownFields != null) {
@@ -330,12 +351,16 @@ namespace GameFrameSync {
         output.WriteRawTag(45);
         output.WriteFloat(Force);
       }
+      if (ArrowRotationZ != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(ArrowRotationZ);
+      }
       if (shootDirection_ != null) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(ShootDirection);
       }
       if (moveVector_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(MoveVector);
       }
       if (_unknownFields != null) {
@@ -361,6 +386,9 @@ namespace GameFrameSync {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
       }
       if (Force != 0F) {
+        size += 1 + 4;
+      }
+      if (ArrowRotationZ != 0F) {
         size += 1 + 4;
       }
       if (shootDirection_ != null) {
@@ -392,22 +420,25 @@ namespace GameFrameSync {
       }
       if (other.position_ != null) {
         if (position_ == null) {
-          Position = new global::GameFrameSync.Vector3D();
+          Position = new global::GameFrameSync.Vector2D();
         }
         Position.MergeFrom(other.Position);
       }
       if (other.Force != 0F) {
         Force = other.Force;
       }
+      if (other.ArrowRotationZ != 0F) {
+        ArrowRotationZ = other.ArrowRotationZ;
+      }
       if (other.shootDirection_ != null) {
         if (shootDirection_ == null) {
-          ShootDirection = new global::GameFrameSync.Vector3D();
+          ShootDirection = new global::GameFrameSync.Vector2D();
         }
         ShootDirection.MergeFrom(other.ShootDirection);
       }
       if (other.moveVector_ != null) {
         if (moveVector_ == null) {
-          MoveVector = new global::GameFrameSync.Vector3D();
+          MoveVector = new global::GameFrameSync.Vector2D();
         }
         MoveVector.MergeFrom(other.MoveVector);
       }
@@ -444,7 +475,7 @@ namespace GameFrameSync {
           }
           case 34: {
             if (position_ == null) {
-              Position = new global::GameFrameSync.Vector3D();
+              Position = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(Position);
             break;
@@ -453,16 +484,20 @@ namespace GameFrameSync {
             Force = input.ReadFloat();
             break;
           }
-          case 50: {
+          case 53: {
+            ArrowRotationZ = input.ReadFloat();
+            break;
+          }
+          case 58: {
             if (shootDirection_ == null) {
-              ShootDirection = new global::GameFrameSync.Vector3D();
+              ShootDirection = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(ShootDirection);
             break;
           }
-          case 58: {
+          case 66: {
             if (moveVector_ == null) {
-              MoveVector = new global::GameFrameSync.Vector3D();
+              MoveVector = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(MoveVector);
             break;
@@ -500,7 +535,7 @@ namespace GameFrameSync {
           }
           case 34: {
             if (position_ == null) {
-              Position = new global::GameFrameSync.Vector3D();
+              Position = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(Position);
             break;
@@ -509,16 +544,20 @@ namespace GameFrameSync {
             Force = input.ReadFloat();
             break;
           }
-          case 50: {
+          case 53: {
+            ArrowRotationZ = input.ReadFloat();
+            break;
+          }
+          case 58: {
             if (shootDirection_ == null) {
-              ShootDirection = new global::GameFrameSync.Vector3D();
+              ShootDirection = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(ShootDirection);
             break;
           }
-          case 58: {
+          case 66: {
             if (moveVector_ == null) {
-              MoveVector = new global::GameFrameSync.Vector3D();
+              MoveVector = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(MoveVector);
             break;
@@ -570,6 +609,7 @@ namespace GameFrameSync {
       inputType_ = other.inputType_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
       force_ = other.force_;
+      arrowRotationZ_ = other.arrowRotationZ_;
       shootDirection_ = other.shootDirection_ != null ? other.shootDirection_.Clone() : null;
       moveVector_ = other.moveVector_ != null ? other.moveVector_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -619,10 +659,10 @@ namespace GameFrameSync {
 
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 4;
-    private global::GameFrameSync.Vector3D position_;
+    private global::GameFrameSync.Vector2D position_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::GameFrameSync.Vector3D Position {
+    public global::GameFrameSync.Vector2D Position {
       get { return position_; }
       set {
         position_ = value;
@@ -641,12 +681,24 @@ namespace GameFrameSync {
       }
     }
 
-    /// <summary>Field number for the "shootDirection" field.</summary>
-    public const int ShootDirectionFieldNumber = 6;
-    private global::GameFrameSync.Vector3D shootDirection_;
+    /// <summary>Field number for the "arrowRotationZ" field.</summary>
+    public const int ArrowRotationZFieldNumber = 6;
+    private float arrowRotationZ_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::GameFrameSync.Vector3D ShootDirection {
+    public float ArrowRotationZ {
+      get { return arrowRotationZ_; }
+      set {
+        arrowRotationZ_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "shootDirection" field.</summary>
+    public const int ShootDirectionFieldNumber = 7;
+    private global::GameFrameSync.Vector2D shootDirection_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::GameFrameSync.Vector2D ShootDirection {
       get { return shootDirection_; }
       set {
         shootDirection_ = value;
@@ -654,11 +706,11 @@ namespace GameFrameSync {
     }
 
     /// <summary>Field number for the "moveVector" field.</summary>
-    public const int MoveVectorFieldNumber = 7;
-    private global::GameFrameSync.Vector3D moveVector_;
+    public const int MoveVectorFieldNumber = 8;
+    private global::GameFrameSync.Vector2D moveVector_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::GameFrameSync.Vector3D MoveVector {
+    public global::GameFrameSync.Vector2D MoveVector {
       get { return moveVector_; }
       set {
         moveVector_ = value;
@@ -685,6 +737,7 @@ namespace GameFrameSync {
       if (InputType != other.InputType) return false;
       if (!object.Equals(Position, other.Position)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Force, other.Force)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(ArrowRotationZ, other.ArrowRotationZ)) return false;
       if (!object.Equals(ShootDirection, other.ShootDirection)) return false;
       if (!object.Equals(MoveVector, other.MoveVector)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -699,6 +752,7 @@ namespace GameFrameSync {
       if (InputType != global::GameFrameSync.InputType.None) hash ^= InputType.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
       if (Force != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Force);
+      if (ArrowRotationZ != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(ArrowRotationZ);
       if (shootDirection_ != null) hash ^= ShootDirection.GetHashCode();
       if (moveVector_ != null) hash ^= MoveVector.GetHashCode();
       if (_unknownFields != null) {
@@ -739,12 +793,16 @@ namespace GameFrameSync {
         output.WriteRawTag(45);
         output.WriteFloat(Force);
       }
+      if (ArrowRotationZ != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(ArrowRotationZ);
+      }
       if (shootDirection_ != null) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(ShootDirection);
       }
       if (moveVector_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(MoveVector);
       }
       if (_unknownFields != null) {
@@ -777,12 +835,16 @@ namespace GameFrameSync {
         output.WriteRawTag(45);
         output.WriteFloat(Force);
       }
+      if (ArrowRotationZ != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(ArrowRotationZ);
+      }
       if (shootDirection_ != null) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteMessage(ShootDirection);
       }
       if (moveVector_ != null) {
-        output.WriteRawTag(58);
+        output.WriteRawTag(66);
         output.WriteMessage(MoveVector);
       }
       if (_unknownFields != null) {
@@ -808,6 +870,9 @@ namespace GameFrameSync {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
       }
       if (Force != 0F) {
+        size += 1 + 4;
+      }
+      if (ArrowRotationZ != 0F) {
         size += 1 + 4;
       }
       if (shootDirection_ != null) {
@@ -839,22 +904,25 @@ namespace GameFrameSync {
       }
       if (other.position_ != null) {
         if (position_ == null) {
-          Position = new global::GameFrameSync.Vector3D();
+          Position = new global::GameFrameSync.Vector2D();
         }
         Position.MergeFrom(other.Position);
       }
       if (other.Force != 0F) {
         Force = other.Force;
       }
+      if (other.ArrowRotationZ != 0F) {
+        ArrowRotationZ = other.ArrowRotationZ;
+      }
       if (other.shootDirection_ != null) {
         if (shootDirection_ == null) {
-          ShootDirection = new global::GameFrameSync.Vector3D();
+          ShootDirection = new global::GameFrameSync.Vector2D();
         }
         ShootDirection.MergeFrom(other.ShootDirection);
       }
       if (other.moveVector_ != null) {
         if (moveVector_ == null) {
-          MoveVector = new global::GameFrameSync.Vector3D();
+          MoveVector = new global::GameFrameSync.Vector2D();
         }
         MoveVector.MergeFrom(other.MoveVector);
       }
@@ -891,7 +959,7 @@ namespace GameFrameSync {
           }
           case 34: {
             if (position_ == null) {
-              Position = new global::GameFrameSync.Vector3D();
+              Position = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(Position);
             break;
@@ -900,16 +968,20 @@ namespace GameFrameSync {
             Force = input.ReadFloat();
             break;
           }
-          case 50: {
+          case 53: {
+            ArrowRotationZ = input.ReadFloat();
+            break;
+          }
+          case 58: {
             if (shootDirection_ == null) {
-              ShootDirection = new global::GameFrameSync.Vector3D();
+              ShootDirection = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(ShootDirection);
             break;
           }
-          case 58: {
+          case 66: {
             if (moveVector_ == null) {
-              MoveVector = new global::GameFrameSync.Vector3D();
+              MoveVector = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(MoveVector);
             break;
@@ -947,7 +1019,7 @@ namespace GameFrameSync {
           }
           case 34: {
             if (position_ == null) {
-              Position = new global::GameFrameSync.Vector3D();
+              Position = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(Position);
             break;
@@ -956,16 +1028,20 @@ namespace GameFrameSync {
             Force = input.ReadFloat();
             break;
           }
-          case 50: {
+          case 53: {
+            ArrowRotationZ = input.ReadFloat();
+            break;
+          }
+          case 58: {
             if (shootDirection_ == null) {
-              ShootDirection = new global::GameFrameSync.Vector3D();
+              ShootDirection = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(ShootDirection);
             break;
           }
-          case 58: {
+          case 66: {
             if (moveVector_ == null) {
-              MoveVector = new global::GameFrameSync.Vector3D();
+              MoveVector = new global::GameFrameSync.Vector2D();
             }
             input.ReadMessage(MoveVector);
             break;
@@ -1485,6 +1561,241 @@ namespace GameFrameSync {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class Vector2D : pb::IMessage<Vector2D>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Vector2D> _parser = new pb::MessageParser<Vector2D>(() => new Vector2D());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<Vector2D> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::GameFrameSync.GameFrameSyncReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Vector2D() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Vector2D(Vector2D other) : this() {
+      x_ = other.x_;
+      y_ = other.y_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Vector2D Clone() {
+      return new Vector2D(this);
+    }
+
+    /// <summary>Field number for the "x" field.</summary>
+    public const int XFieldNumber = 1;
+    private float x_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float X {
+      get { return x_; }
+      set {
+        x_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "y" field.</summary>
+    public const int YFieldNumber = 2;
+    private float y_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float Y {
+      get { return y_; }
+      set {
+        y_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as Vector2D);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(Vector2D other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(X, other.X)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Y, other.Y)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (X != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(X);
+      if (Y != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Y);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (X != 0F) {
+        output.WriteRawTag(13);
+        output.WriteFloat(X);
+      }
+      if (Y != 0F) {
+        output.WriteRawTag(21);
+        output.WriteFloat(Y);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (X != 0F) {
+        size += 1 + 4;
+      }
+      if (Y != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(Vector2D other) {
+      if (other == null) {
+        return;
+      }
+      if (other.X != 0F) {
+        X = other.X;
+      }
+      if (other.Y != 0F) {
+        Y = other.Y;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 13: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            Y = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 13: {
+            X = input.ReadFloat();
+            break;
+          }
+          case 21: {
+            Y = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class ResFrameSyncData : pb::IMessage<ResFrameSyncData>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1499,7 +1810,7 @@ namespace GameFrameSync {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::GameFrameSync.GameFrameSyncReflection.Descriptor.MessageTypes[4]; }
+      get { return global::GameFrameSync.GameFrameSyncReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

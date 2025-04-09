@@ -17,11 +17,11 @@ namespace ChaosBall.UI
         [SerializeField] private Button gotoSignUpButton;
         [SerializeField] private Button closeButton;
 
-        private SignInRequest _mSignInRequest;
+        private SignInRequest _signInRequest;
 
         public override void OnInit()
         {
-            _mSignInRequest = GameInterface.Interface.RequestManager.GetRequest<SignInRequest>();
+            _signInRequest = GameInterface.Interface.RequestManager.GetRequest<SignInRequest>();
             base.OnInit();
         }
 
@@ -34,7 +34,14 @@ namespace ChaosBall.UI
 
         public override void OnBeforeShow()
         {
-            base.OnInit();
+            // base.OnBeforeShow();
+            // transform.localPosition = new Vector3(UIManager.UISHOW_START_POSITION
+            //     , transform.localPosition.y, 0);
+        }
+
+        public override void OnShow()
+        {
+            base.OnShow();
             transform.localPosition = new Vector3(UIManager.UISHOW_START_POSITION
                 , transform.localPosition.y, 0);
         }
@@ -70,7 +77,7 @@ namespace ChaosBall.UI
                 return;
             }
             
-            _mSignInRequest.SendSignInRequest(username, password, OnSignInSuccess, OnSignInFail);
+            _signInRequest.SendSignInRequest(username, password, OnSignInSuccess, OnSignInFail);
         }
 
         private void OnSignInSuccess()

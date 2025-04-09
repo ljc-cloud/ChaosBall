@@ -13,19 +13,26 @@ namespace ChaosBall.Game
         [SerializeField] private BirdType birdType;
         
         private Rigidbody _mRigidBody;
-        private BirdStateManager _mBirdStateManager;
+        private BirdStateMachine _mBirdStateMachine;
 
         private Vector3 _mCollideDirection;
         private float _mBirdRadius;
         private Collider[] _mAreaTriggerArray;
         private IBirdCollideBehaviour _mBirdCollideBehaviour;
+        
+        public class OnBirdEnterAreaEventArgs : EventArgs
+        {
+            public Area area;
+        }
+        public event EventHandler<OnBirdEnterAreaEventArgs> OnBirdEnterArea;
+        public event EventHandler OnBirdExitArea;
 
         public Vector3 LastVelocity { get; private set; }
         
         private void Awake()
         {
             _mRigidBody = GetComponent<Rigidbody>();
-            _mBirdStateManager = GetComponent<BirdStateManager>();
+            _mBirdStateMachine = GetComponent<BirdStateMachine>();
         }
 
         private void Start()
@@ -55,8 +62,8 @@ namespace ChaosBall.Game
 
         private void LateUpdate()
         {
-            if (!_mBirdStateManager.Initialized) return;
-            if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Shoot)
+            if (!_mBirdStateMachine.Initialized) return;
+            if (_mBirdStateMachine.CurrentState.State is BirdState.BirdStateEnum.Shoot)
             {
                 LastVelocity = _mRigidBody.velocity;
             }
@@ -75,9 +82,9 @@ namespace ChaosBall.Game
                     _mRigidBody.velocity = direction * LastVelocity.magnitude * collideCostParam;
                     break;
                 case GameAssets.BIRD_LAYER:
-                    if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Shoot)
+                    if (_mBirdStateMachine.CurrentState.State is BirdState.BirdStateEnum.Shoot)
                     {
-                        other.transform.GetComponent<BirdStateManager>().ChangeState(BirdState.BirdStateEnum.Collided);
+                        other.transform.GetComponent<BirdStateMachine>().ChangeState(BirdState.BirdStateEnum.Collided);
                         _mBirdCollideBehaviour.OnCollideOtherBird(transform, other);
                     }
                     break;
@@ -90,10 +97,11 @@ namespace ChaosBall.Game
             if (other.gameObject.layer == GameAssets.AREA_LAYER)
             {
                 Area area = other.transform.GetComponent<Area>();
-                GameInterface.Interface.EventSystem.Publish(new BirdEnterAreaEvent
-                {
-                    area = area,
-                });
+                // GameInterface.Interface.EventSystem.Publish(new BirdEnterAreaEvent
+                // {
+                //     area = area,
+                // });
+                OnBirdEnterArea?.Invoke(this, new OnBirdEnterAreaEventArgs { area = area });
             }
         }
 
@@ -125,8 +133,9 @@ namespace ChaosBall.Game
         {
             if (other.gameObject.layer == GameAssets.AREA_LAYER)
             {
-                Area area = other.transform.GetComponent<Area>();
-                GameInterface.Interface.EventSystem.Publish(new BirdExitAreaEvent());
+                // Area area = other.transform.GetComponent<Area>();
+                // GameInterface.Interface.EventSystem.Publish(new BirdExitAreaEvent());
+                OnBirdExitArea?.Invoke(this, EventArgs.Empty);
             }
         }
 

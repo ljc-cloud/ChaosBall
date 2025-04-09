@@ -70,7 +70,7 @@ namespace ChaosBall.Net.Request
         }
 
 
-        public void SendJoinRoomRequest(string roomCode, Action onJoinRoomSuccess, Action onJoinRoomFail = null)
+        public void SendJoinRoomRequest(string roomCode, Action onJoinRoomSuccess = null, Action onJoinRoomFail = null)
         {
             RoomInfoPack roomInfoPack = new RoomInfoPack
             {

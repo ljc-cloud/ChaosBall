@@ -13,37 +13,39 @@ namespace ChaosBall.UI
         [SerializeField] private Button readyButton;
         [SerializeField] private Button unreadyButton;
         
-        private RoomPlayerReadyRequest _mRoomPlayerReadyRequest;
-        private QuitRoomRequest _mQuitRoomRequest;
+        private RoomPlayerReadyRequest _roomPlayerReadyRequest;
+        private QuitRoomRequest _quitRoomRequest;
         
         private void Start()
         {
             RoomInfo roomInfo = GameInterface.Interface.RoomManager.CurrentRoomInfo;
-            roomNameText.text = roomInfo?.roomName ?? string.Empty;
+            string roomName = roomInfo?.roomName ?? string.Empty;
+            string roomCode = roomInfo?.roomCode ?? string.Empty;
+            roomNameText.text = $"{roomName}({roomCode})";
 
             quitButton.onClick.AddListener(PlayerQuitRoom);
             readyButton.onClick.AddListener(PlayerReady);
             unreadyButton.onClick.AddListener(PlayerUnready);
             
-            _mRoomPlayerReadyRequest = GameInterface.Interface.RequestManager.GetRequest<RoomPlayerReadyRequest>();
-            _mQuitRoomRequest = GameInterface.Interface.RequestManager.GetRequest<QuitRoomRequest>();
+            _roomPlayerReadyRequest = GameInterface.Interface.RequestManager.GetRequest<RoomPlayerReadyRequest>();
+            _quitRoomRequest = GameInterface.Interface.RequestManager.GetRequest<QuitRoomRequest>();
         }
 
         private void PlayerQuitRoom()
         {
-            _mQuitRoomRequest.SendQuitRoomRequest();
+            _quitRoomRequest.SendQuitRoomRequest();
         }
 
         private void PlayerUnready()
         {
-            _mRoomPlayerReadyRequest.SendRoomPlayerReadyRequest(false);
+            _roomPlayerReadyRequest.SendRoomPlayerReadyRequest(false);
             readyButton.gameObject.SetActive(true);
             unreadyButton.gameObject.SetActive(false);
         }
 
         private void PlayerReady()
         {
-            _mRoomPlayerReadyRequest.SendRoomPlayerReadyRequest(true);
+            _roomPlayerReadyRequest.SendRoomPlayerReadyRequest(true);
             readyButton.gameObject.SetActive(false);
             unreadyButton.gameObject.SetActive(true);
         }

@@ -8,28 +8,28 @@ namespace ChaosBall.Game
     {
         [SerializeField] private BirdAnimationParamSo birdAnimationParamSo;
         
-        private Animator _mAnimator;
+        private Animator _animator;
 
-        private bool _mQuitShoot;
+        private bool _quitShoot;
 
         private void Awake()
         {
-            _mAnimator = GetComponent<Animator>();
-            _mQuitShoot = false;
+            _animator = GetComponent<Animator>();
+            _quitShoot = false;
         }
 
         public void PlayMoveL()
         {
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Idle);
             string moveLeftParam = birdAnimationParamSo.GetRandomAnimationParam(BirdAnimationParamSo.BirdAnimationType.MoveLeft);
-            _mAnimator.SetBool(moveLeftParam, true);
+            _animator.SetBool(moveLeftParam, true);
             
         }
         public void PlayMoveR()
         {
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Idle);
             string moveRightParam = birdAnimationParamSo.GetRandomAnimationParam(BirdAnimationParamSo.BirdAnimationType.MoveRight);
-            _mAnimator.SetBool(moveRightParam, true);
+            _animator.SetBool(moveRightParam, true);
            
         }
 
@@ -40,28 +40,28 @@ namespace ChaosBall.Game
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Ready);
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Shoot);
             string idleParam = birdAnimationParamSo.GetRandomAnimationParam(BirdAnimationParamSo.BirdAnimationType.Idle);
-            _mAnimator.SetBool(idleParam, true);
+            _animator.SetBool(idleParam, true);
             
         }
 
         public void PlayReady()
         {
-            _mQuitShoot = false;
+            _quitShoot = false;
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Idle);
             string readyParam =
                 birdAnimationParamSo.GetRandomAnimationParam(BirdAnimationParamSo.BirdAnimationType.Ready);
-            _mAnimator.SetBool(readyParam, true);
+            _animator.SetBool(readyParam, true);
             
         }
 
         public void PlayShoot()
         {
-            if (_mQuitShoot) return;
+            if (_quitShoot) return;
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Idle);
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Ready);
             string shootParam =
                 birdAnimationParamSo.GetRandomAnimationParam(BirdAnimationParamSo.BirdAnimationType.Shoot);
-            _mAnimator.SetBool(shootParam, true);
+            _animator.SetBool(shootParam, true);
             
         }
 
@@ -70,15 +70,15 @@ namespace ChaosBall.Game
             ResetAnimation(BirdAnimationParamSo.BirdAnimationType.Shoot);
             string readyParam =
                 birdAnimationParamSo.GetRandomAnimationParam(BirdAnimationParamSo.BirdAnimationType.Ready);
-            _mAnimator.SetBool(readyParam, false);
+            _animator.SetBool(readyParam, false);
             PlayIdle();
-            _mQuitShoot = true;
+            _quitShoot = true;
         }
 
         public void SetCurrentAnimationSpeed(float speed)
         {
             if (speed < .3f) return;
-            _mAnimator.SetFloat("anim_speed", speed);
+            _animator.SetFloat("anim_speed", speed);
         }
 
         private void ResetAnimation(BirdAnimationParamSo.BirdAnimationType animationType)
@@ -90,21 +90,21 @@ namespace ChaosBall.Game
                     string[] moveLeftParams = birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.MoveLeft);
                     foreach (var param in moveLeftParams)
                     {
-                        _mAnimator.SetBool(param, false);
+                        _animator.SetBool(param, false);
                     }
                     break;
                 case BirdAnimationParamSo.BirdAnimationType.MoveRight:
                     string[] moveRightParams = birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.MoveRight);
                     foreach (var param in moveRightParams)
                     {
-                        _mAnimator.SetBool(param, false);
+                        _animator.SetBool(param, false);
                     }
                     break;
                 case BirdAnimationParamSo.BirdAnimationType.Idle:
                     string[] idleParams = birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.Idle);
                     foreach (var param in idleParams)
                     {
-                        _mAnimator.SetBool(param, false);
+                        _animator.SetBool(param, false);
                     }
                     break;
                 case BirdAnimationParamSo.BirdAnimationType.Ready:
@@ -112,7 +112,7 @@ namespace ChaosBall.Game
                         birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.Ready);
                     foreach (var param in readyParams)
                     {
-                        _mAnimator.SetBool(param, false);
+                        _animator.SetBool(param, false);
                     }
                     break;
                 case BirdAnimationParamSo.BirdAnimationType.Shoot:
@@ -120,7 +120,7 @@ namespace ChaosBall.Game
                         birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.Shoot);
                     foreach (var param in shootParams)
                     {
-                        _mAnimator.SetBool(param, false);
+                        _animator.SetBool(param, false);
                     }
                     break;
             }
@@ -128,44 +128,50 @@ namespace ChaosBall.Game
 
         #region Deprecated
 
+        [Obsolete]
         private void ResetIdleAnimation()
         {
             string[] idleParams = birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.Idle);
             foreach (var param in idleParams)
             {
-                _mAnimator.SetBool(param, false);
+                _animator.SetBool(param, false);
             }
         }
 
+        [Obsolete]
         private void ResetMoveAnimation()
         {
             string[] moveLeftParams = birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.MoveLeft);
             string[] moveRightParams = birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.MoveRight);
             foreach (var param in moveLeftParams)
             {
-                _mAnimator.SetBool(param, false);
+                _animator.SetBool(param, false);
             }
             foreach (var param in moveRightParams)
             {
-                _mAnimator.SetBool(param, false);
+                _animator.SetBool(param, false);
             }
         }
+        
+        [Obsolete]
         private void ResetShootAnimation()
         {
             string[] shootParams =
                 birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.Shoot);
             foreach (var param in shootParams)
             {
-                _mAnimator.SetBool(param, false);
+                _animator.SetBool(param, false);
             }
         }
+        
+        [Obsolete]
         private void ResetReadyAnimation()
         {
             string[] readyParams =
                 birdAnimationParamSo.GetAllAnimationParams(BirdAnimationParamSo.BirdAnimationType.Ready);
             foreach (var param in readyParams)
             {
-                _mAnimator.SetBool(param, false);
+                _animator.SetBool(param, false);
             }
         }
 

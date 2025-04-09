@@ -7,32 +7,29 @@ namespace ChaosBall.Game.State
     /// <summary>
     /// 状态机抽象类实现
     /// </summary>
-    public abstract class BirdState
+    public abstract class BirdState : IState
     {
         public enum BirdStateEnum
         {
             UnReady,
-            Idle, // Deprecated
-            Move, // Deprecated
             Ready,
             Shoot,
             Collided,
             Stop,
-            // Count,
             Effected,
         }
         
         public BirdStateEnum State { get; protected set; }
-        public BirdStateEnum FromStateEnum { get; set; }
+        // public BirdStateEnum FromStateEnum { get; set; }
         protected Entity Entity { get; private set; }
+        protected BirdAnimation Animation { get; private set; }
 
-        protected BirdStateManager _mBirdStateManager;
-        protected Transform _mTargetTransform;
+        protected BirdStateMachine BirdStateMachine;
 
-        public BirdState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity)
+        public BirdState(BirdStateMachine birdStateMachine, BirdAnimation birdAnimation, Entity entity)
         {
-            _mBirdStateManager = birdStateManager;
-            _mTargetTransform = targetTransform;
+            BirdStateMachine = birdStateMachine;
+            Animation = birdAnimation;
             Entity = entity;
         }
         

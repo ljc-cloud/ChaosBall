@@ -8,7 +8,7 @@ namespace ChaosBall.Inputs
 {
     public class ChaosBallInputRegister : MonoBehaviour
     {
-        private ChaosInput _mChaosInput;
+        private ChaosInput _chaosInput;
         
         public static ChaosBallInputRegister Instance { get; private set; }
         
@@ -18,7 +18,7 @@ namespace ChaosBall.Inputs
         public event Action OnPlayerShoot;
         public event Action OnPlayerQuitShoot;
 
-        private bool _mHasQuit;
+        private bool _hasQuit;
         public event Action<GameFrameSyncManager.PlayerInputType> OnPlayerInputChanged; 
         
         public GameFrameSyncManager.PlayerInputType LocalPlayerInputType { get; private set; }
@@ -31,27 +31,27 @@ namespace ChaosBall.Inputs
                 return;
             }
             Instance = this;
-            _mChaosInput = new ChaosInput();
-            _mChaosInput.Enable();
+            _chaosInput = new ChaosInput();
+            _chaosInput.Enable();
             DontDestroyOnLoad(gameObject);
         }
 
         private void Start()
         {
-            _mChaosInput.Player.Move.performed += PlayerChangePositionPerformed;
-            _mChaosInput.Player.Move.canceled += PlayerChangePositionCanceled;
-            _mChaosInput.Player.Shoot.performed += PlayerReadyShoot;
-            _mChaosInput.Player.Shoot.canceled += PlayerReleaseShoot;
-            _mChaosInput.Player.QuitShoot.performed += PlayerQuitShoot;
+            _chaosInput.Player.Move.performed += PlayerChangePositionPerformed;
+            _chaosInput.Player.Move.canceled += PlayerChangePositionCanceled;
+            _chaosInput.Player.Shoot.performed += PlayerReadyShoot;
+            _chaosInput.Player.Shoot.canceled += PlayerReleaseShoot;
+            _chaosInput.Player.QuitShoot.performed += PlayerQuitShoot;
         }
 
         private void OnDestroy()
         {
-            _mChaosInput.Player.Move.performed -= PlayerChangePositionPerformed;
-            _mChaosInput.Player.Move.canceled -= PlayerChangePositionCanceled;
-            _mChaosInput.Player.Shoot.performed -= PlayerReadyShoot;
-            _mChaosInput.Player.Shoot.canceled -= PlayerReleaseShoot;
-            _mChaosInput.Player.QuitShoot.performed -= PlayerQuitShoot;
+            _chaosInput.Player.Move.performed -= PlayerChangePositionPerformed;
+            _chaosInput.Player.Move.canceled -= PlayerChangePositionCanceled;
+            _chaosInput.Player.Shoot.performed -= PlayerReadyShoot;
+            _chaosInput.Player.Shoot.canceled -= PlayerReleaseShoot;
+            _chaosInput.Player.QuitShoot.performed -= PlayerQuitShoot;
         }
 
 
@@ -81,7 +81,7 @@ namespace ChaosBall.Inputs
         }
         private void PlayerReadyShoot(InputAction.CallbackContext context)
         {
-            _mHasQuit = false;
+            _hasQuit = false;
             GameFrameSyncManager.PlayerInputType type = GameFrameSyncManager.PlayerInputType.Ready;
             LocalPlayerInputType = type;
             OnPlayerInputChanged?.Invoke(type);
@@ -89,7 +89,7 @@ namespace ChaosBall.Inputs
         }
         private void PlayerReleaseShoot(InputAction.CallbackContext context)
         { 
-            if (_mHasQuit) return;
+            if (_hasQuit) return;
             GameFrameSyncManager.PlayerInputType type = GameFrameSyncManager.PlayerInputType.Shoot;
             LocalPlayerInputType = type;
             OnPlayerInputChanged?.Invoke(type);
@@ -99,7 +99,7 @@ namespace ChaosBall.Inputs
         {
             GameFrameSyncManager.PlayerInputType type = GameFrameSyncManager.PlayerInputType.QuitReady;
             LocalPlayerInputType = type;
-            _mHasQuit = true;
+            _hasQuit = true;
             OnPlayerInputChanged?.Invoke(type);
             OnPlayerQuitShoot?.Invoke();
         }

@@ -19,11 +19,14 @@ namespace ChaosBall.UI
         [SerializeField] private RectTransform roomTabsContainer;
         [SerializeField] private Button closeButton;
 
-        private SearchRoomRequest _mSearchRoomRequest;
+        private SearchRoomRequest _searchRoomRequest;
+        private bool _show;
+        private float _searchRoomTimer;
+        private float _searchRoomTimerMax = 2f;
         
         public override void OnInit()
         {
-            _mSearchRoomRequest = GameInterface.Interface.RequestManager.GetRequest<SearchRoomRequest>();
+            _searchRoomRequest = GameInterface.Interface.RequestManager.GetRequest<SearchRoomRequest>();
             base.OnInit();
         }
 
@@ -32,7 +35,7 @@ namespace ChaosBall.UI
             searchRoomButton.onClick.AddListener(SearchRoom);
             createRoomButton.onClick.AddListener(() =>
             {
-                GameInterface.Interface.UIManager.PushUIPanelNotHide(UIPanelType.CreateRoomUI, ShowUIPanelType.MoveFadeIn);
+                GameInterface.Interface.UIManager.PushUIPanelAppend(UIPanelType.CreateRoomUI, ShowUIPanelType.MoveFadeIn);
             });
             roomCodeButton.onClick.AddListener(() =>
             {
@@ -41,23 +44,58 @@ namespace ChaosBall.UI
             closeButton.onClick.AddListener(() =>
             {
                 GameInterface.Interface.UIManager.PopUIPanel();
-                // GameInterface.Interface.UIManager.ClearUIPanel();
-                // GameInterface.Interface.UIManager.PopUIPanel();
             });
         }
-        
+
+        private void Update()
+        {
+            if (!_show) return;
+            _searchRoomTimer -= Time.deltaTime;
+            if (_searchRoomTimer < 0f)
+            {
+                // 执行搜索房间
+                _searchRoomRequest.SendSearchRoomRequest(roomInfo =>
+                {
+                    roomInfo.roomVisibility = ChaosBall.Model.RoomVisibility.None;
+                    roomInfo.roomName = string.Empty;
+                }, UpdateRoomList);
+                _searchRoomTimer = _searchRoomTimerMax;
+            }
+        }
+
         public override void OnShow()
         {
             Debug.Log("搜索房间中...");
             // 搜索所有房间
             // SearchRoomRequest searchRoomRequest = GameInterface.Interface.RequestManager.GetRequest<SearchRoomRequest>();
-            _mSearchRoomRequest.SendSearchRoomRequest(roomInfo =>
+            _searchRoomRequest.SendSearchRoomRequest(roomInfo =>
             {
                 roomInfo.roomVisibility = ChaosBall.Model.RoomVisibility.None;
                 roomInfo.roomName = string.Empty;
             }, UpdateRoomList);
+
+            _show = true;
+            _searchRoomTimer = _searchRoomTimerMax;
             
             base.OnShow();
+        }
+
+        public override void OnHide()
+        {
+            _show = false;
+            base.OnHide();
+        }
+
+        private RoomInfo LoadRoomSearchCondition()
+        {
+            string roomName = searchRoomNameInput.text;
+            string visibilityText = searchRoomVisibilityDropdown.options[searchRoomVisibilityDropdown.value].text;
+            ChaosBall.Model.RoomVisibility roomVisibility = Enum.Parse<ChaosBall.Model.RoomVisibility>(visibilityText);
+            return new RoomInfo
+            {
+                roomName = roomName,
+                roomVisibility = roomVisibility
+            };
         }
 
         private void SearchRoom()
@@ -65,7 +103,7 @@ namespace ChaosBall.UI
             string roomName = searchRoomNameInput.text;
             string visibilityText = searchRoomVisibilityDropdown.options[searchRoomVisibilityDropdown.value].text;
             ChaosBall.Model.RoomVisibility roomVisibility = Enum.Parse<ChaosBall.Model.RoomVisibility>(visibilityText);
-            _mSearchRoomRequest.SendSearchRoomRequest(roomInfo =>
+            _searchRoomRequest.SendSearchRoomRequest(roomInfo =>
             {
                 roomInfo.roomName = roomName;
                 roomInfo.roomVisibility = roomVisibility;

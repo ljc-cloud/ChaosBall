@@ -15,38 +15,38 @@ namespace ChaosBall.Net
         /// </summary>
         public const int MESSAGE_HEADER_LEN = 4;
 
-        private byte[] _mBuffer;
-        private int _mMessageLen;
+        private byte[] _buffer;
+        private int _messageLen;
 
         public Message() {
-            _mBuffer = new byte[1024];
-            _mMessageLen = 0;
+            _buffer = new byte[1024];
+            _messageLen = 0;
         }
 
-        public byte[] Buffer => _mBuffer;
+        public byte[] Buffer => _buffer;
 
-        public int MessageLen => _mMessageLen;
+        public int MessageLen => _messageLen;
 
-        public int RemainSize => _mBuffer.Length - _mMessageLen;
+        public int RemainSize => _buffer.Length - _messageLen;
         
         /// <summary>
         /// 解析从对端发送来的消息
         /// </summary>
         /// <param name="len">消息长度</param>
         public void ReadBuffer(int len, Action<MainPack> onMainPackDeserialize) {
-            _mMessageLen += len;
+            _messageLen += len;
             // 消息长度 <= 4，说明这个消息只有消息头
             if (len <= MESSAGE_HEADER_LEN) {
                 return;
             }
             // 将字节数组中前4个字节（从startIndex开始,第二个参数）转换为 int，刚好是消息头大小，存储的是消息体长度
-            int bodyLen = BitConverter.ToInt32(_mBuffer, 0);
+            int bodyLen = BitConverter.ToInt32(_buffer, 0);
             while (true) {
-                if (_mMessageLen >= bodyLen + MESSAGE_HEADER_LEN) {
+                if (_messageLen >= bodyLen + MESSAGE_HEADER_LEN) {
 
                     try
                     {
-                        MainPack pack = MainPack.Parser.ParseFrom(_mBuffer, MESSAGE_HEADER_LEN, bodyLen);
+                        MainPack pack = MainPack.Parser.ParseFrom(_buffer, MESSAGE_HEADER_LEN, bodyLen);
                         onMainPackDeserialize?.Invoke(pack);
                         // System.Buffer.BlockCopy(_mBuffer, bodyLen + MESSAGE_HEADER_LEN,
                         //     _mBuffer, 0, _mMessageLen - (bodyLen + MESSAGE_HEADER_LEN));
@@ -58,15 +58,15 @@ namespace ChaosBall.Net
                     }
                     finally
                     {
-                        System.Buffer.BlockCopy(_mBuffer, bodyLen + MESSAGE_HEADER_LEN,
-                            _mBuffer, 0, _mMessageLen - (bodyLen + MESSAGE_HEADER_LEN));
-                        _mMessageLen -= (bodyLen + MESSAGE_HEADER_LEN);
+                        System.Buffer.BlockCopy(_buffer, bodyLen + MESSAGE_HEADER_LEN,
+                            _buffer, 0, _messageLen - (bodyLen + MESSAGE_HEADER_LEN));
+                        _messageLen -= (bodyLen + MESSAGE_HEADER_LEN);
                     }
                 }
                 else
                 {
-                    _mMessageLen = 0;
-                    Array.Fill<byte>(_mBuffer, 0);
+                    _messageLen = 0;
+                    Array.Fill<byte>(_buffer, 0);
                     break;
                 }
             }

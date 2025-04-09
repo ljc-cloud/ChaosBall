@@ -1,6 +1,7 @@
 using System.Linq;
 using ChaosBall.Utility;
 using SocketProtocol;
+using UnityEngine;
 
 namespace ChaosBall.Net.Request
 {
@@ -16,6 +17,7 @@ namespace ChaosBall.Net.Request
         protected override void HandleServerSuccessResponse(MainPack pack)
         {
             base.HandleServerSuccessResponse(pack);
+            Debug.Log("接收到操作结束响应");
             int playerId = pack.PlayerInfoPack.Id;
             PlayerScoreBoardPack playerScoreBoardPack = pack.PlayerScoreBoardPack;
             
@@ -31,19 +33,19 @@ namespace ChaosBall.Net.Request
             base.HandleServerFailResponse(pack);
         }
 
-        public void SendFinishOperationRequest(int[] totalScore)
+        public void SendFinishOperationRequest(int playerId, int[] totalScore)
         {
-            int localPlayerId = GameInterface.Interface.LocalPlayerInfo.id;
-
-            PlayerInfoPack playerInfoPack = new PlayerInfoPack { Id = localPlayerId };
+            PlayerInfoPack playerInfoPack = new PlayerInfoPack { Id = playerId };
             string roomCode = GameInterface.Interface.RoomManager.CurrentRoomInfo.roomCode;
             RoomInfoPack roomInfoPack = new RoomInfoPack
                 { RoomCode = CharsetUtil.DefaultToUTF8(roomCode) };
 
-            FinishOperationPack finishOperationPack = new FinishOperationPack{ TotalScore = { totalScore }};
+            FinishOperationPack finishOperationPack = new FinishOperationPack { TotalScore = { totalScore } };
 
             MainPack mainPack = new MainPack
             {
+                RequestCode = Request,
+                ActionCode = Action,
                 PlayerInfoPack = playerInfoPack,
                 RoomInfoPack = roomInfoPack,
                 FinishOperationPack = finishOperationPack

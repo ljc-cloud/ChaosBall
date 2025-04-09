@@ -5,6 +5,7 @@ using ChaosBall.Inputs;
 using ChaosBall.Math;
 using ChaosBall.Utility;
 using GameFrameSync;
+using UnityEditor;
 using UnityEngine;
 
 namespace ChaosBall.Net
@@ -34,7 +35,7 @@ namespace ChaosBall.Net
         private int _mSyncedFrameId;
         
         private ObjectPool<ReqFrameInputData> _mReqFrameInputDataPool;
-        private ObjectPool<Vector3D> _mVector3DPool;
+        private ObjectPool<Vector2D> _mVector2DPool;
         
 
         public event Action<List<FrameInputData>> OnFrameSync;
@@ -42,7 +43,7 @@ namespace ChaosBall.Net
         public override void OnInit()
         {
             _mReqFrameInputDataPool = new ObjectPool<ReqFrameInputData>(()=> new ReqFrameInputData());
-            _mVector3DPool = new ObjectPool<Vector3D>(() => new Vector3D());
+            _mVector2DPool = new ObjectPool<Vector2D>(() => new Vector2D());
             GameInterface.Interface.UdpListener.OnReceiveFrameSync += ServerFrameSyncDataUpdate;
             base.OnInit();
         }
@@ -56,8 +57,8 @@ namespace ChaosBall.Net
         private void ServerFrameSyncDataUpdate(ResFrameSyncData resFrameSyncData)
         {
             ReqFrameInputData reqFrameInputData = _mReqFrameInputDataPool.Allocate();
-            Vector3D position3D = _mVector3DPool.Allocate();
-            Vector3D shootDir3D = _mVector3DPool.Allocate();
+            var position2D = _mVector2DPool.Allocate();
+            var shootDir2D = _mVector2DPool.Allocate();
             try
             {
                 if (resFrameSyncData.FrameId != -1)
@@ -90,20 +91,20 @@ namespace ChaosBall.Net
                 if (localOperationEntity != null)
                 {
                     Vector3 position = localOperationEntity.localBirdPosition;
-                    position3D.X = MathUtil.GetFloat(position.x);
-                    position3D.Y = MathUtil.GetFloat(position.y);
-                    position3D.Z = MathUtil.GetFloat(position.z);
-                    
-                    shootDir3D.X = MathUtil.GetFloat(localOperationEntity.localShootDirection.x);
-                    shootDir3D.Y = MathUtil.GetFloat(localOperationEntity.localShootDirection.y);
-                    shootDir3D.Z = MathUtil.GetFloat(localOperationEntity.localShootDirection.z);
+                    position2D.X = MathUtil.GetFloat(position.x);
+                    position2D.Y = MathUtil.GetFloat(position.z);
 
-                    reqFrameInputData.Position = position3D;
-                    reqFrameInputData.ShootDirection = shootDir3D;
+                    shootDir2D.X = MathUtil.GetFloat(localOperationEntity.localShootDirection.x);
+                    shootDir2D.Y = MathUtil.GetFloat(localOperationEntity.localShootDirection.z);
+
+                    float arrowRotationZ = MathUtil.GetFloat(localOperationEntity.localArrowRotationZ);
+                    // reqFrameInputData.Position = position3D;
+                    // Debug.Log($"Send Sync Direction:{shootDir3D.X},{shootDir3D.Y},{shootDir3D.Z}");
+                    // reqFrameInputData.ShootDirection = shootDir3D;
                     
                     float force = MathUtil.GetFloat(localOperationEntity.localShootForce);
-                    Debug.Log($"上传Force:{force}");
                     reqFrameInputData.Force = force;
+                    reqFrameInputData.ArrowRotationZ = arrowRotationZ;
                 }
 
                 resFrameSyncData.ReqFrameInputData = reqFrameInputData;
@@ -123,8 +124,7 @@ namespace ChaosBall.Net
             finally
             {
                 _mReqFrameInputDataPool.Release(reqFrameInputData);
-                _mVector3DPool.Release(position3D);
-                _mVector3DPool.Release(shootDir3D);
+                
                 GameInterface.Interface.UdpListener.Send(resFrameSyncData);
             }
         }

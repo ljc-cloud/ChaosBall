@@ -15,11 +15,11 @@ namespace ChaosBall.UI
         [SerializeField] private PlayerRoundScoreUI localPlayerRoundScoreUI;
         [SerializeField] private PlayerRoundScoreUI remotePlayerRoundScoreUI;
 
-        private CanvasGroup _mCanvasGroup;
+        private CanvasGroup _canvasGroup;
         
         private void Awake()
         {
-            _mCanvasGroup = GetComponent<CanvasGroup>();
+            _canvasGroup = GetComponent<CanvasGroup>();
         }
         
         private void Start()
@@ -47,18 +47,18 @@ namespace ChaosBall.UI
         private void DoMoveFadeIn()
         {
             transform.DOMoveX(0, .3f);
-            _mCanvasGroup.DOFade(1, .3f).OnComplete(() =>
+            _canvasGroup.DOFade(1, .3f).OnComplete(() =>
             {
-                _mCanvasGroup.blocksRaycasts = true;
+                _canvasGroup.blocksRaycasts = true;
             });
         }
 
         private void DoMoveFadeOut()
         {
             transform.DOMoveX(-1200, .3f);
-            _mCanvasGroup.DOFade(0, .3f).OnComplete(() =>
+            _canvasGroup.DOFade(0, .3f).OnComplete(() =>
             {
-                _mCanvasGroup.blocksRaycasts = false;
+                _canvasGroup.blocksRaycasts = false;
                 transform.position.Set(1200, 0, 0);
             });
         }

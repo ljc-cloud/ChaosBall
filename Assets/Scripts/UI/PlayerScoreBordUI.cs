@@ -22,19 +22,16 @@ namespace ChaosBall.UI
         private void Start()
         {
             GameInterface.Interface.EventSystem.Subscribe<PlayerScoreBoardChangeEvent>(OnPlayerScoreBoardChanged);
-            // GameManager.Instance.OnPlayerScoreBoardChanged += OnPlayerScoreBoardChanged;
             InitScoreBoard();
         }
 
         private void OnDestroy()
         {
             GameInterface.Interface.EventSystem.Unsubscribe<PlayerScoreBoardChangeEvent>(OnPlayerScoreBoardChanged);
-            // GameManager.Instance.OnPlayerScoreBoardChanged -= OnPlayerScoreBoardChanged;
         }
         
         private void InitScoreBoard()
         {
-            
             // string nickname = GameManager.Instance.PlayerTypeToPlayerInfoDict[playerType].nickname;
             if (GameManager.Instance.PlayerTypeToPlayerInfoDict.TryGetValue(playerType, out var playerInfo))
             {
@@ -54,7 +51,7 @@ namespace ChaosBall.UI
             scoreText.text = totalScore.ToString();
             for (int i = 0; i < roundImageArray.Length; i++)
             {
-                if (4 - e.playerScoreBoard.operationLeft == i)
+                if (e.playerScoreBoard.operationLeft == i)
                 {
                     roundImageArray[i].sprite = currentOperationSprite;
                     continue;

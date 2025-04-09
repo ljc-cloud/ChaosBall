@@ -34,6 +34,7 @@ namespace ChaosBall.Net.Request
             _mRequestList.Add(new LoadGameSceneCompleteRequest());
             _mRequestList.Add(new GameStateChangeResponse());
             _mRequestList.Add(new ChangeRoundResponse());
+            _mRequestList.Add(new ChangeOperationResponse());
             
             foreach (var request in _mRequestList)
             {

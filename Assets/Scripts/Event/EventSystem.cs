@@ -5,8 +5,8 @@ namespace ChaosBall.Event
 {
     public class EventSystem
     {
-        private readonly Dictionary<Type, Delegate> _mEvents = new();
-        private readonly Dictionary<Type, List<IEvent>> _mEventPool = new();
+        private readonly Dictionary<Type, Delegate> _events = new();
+        private readonly Dictionary<Type, List<IEvent>> _eventPool = new();
         
         public void Subscribe<T>(Action<T> handler) where T : IEvent
         {
@@ -14,7 +14,7 @@ namespace ChaosBall.Event
 
             var @event = typeof(T);
 
-            if (_mEventPool.TryGetValue(@event, out var eventList))
+            if (_eventPool.TryGetValue(@event, out var eventList))
             {
                 foreach (var e in eventList)
                 {
@@ -24,16 +24,16 @@ namespace ChaosBall.Event
                         handler.Invoke((T)e);
                     });
                 }
-                _mEventPool[@event].Clear();
+                _eventPool[@event].Clear();
             }
             
-            if (_mEvents.TryGetValue(@event, out var existHandlers))
+            if (_events.TryGetValue(@event, out var existHandlers))
             {
-                _mEvents[@event] = Delegate.Combine(existHandlers, handler);
+                _events[@event] = Delegate.Combine(existHandlers, handler);
             }
             else
             {
-                _mEvents[@event] = handler;
+                _events[@event] = handler;
             }
         }
 
@@ -41,16 +41,16 @@ namespace ChaosBall.Event
         {
             // string key = GetKey(handler);
             var key = typeof(T);
-            if (_mEvents.TryGetValue(key, out var existHandlers))
+            if (_events.TryGetValue(key, out var existHandlers))
             {
                 Delegate newHandlers = Delegate.Remove(existHandlers, handler);
                 if (newHandlers == null)
                 {
-                    _mEvents.Remove(key);
+                    _events.Remove(key);
                 }
                 else
                 {
-                    _mEvents[key] = newHandlers;
+                    _events[key] = newHandlers;
                 }
             }
         }
@@ -58,7 +58,7 @@ namespace ChaosBall.Event
         public void Publish<T>(T e) where T : IEvent
         {
             var @event = typeof(T);
-            if (_mEvents.TryGetValue(@event, out var existHandlers))
+            if (_events.TryGetValue(@event, out var existHandlers))
             {
                 // (existHandlers as Action<T>)?.Invoke(e);
                 Invoker.Instance.DelegateList.Add(() =>
@@ -66,13 +66,13 @@ namespace ChaosBall.Event
                     (existHandlers as Action<T>)?.Invoke(e);
                 });
             }
-            if (_mEventPool.TryGetValue(@event, out var eventList))
+            if (_eventPool.TryGetValue(@event, out var eventList))
             {
                 eventList.Add(e);
             }
             else
             {
-                _mEventPool[@event] = new List<IEvent> { e };
+                _eventPool[@event] = new List<IEvent> { e };
             }
         }
 
@@ -80,7 +80,7 @@ namespace ChaosBall.Event
         {
             T e = new T();
             var @event = typeof(T);
-            if (_mEvents.TryGetValue(@event, out var existHandlers))
+            if (_events.TryGetValue(@event, out var existHandlers))
             {
                 // (existHandlers as Action<T>)?.Invoke(e);
                 Invoker.Instance.DelegateList.Add(() =>
@@ -89,13 +89,13 @@ namespace ChaosBall.Event
                 });
                 return;
             }
-            if (_mEventPool.TryGetValue(@event, out var eventList))
+            if (_eventPool.TryGetValue(@event, out var eventList))
             {
                 eventList.Add(e);
             }
             else
             {
-                _mEventPool[@event] = new List<IEvent> { e };
+                _eventPool[@event] = new List<IEvent> { e };
             }
         }
     }

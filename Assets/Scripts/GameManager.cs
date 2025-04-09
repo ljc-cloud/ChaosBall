@@ -46,44 +46,52 @@ namespace ChaosBall
         /// <summary>
         /// 玩家类型-玩家信息 字典
         /// </summary>
-        public ReadOnlyDictionary<Entity.PlayerType, PlayerInfo> PlayerTypeToPlayerInfoDict => new(_mPlayerTypeToPlayerInfoDict);
+        public ReadOnlyDictionary<Entity.PlayerType, PlayerInfo> PlayerTypeToPlayerInfoDict => new(_playerTypeToPlayerInfoDict);
         
         /// <summary>
         /// 倒计时timer
         /// </summary>
-        private float _mCountdownTimer;
+        private float _countdownTimer;
         /// <summary>
         /// 整数倒计时
         /// </summary>
-        private int _mCountdown;
+        private int _countdown;
         
         /// <summary>
         /// 当前正在操作的玩家id
         /// </summary>
-        private int _mCurrentOperationPlayerId;
+        private int _currentOperationPlayerId;
+        /// <summary>
+        /// 第一回合先手玩家id
+        /// </summary>
+        private int _firstOperationPlayerId;
         
         /// <summary>
         /// 当前回合
         /// </summary>
-        private int _mCurrentRound = 1;
+        private int _currentRound = 1;
         
         /// <summary>
         /// 玩家id-玩家得分板 字典
         /// </summary>
-        private readonly Dictionary<int, PlayerScoreBoard> _mPlayerIdScoreBoardDict = new();
+        private readonly Dictionary<int, PlayerScoreBoard> _playerIdScoreBoardDict = new();
         /// <summary>
         /// 玩家id-玩家球集合 字典
         /// </summary>
-        private readonly Dictionary<int, List<Bird>> _mPlayerIdToBirdDict = new();
-        private readonly Dictionary<int, List<Entity>> _mPlayerIdToEntityDict = new();
+        private readonly Dictionary<int, List<Bird>> _playerIdToBirdDict = new();
+        private readonly Dictionary<int, List<Entity>> _playerIdToEntityDict = new();
         /// <summary>
         /// 玩家id-玩家集合 字典
         /// </summary>
-        private readonly Dictionary<int, Player> _mPlayerIdToPlayerDict = new();
+        private readonly Dictionary<int, Player> _playerIdToPlayerDict = new();
         /// <summary>
         /// 玩家类型-玩家信息 字典
         /// </summary>
-        private readonly Dictionary<Entity.PlayerType, PlayerInfo> _mPlayerTypeToPlayerInfoDict = new();
+        private readonly Dictionary<Entity.PlayerType, PlayerInfo> _playerTypeToPlayerInfoDict = new();
+        /// <summary>
+        /// 玩家id-玩家信息 字典
+        /// </summary>
+        private readonly Dictionary<int, PlayerInfo> _playerIdToPlayerInfoDict = new();
 
         /// <summary>
         /// 当前游戏状态
@@ -118,13 +126,14 @@ namespace ChaosBall
 
         private void OnChangeOperation(ChangeOperationEvent e)
         {
-            // TODO: 切换操作玩家
+            // 切换操作玩家
             ChangeCurrentOperationPlayer(e.currentOperationPlayerId);
         }
 
         private void OnChangeRound(ChangeRoundEvent e)
         {
             // TODO: 切换回合
+            ChangeRound(e.currentRound);
         }
 
         private void OnChangeGameState(ChangeGameStateEvent e)
@@ -157,19 +166,19 @@ namespace ChaosBall
         /// </summary>
         private void Countdown()
         {
-            if (_mCountdown < 0)
+            if (_countdown < 0)
             {
                 return;
             }
-            _mCountdownTimer -= Time.deltaTime;
-            if (_mCountdownTimer <= 0f)
+            _countdownTimer -= Time.deltaTime;
+            if (_countdownTimer <= 0f)
             {
-                _mCountdown -= 1;
-                _mCountdownTimer = 1f;
-                Debug.Log("Countdown:" + _mCountdown);
+                _countdown -= 1;
+                _countdownTimer = 1f;
+                Debug.Log("Countdown:" + _countdown);
                 GameInterface.Interface.EventSystem.Publish(new CountdownChangeEvent
                 {
-                    countdown = _mCountdown
+                    countdown = _countdown
                 });
             }
         }
@@ -185,17 +194,20 @@ namespace ChaosBall
         {
             Debug.Log("OnRoomPlayerAllReady");
             List<RoomPlayerInfo> roomPlayerList = GameInterface.Interface.RoomManager.RoomPlayerList;
-            foreach (var roomPlayerInfo in  roomPlayerList)
+            foreach (var roomPlayerInfo in roomPlayerList)
             {
-                _mPlayerTypeToPlayerInfoDict.Add(
-                    roomPlayerInfo.id == GameInterface.Interface.LocalPlayerInfo.id
-                        ? Entity.PlayerType.Local
-                        : Entity.PlayerType.Remote, new PlayerInfo
-                    {
-                        id = roomPlayerInfo.id,
-                        nickname = roomPlayerInfo.nickname,
-                        username = roomPlayerInfo.username,
-                    });
+                Entity.PlayerType playerType;
+                if (roomPlayerInfo.id == GameInterface.Interface.LocalPlayerInfo.id)
+                {
+                    playerType = Entity.PlayerType.Local;
+                }
+                else
+                {
+                    playerType = Entity.PlayerType.Remote;
+                }
+                _playerTypeToPlayerInfoDict[playerType] = roomPlayerInfo;
+                _playerIdToPlayerInfoDict[roomPlayerInfo.id] = roomPlayerInfo;
+                Debug.Log($"添加玩家信息{playerType}, {roomPlayerInfo}");
             }
             
             InitPlayerScoreBoard();
@@ -203,14 +215,14 @@ namespace ChaosBall
 
         private void OnBirdStop(BirdStopEvent _)
         {
-            foreach (var (_, birdList) in _mPlayerIdToBirdDict)
+            foreach (var (_, birdList) in _playerIdToBirdDict)
             {
                 List<BirdState> birdStateList = birdList.Select(item => item.transform
-                    .GetComponent<BirdStateManager>().CurrentState).ToList();
+                    .GetComponent<BirdStateMachine>().CurrentState).ToList();
                 bool allStop = birdStateList.All(item => item.State is BirdState.BirdStateEnum.Stop);
                 if (allStop)
                 {
-                    FinishOperation(_mCurrentOperationPlayerId);
+                    FinishOperation(_currentOperationPlayerId);
                 }
             }
         }
@@ -223,7 +235,7 @@ namespace ChaosBall
             List<RoomPlayerInfo> roomPlayerInfoList = GameInterface.Interface.RoomManager.RoomPlayerList;
             foreach (var roomPlayerInfo in roomPlayerInfoList)
             {
-                _mPlayerIdScoreBoardDict[roomPlayerInfo.id] = new PlayerScoreBoard
+                _playerIdScoreBoardDict[roomPlayerInfo.id] = new PlayerScoreBoard
                 {
                     nickname = roomPlayerInfo.nickname,
                     operationLeft = 4,
@@ -238,30 +250,30 @@ namespace ChaosBall
         /// <param name="playerId"></param>
         public void SetFirst(int playerId)
         {
-            _mCurrentOperationPlayerId = playerId;
+            _currentOperationPlayerId = playerId;
         }
 
         public void AddPlayer(Player player)
         {
-            _mPlayerIdToPlayerDict[player.playerId] = player;
+            _playerIdToPlayerDict[player.playerId] = player;
         }
 
         private void AddEntity(Entity entity)
         {
-            if (_mPlayerIdToEntityDict.TryGetValue(entity.playerId, out var entities))
+            if (_playerIdToEntityDict.TryGetValue(entity.playerId, out var entities))
             {
                 entities.Add(entity);
             }
             else
             {
-                _mPlayerIdToEntityDict[entity.playerId] = new List<Entity> { entity };
+                _playerIdToEntityDict[entity.playerId] = new List<Entity> { entity };
             }
         }
 
         public Entity GetLocalOperationEntity()
         {
             Entity result = null;
-            foreach (var (_, entities) in _mPlayerIdToEntityDict)
+            foreach (var (_, entities) in _playerIdToEntityDict)
             {
                 result = entities.Find(item => item.operation && item.IsLocal);
             }
@@ -285,12 +297,12 @@ namespace ChaosBall
                 case GameState.NotStarted:
                     break;
                 case GameState.CountdownToStart:
-                    _mCountdownTimer = 1f;
-                    _mCountdown = GameAssets.COUNT_DOWN;
+                    _countdownTimer = 1f;
+                    _countdown = GameAssets.COUNT_DOWN;
                     break;
                 case GameState.GamePlaying:
                     string nickname = GetCurrentOperationPlayerNickname();
-                    string message = $"玩家{nickname}先手";
+                    string message = $"由玩家{nickname}先手";
                     GameInterface.Interface.EventSystem.Publish(new RoundMessageEvent
                     {
                         currentRound = 1,
@@ -306,13 +318,24 @@ namespace ChaosBall
             PlayerInfo localPlayerInfo = GameInterface.Interface.LocalPlayerInfo;
             int localPlayerId = localPlayerInfo.id;
 
-            GameObject birdPrefab = birdPrefabArray[_mCurrentRound];
+            GameObject birdPrefab = birdPrefabArray[_currentRound];
             GameObject birdGameObject = Instantiate(birdPrefab);
+            
             Entity entity = birdGameObject.GetComponent<Entity>();
-            Player player = _mPlayerIdToPlayerDict[_mCurrentOperationPlayerId];
+            Player player = _playerIdToPlayerDict[_currentOperationPlayerId];
             Bird bird = birdGameObject.GetComponent<Bird>();
+            
             bird.Index = MaxRound - player.operationLeft;
-            if (localPlayerId == _mCurrentOperationPlayerId)
+            if (_playerIdToBirdDict.TryGetValue(_currentOperationPlayerId, out var birdList))
+            {
+                birdList.Add(bird);
+            }
+            else
+            {
+                _playerIdToBirdDict[_currentOperationPlayerId] = new List<Bird> { bird };
+            }
+            
+            if (localPlayerId == _currentOperationPlayerId)
             {
                 // 本地玩家
                 entity.playerId = localPlayerId;
@@ -338,9 +361,9 @@ namespace ChaosBall
         /// <returns></returns>
         private string GetCurrentOperationPlayerNickname()
         {
-            foreach (var keyValuePair in _mPlayerTypeToPlayerInfoDict)
+            foreach (var keyValuePair in _playerTypeToPlayerInfoDict)
             {
-                if (keyValuePair.Value.id == _mCurrentOperationPlayerId)
+                if (keyValuePair.Value.id == _currentOperationPlayerId)
                 {
                     return keyValuePair.Value.nickname;
                 }
@@ -355,27 +378,29 @@ namespace ChaosBall
         /// <param name="playerId">玩家id</param>
         public void FinishOperation(int playerId)
         {
-            List<Bird> birdList = _mPlayerIdToBirdDict[playerId];
-            int[] totalScore = birdList.Select(item => item.Score).ToArray();
+            List<Bird> birdList = _playerIdToBirdDict[playerId];
+            int[] score = birdList.Select(item => item.Score).ToArray();
+            int totalScore = score.Sum();
             
             Debug.Log($"玩家{playerId} score: {totalScore}");
             
             // 发送操作结束请求
             FinishOperationRequest finishOperationRequest = GameInterface
                 .Interface.RequestManager.GetRequest<FinishOperationRequest>();
-            finishOperationRequest.SendFinishOperationRequest(totalScore);
+            finishOperationRequest.SendFinishOperationRequest(playerId, score);
 
-            _mPlayerIdToPlayerDict[playerId].operation = false;
+            _playerIdToPlayerDict[playerId].operation = false;
+            // _mPlayerIdToEntityDict[playerId].ForEach(item => item.operation = false);
         }
 
         private void ChangeCurrentOperationPlayer(int playerId)
         {
-            if (_mPlayerIdToEntityDict.TryGetValue(playerId, out var entities))
+            if (_playerIdToEntityDict.TryGetValue(playerId, out var entities))
             {
                 entities.ForEach(item => item.operation = false);
             }
-            _mCurrentOperationPlayerId = playerId;
-            _mPlayerIdToPlayerDict[playerId].operation = true;
+            _currentOperationPlayerId = playerId;
+            _playerIdToPlayerDict[playerId].operation = true;
             GameInterface.Interface.EventSystem.Publish(new CurrentOperationPlayerChangedEvent
             {
                 currentOperationPlayerId = playerId,
@@ -389,6 +414,57 @@ namespace ChaosBall
         }
 
         /// <summary>
+        /// 切换回合
+        /// 得分高者先手，得分相同由第一回合先手的玩家先手
+        /// </summary>
+        private void ChangeRound(int currentRound)
+        {
+            _currentRound = currentRound;
+
+            int maxScore = -1000;
+            int operationPlayerId = -1;
+           
+            foreach (var (playerId, scoreBoard) in _playerIdScoreBoardDict)
+            {
+                if (scoreBoard.scoreArray is { Length: > 0 })
+                {
+                    int score = scoreBoard.scoreArray.Aggregate((pre, next) => pre + next);
+                    if (score > maxScore)
+                    {
+                        maxScore = score;
+                        operationPlayerId = playerId;
+                    }
+                    else if (score == maxScore)
+                    {
+                        operationPlayerId = -1;
+                    }
+                }
+            }
+
+            string roundMessage = string.Empty;
+            if (operationPlayerId == -1)
+            {
+                string nickname = _playerIdToPlayerInfoDict[_firstOperationPlayerId].nickname;
+                _currentOperationPlayerId = _firstOperationPlayerId;
+                roundMessage = $"比分相同,由第一回合先手玩家{nickname}先手";
+            }
+            else
+            {
+                string nickname = _playerIdToPlayerInfoDict[operationPlayerId].nickname;
+                _currentOperationPlayerId = operationPlayerId;
+                roundMessage = $"由上一回合得分高玩家{nickname}先手";
+            }
+
+            GameInterface.Interface.EventSystem.Publish(new RoundMessageEvent
+            {
+                currentRound = _currentRound,
+                message = roundMessage,
+            });
+            
+            Invoke(nameof(SpawnBird), 1f);
+        }
+
+        /// <summary>
         /// 更新玩家得分板（服务端更新）
         /// </summary>
         /// <param name="playerId"></param>
@@ -396,7 +472,7 @@ namespace ChaosBall
         /// <param name="scoreArray"></param>
         public void UpdatePlayerScoreBoard(int playerId, int operationLeft, int[] scoreArray)
         {
-            PlayerScoreBoard playerScoreBoard = _mPlayerIdScoreBoardDict[playerId];
+            PlayerScoreBoard playerScoreBoard = _playerIdScoreBoardDict[playerId];
             playerScoreBoard.operationLeft = operationLeft;
             playerScoreBoard.scoreArray = scoreArray;
             
@@ -422,10 +498,10 @@ namespace ChaosBall
             // if (_mCurrentRound != currentRound)
             {
                 // 回合数改变
-                _mCurrentRound = currentRound;
+                _currentRound = currentRound;
                 GameInterface.Interface.EventSystem.Publish(new RoundChangeEvent
                 {
-                    currentRound = _mCurrentRound
+                    currentRound = _currentRound
                 });
             }
         }
@@ -438,7 +514,7 @@ namespace ChaosBall
         {
             var result = new Dictionary<Entity.PlayerType, PlayerScoreBoard>();
             int localPlayerId = GameInterface.Interface.LocalPlayerInfo.id;
-            foreach (var kv in _mPlayerIdScoreBoardDict)
+            foreach (var kv in _playerIdScoreBoardDict)
             {
                 if (kv.Key == localPlayerId)
                 {

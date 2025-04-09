@@ -52,7 +52,6 @@ namespace Editor
             string listSoName = "_UIPanelSoListSo";
             uiPanelSoListSo.name = listSoName;
             uiPanelSoListSo.uIPanelSoList = uiPanelSoList;
-            Debug.Log(soRelativePath);
             AssetDatabase.CreateAsset(uiPanelSoListSo, soRelativePath + "/"+ listSoName + ".asset");
 
             AssetDatabase.SaveAssets();

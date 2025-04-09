@@ -8,25 +8,25 @@ namespace ChaosBall.Game
     public class NormalBirdCollideBehaviour : MonoBehaviour, IBirdCollideBehaviour
     {
         
-        private BirdStateManager _mBirdStateManager;
-        private Rigidbody _mRigidbody;
+        private BirdStateMachine _birdStateMachine;
+        private Rigidbody _rigidbody;
         
         public Vector3 LastVelocity { get; private set; }
 
         private void Awake()
         {
-            _mBirdStateManager = GetComponent<BirdStateManager>();
-            _mRigidbody = GetComponent<Rigidbody>();
+            _birdStateMachine = GetComponent<BirdStateMachine>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void LateUpdate()
         {
-            if (!_mBirdStateManager.Initialized) return;
-            if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Shoot)
+            if (!_birdStateMachine.Initialized) return;
+            if (_birdStateMachine.CurrentState.State is BirdState.BirdStateEnum.Shoot)
             {
-                LastVelocity = _mRigidbody.velocity;
+                LastVelocity = _rigidbody.velocity;
             }
-            else if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Stop)
+            else if (_birdStateMachine.CurrentState.State is BirdState.BirdStateEnum.Stop)
             {
                 LastVelocity = Vector3.zero;
             }
@@ -37,15 +37,15 @@ namespace ChaosBall.Game
             ContactPoint ct = other.GetContact(0);
             var collidePoint = ct.point;
             var dir = Vector3.Reflect(LastVelocity.normalized, ct.normal).normalized;
-            if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Stop)
+            if (_birdStateMachine.CurrentState.State is BirdState.BirdStateEnum.Stop)
             {
                 Vector3 otherLastVelocity = other.transform.GetComponent<BirdCollide>().LastVelocity;
-                _mRigidbody.AddForceAtPosition(dir * otherLastVelocity.magnitude * .5f, collidePoint, ForceMode.Impulse);
+                _rigidbody.AddForceAtPosition(dir * otherLastVelocity.magnitude * .5f, collidePoint, ForceMode.Impulse);
             }
-            else if (_mBirdStateManager.CurrentState.State is BirdState.BirdStateEnum.Shoot)
+            else if (_birdStateMachine.CurrentState.State is BirdState.BirdStateEnum.Shoot)
             {
-                _mRigidbody.velocity = Vector3.zero;
-                _mRigidbody.AddForceAtPosition(dir * LastVelocity.magnitude * .5f, collidePoint, ForceMode.Impulse);
+                _rigidbody.velocity = Vector3.zero;
+                _rigidbody.AddForceAtPosition(dir * LastVelocity.magnitude * .5f, collidePoint, ForceMode.Impulse);
             }
         }
     }

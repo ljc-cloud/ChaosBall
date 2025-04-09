@@ -8,15 +8,15 @@ namespace ChaosBall.Game.State
         private Rigidbody _mRigidbody;
         private int _mWaitFrames;
         
-        public BirdCollideState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity, Rigidbody rigidbody)
-            : base(birdStateManager, targetTransform, entity)
+        public BirdCollideState(BirdStateMachine birdStateMachine, BirdAnimation birdAnimation, Entity entity, Rigidbody rigidbody)
+            : base(birdStateMachine,birdAnimation, entity)
         {
             _mRigidbody = rigidbody;
         }
 
         public override void Enter()
         {
-            Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Collide State Enter");
+            // Debug.Log($"Bird:{TargetTransform.gameObject.name} Collide State Enter");
             State = BirdStateEnum.Collided;
             _mWaitFrames = GameAssets.WAIT_FRAMES;
         }
@@ -28,14 +28,14 @@ namespace ChaosBall.Game.State
                 if (_mRigidbody.velocity.magnitude < 30f)
                 {
                     _mRigidbody.velocity = Vector3.zero;
-                    _mBirdStateManager.ChangeState(BirdStateEnum.Stop);
+                    BirdStateMachine.ChangeState(BirdStateEnum.Stop);
                 }
             }
         }
 
         public override void Exit()
         {
-            Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Collide State Exit");
+            // Debug.Log($"Bird:{TargetTransform.gameObject.name} Collide State Exit");
         }
     }
 }

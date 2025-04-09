@@ -50,6 +50,7 @@ namespace ChaosBall.Net
                 ClientIp = localIpEndPoint.Address.ToString();
                 
                 Debug.Log("Socket connected to " + _mIpAddress + ":" + _mPort);
+                Debug.Log($"LocalSocket: {ClientIp}:{localIpEndPoint.Port}");
                 _mLastPongTime = DateTime.Now;
                 _mSendHeartbeatTimer = new Timer(5000)
                 {
@@ -162,7 +163,7 @@ namespace ChaosBall.Net
 
         private void SendHeartbeat(object state, ElapsedEventArgs e)
         {
-            Debug.Log("发送心跳包...");
+            // Debug.Log("发送心跳包...");
             HeartbeatPack heartbeatPack = new HeartbeatPack
             {
                 Triggered = true,
@@ -179,7 +180,7 @@ namespace ChaosBall.Net
 
         private void StartReceive()
         {
-            Debug.Log("开始接收服务端消息...");
+            // Debug.Log("开始接收服务端消息...");
             try
             {
                 _mSocket.BeginReceive(_mMessage.Buffer, _mMessage.MessageLen
@@ -212,7 +213,7 @@ namespace ChaosBall.Net
                     return;
                 }
                 _mMessage.ReadBuffer(len, HandleServerResponse);
-                Debug.Log("接收服务端消息完毕...");
+                // Debug.Log("接收服务端消息完毕...");
                 StartReceive();
             }
             catch (SocketException e)

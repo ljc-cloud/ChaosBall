@@ -43,14 +43,14 @@ namespace ChaosBall.Game
         private void LateUpdate()
         {
             LastVelocity = _mRigidbody.velocity;
-            Debug.Log("AttachParent, LastVelocity:" + LastVelocity);
+            // Debug.Log("AttachParent, LastVelocity:" + LastVelocity);
         }
 
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.layer == GameAssets.WALL_LAYER)
             {
-                Debug.Log("AttachParentCollide, LastVelocity:" + LastVelocity);
+                // Debug.Log("AttachParentCollide, LastVelocity:" + LastVelocity);
                 // 反弹
                 ContactPoint contactPoint = other.GetContact(0);
                 Vector3 reflect = Vector3.Reflect(LastVelocity.normalized, contactPoint.normal);

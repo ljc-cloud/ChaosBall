@@ -1,3 +1,4 @@
+using System;
 using ChaosBall.Inputs;
 using ChaosBall.Math;
 using ChaosBall.Net;
@@ -11,60 +12,71 @@ namespace ChaosBall.Game.State
     /// </summary>
     public class BirdReadyState : BirdState
     {
-        private float _mTimer;
-        private bool _mReverse;
-        private bool _mQuitReady;
-        private readonly float _mMinShootForce;
-        private readonly float _mMaxShootForce;
-        private readonly float _mReadyShootDuration;
+        private float _timer;
+        private bool _reverse;
+        private bool _quitReady;
+        private readonly float _minShootForce;
+        private readonly float _maxShootForce;
+        private readonly float _readyShootDuration;
         
-        private ArrowForceUI _mArrowForceUI;
+        private ArrowForceUI _arrowForceUI;
         
-        public BirdReadyState(BirdStateManager birdStateManager, Transform targetTransform, Entity entity,
-            float minShootForce, float maxShootForce, float readyShootDuration, ArrowForceUI arrowForceUI) : base(birdStateManager, targetTransform, entity)
+        public BirdReadyState(BirdStateMachine birdStateMachine, BirdAnimation birdAnimation, Entity entity,
+            float minShootForce, float maxShootForce, float readyShootDuration, ArrowForceUI arrowForceUI) 
+            : base(birdStateMachine, birdAnimation, entity)
         {
-            _mMinShootForce = minShootForce;
-            _mMaxShootForce = maxShootForce;
-            _mReadyShootDuration = readyShootDuration;
-            _mArrowForceUI = arrowForceUI;
+            _minShootForce = minShootForce;
+            _maxShootForce = maxShootForce;
+            _readyShootDuration = readyShootDuration;
+            _arrowForceUI = arrowForceUI;
         }
 
         public override void Enter()
         {
-            Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Ready State Enter");
+            // Debug.Log($"Bird:{TargetTransform.gameObject.name} Ready State Enter");
             State = BirdStateEnum.Ready;
-            _mQuitReady = false;
-            _mBirdStateManager.BirdAnimation.PlayReady();
-            _mBirdStateManager.ArrowForceUI.SetReady(true);
+            _quitReady = false;
+            Animation.PlayReady();
+            _arrowForceUI.SetReady(true);
 
             if (Entity.IsLocal)
             {
-                ChaosBallInputRegister.Instance.OnPlayerShoot += Shoot;
-                ChaosBallInputRegister.Instance.OnPlayerQuitShoot += QuitShoot;
+                // ChaosBallInputRegister.Instance.OnPlayerShoot += Shoot;
+                // ChaosBallInputRegister.Instance.OnPlayerQuitShoot += QuitShoot;
+            }
+            else
+            {
+                // Entity.OnPlayerInputChanged += OnRemotePlayerInputChanged;
             }
         }
-        
+
+        private void OnRemotePlayerInputChanged(object sender, Entity.OnPlayerInputChangedEventArgs e)
+        {
+            switch (e.inputType)
+            {
+                case GameFrameSyncManager.PlayerInputType.Shoot:
+                    Shoot();
+                    break;
+                case GameFrameSyncManager.PlayerInputType.QuitReady:
+                    QuitShoot();
+                    break;
+            }
+        }
+
         private void Shoot()
         {
-            if (_mQuitReady) return;
-            // if (Entity.IsLocal)
-            // {
-            //     Vector3 localDirection = _mBirdStateManager.GetDirection();
-            //     float localForce = Entity.localShootForce;
-            //     Entity.localShootDirection = localDirection;
-            //     Entity.localShootForce = localForce;
-            // }
-            _mBirdStateManager.ChangeState(BirdStateEnum.Shoot);
+            if (_quitReady) return;
+            BirdStateMachine.ChangeState(BirdStateEnum.Shoot);
         }
         private void QuitShoot()
         {
-            _mQuitReady = true;
-            _mBirdStateManager.ChangeState(BirdStateEnum.UnReady);
+            _quitReady = true;
+            BirdStateMachine.ChangeState(BirdStateEnum.UnReady);
         }
 
         public override void Update()
         {
-            if (!Entity.IsLocal)
+            // if (!Entity.IsLocal)
             {
                 ListenRemote();
             }
@@ -73,7 +85,7 @@ namespace ChaosBall.Game.State
 
         private void ListenRemote()
         {
-            GameFrameSyncManager.PlayerInputType playerInputType = _mBirdStateManager.Entity.playerInputType;
+            GameFrameSyncManager.PlayerInputType playerInputType = Entity.playerInputType;
             switch (playerInputType)
             {
                 case GameFrameSyncManager.PlayerInputType.Shoot:
@@ -82,36 +94,42 @@ namespace ChaosBall.Game.State
                 case GameFrameSyncManager.PlayerInputType.QuitReady:
                     QuitShoot();
                     break;
-                default: break;
             }
         }
         
         private void CalculateShootForce()
         {
-            _mTimer += Time.deltaTime;
+            _timer += Time.deltaTime;
 
-            if (_mTimer >= _mReadyShootDuration)
+            if (_timer >= _readyShootDuration)
             {
-                _mReverse = !_mReverse;
-                _mTimer = 0f;
+                _reverse = !_reverse;
+                _timer = 0f;
             }
             
-            float force = _mReverse? Mathf.Lerp(_mMaxShootForce, _mMinShootForce, _mTimer / _mReadyShootDuration)
-                : Mathf.Lerp(_mMinShootForce, _mMaxShootForce, _mTimer / _mReadyShootDuration);
+            float force = _reverse? Mathf.Lerp(_maxShootForce, _minShootForce, _timer / _readyShootDuration)
+                : Mathf.Lerp(_minShootForce, _maxShootForce, _timer / _readyShootDuration);
             if (Entity.IsLocal)
             {
                 Entity.localShootForce = force;
             }
 
-            float forceNormalized = force / _mMaxShootForce;
-            _mArrowForceUI.SetForceNormalized(forceNormalized);
+            float forceNormalized = force / _maxShootForce;
+            _arrowForceUI.SetForceNormalized(forceNormalized);
         }
         
         public override void Exit()
         {
-            Debug.Log($"Bird:{_mTargetTransform.gameObject.name} Ready State Exit");
-            ChaosBallInputRegister.Instance.OnPlayerShoot -= Shoot;
-            ChaosBallInputRegister.Instance.OnPlayerQuitShoot -= QuitShoot;
+            // Debug.Log($"Bird:{TargetTransform.gameObject.name} Ready State Exit");
+            if (Entity.IsLocal)
+            {
+                ChaosBallInputRegister.Instance.OnPlayerShoot -= Shoot;
+                ChaosBallInputRegister.Instance.OnPlayerQuitShoot -= QuitShoot;
+            }
+            else
+            {
+                // Entity.OnPlayerInputChanged -= OnRemotePlayerInputChanged;
+            }
         }
     }
 }

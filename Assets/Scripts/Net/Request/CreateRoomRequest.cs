@@ -40,7 +40,8 @@ namespace ChaosBall.Net.Request
             };
 
             GameInterface.Interface.RoomManager.JoinRoom(currentRoomInfo, new List<RoomPlayerInfo> { roomPlayerInfo });
-
+            
+            
             Invoker.Instance.DelegateList.Add(() => GameInterface.Interface.SceneLoader.LoadScene(Scene.RoomScene));
             
             base.HandleServerSuccessResponse(pack);

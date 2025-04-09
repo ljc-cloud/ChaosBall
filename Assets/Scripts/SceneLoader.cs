@@ -16,49 +16,34 @@ namespace ChaosBall
 
     public class SceneLoader
     {
-        // public event Action OnSceneLoad;
-        // public event Action OnSceneLoadComplete;
+        public static event Action<Scene> OnLoadScene;
+        public static event Action<Scene> OnSceneLoadComplete;
     
         public void LoadScene(Scene scene)
         {
-            GameInterface.Interface.EventSystem.Publish<SceneLoadEvent>();
-            // OnSceneLoad?.Invoke();
+            OnLoadScene?.Invoke(scene);
             SceneManager.LoadScene(Scene.LoadingScene.ToString());
         
             AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Single);
-            // loadSceneAsync.completed += _ => OnSceneLoadComplete?.Invoke(); 
-            loadSceneAsync.completed += _ => GameInterface.Interface.EventSystem.Publish(new SceneLoadCompleteEvent
-            {
-                targetScene = scene
-            });
+            loadSceneAsync.completed += _ => OnSceneLoadComplete?.Invoke(scene); 
         }
 
         public AsyncOperation LoadGameSceneAsync()
         {
             AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(Scene.GameScene.ToString(), LoadSceneMode.Single);
-            loadSceneAsync.completed += _ =>
-            {
-                GameInterface.Interface.EventSystem.Publish(new SceneLoadCompleteEvent
-                {
-                    targetScene = Scene.GameScene
-                });
-            };
+            loadSceneAsync.completed += _ => OnSceneLoadComplete?.Invoke(Scene.GameScene);
             return loadSceneAsync;
         }
 
         public void LoadSceneAsync(Scene scene, Action onComplete = null)
         {
-            // OnSceneLoad?.Invoke();
-            GameInterface.Interface.EventSystem.Publish<SceneLoadEvent>();
+            OnLoadScene?.Invoke(scene);
+            // GameInterface.Interface.EventSystem.Publish<SceneLoadEvent>();
             AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Single);
 
             loadSceneAsync.completed += _ =>
             {
-                // OnSceneLoadComplete?.Invoke(); 
-                GameInterface.Interface.EventSystem.Publish(new SceneLoadCompleteEvent
-                {
-                    targetScene = scene
-                });
+                OnSceneLoadComplete?.Invoke(scene);
                 onComplete?.Invoke();
             };
         }

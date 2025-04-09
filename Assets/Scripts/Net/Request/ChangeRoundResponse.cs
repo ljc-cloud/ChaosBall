@@ -1,5 +1,6 @@
 using ChaosBall.Event.Net;
 using SocketProtocol;
+using UnityEngine;
 
 namespace ChaosBall.Net.Request
 {
@@ -13,6 +14,7 @@ namespace ChaosBall.Net.Request
 
         protected override void HandleServerSuccessResponse(MainPack pack)
         {
+            Debug.Log("接收到切换回合响应");
             int currentRound = pack.RoundPack.CurrentRound;
             
             GameInterface.Interface.EventSystem.Publish(new ChangeRoundEvent

@@ -1513,7 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c3aa50758a45429b29b7210d4ce9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNameText: {fileID: 239730878}
+  playerNameText: {fileID: 1109342982}
   roundImageArray:
   - {fileID: 659046568}
   - {fileID: 681724223}
@@ -35004,13 +35004,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4897012285021819036, guid: 1650763a7572020439a0e70032aeb37c,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897012285021819036, guid: 1650763a7572020439a0e70032aeb37c,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4897012285021819036, guid: 1650763a7572020439a0e70032aeb37c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4897012285021819036, guid: 1650763a7572020439a0e70032aeb37c,
         type: 3}

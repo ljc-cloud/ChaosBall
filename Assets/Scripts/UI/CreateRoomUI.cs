@@ -48,6 +48,11 @@ namespace ChaosBall.UI
                 roomInfo.roomName = roomName;
                 roomInfo.roomVisibility = Enum.Parse<ChaosBall.Model.RoomVisibility>(roomVisibilityText);
                 roomInfo.maxPlayer = Convert.ToInt32(maxPlayerText);
+            }, () =>
+            {
+                GameInterface.Interface.UIManager.HideUIPanel(UIPanelType.CreateRoomUI);
+                GameInterface.Interface.UIManager.HideUIPanel(UIPanelType.RoomListUI);
+                GameInterface.Interface.UIManager.HideUIPanel(UIPanelType.MainMenuUI);
             });
         }
     }

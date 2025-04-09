@@ -38,12 +38,15 @@ namespace ChaosBall.UI
             if (clickCount == 2)
             {
                 Debug.Log($"进入房间=> {_mRoomCode}");
-                _mJoinRoomRequest.SendJoinRoomRequest(_mRoomCode, OnJoinRoomSuccess);
+                _mJoinRoomRequest.SendJoinRoomRequest(_mRoomCode, onJoinRoomSuccess: OnJoinRoomSuccess);
             }
         }
 
         private void OnJoinRoomSuccess()
         {
+            GameInterface.Interface.UIManager.HideUIPanel(UIPanelType.CreateRoomUI);
+            GameInterface.Interface.UIManager.HideUIPanel(UIPanelType.RoomListUI);
+            GameInterface.Interface.UIManager.HideUIPanel(UIPanelType.MainMenuUI);
             GameInterface.Interface.SceneLoader.LoadScene(Scene.RoomScene);
         }
     }

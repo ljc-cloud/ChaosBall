@@ -1,6 +1,7 @@
 using ChaosBall.Event;
 using ChaosBall.Event.Net;
 using SocketProtocol;
+using UnityEngine;
 
 namespace ChaosBall.Net.Request
 {
@@ -17,6 +18,7 @@ namespace ChaosBall.Net.Request
 
         protected override void HandleServerSuccessResponse(MainPack pack)
         {
+            Debug.Log("接收到切换操作响应");
             int currentOperationPlayerId = pack.ChangeOperationPack.CurrentOperationPlayerId;
             
             GameInterface.Interface.EventSystem.Publish(new ChangeOperationEvent

@@ -10,22 +10,22 @@ namespace ChaosBall.Net
 {
     public class UdpListener : IDisposable
     {
-        private UdpClient _mUdpClient;
-        private int _mCurrentDataSequence = 0;
+        private UdpClient _udpClient;
+        private int _currentDataSequence = 0;
 
-        private readonly ObjectPool<ResFrameSyncData> _mResFrameSyncDataPool;
-        private readonly ObjectPool<MessageHead> _mMessageHeadPool;
+        private readonly ObjectPool<ResFrameSyncData> _resFrameSyncDataPool;
+        private readonly ObjectPool<MessageHead> _messageHeadPool;
         public int UdpListenPort { get; private set; }
         public bool Disposed { get; private set; }
         public IPEndPoint RemoteEp { get; private set; }
         public event Action<ResFrameSyncData> OnReceiveFrameSync;
         public UdpListener()
         {
-            _mResFrameSyncDataPool = new ObjectPool<ResFrameSyncData>(() => new ResFrameSyncData());
-            _mMessageHeadPool = new ObjectPool<MessageHead>(() => new MessageHead());
+            _resFrameSyncDataPool = new ObjectPool<ResFrameSyncData>(() => new ResFrameSyncData());
+            _messageHeadPool = new ObjectPool<MessageHead>(() => new MessageHead());
             
-            _mUdpClient = new UdpClient(0, AddressFamily.InterNetwork);
-            IPEndPoint clientLocalEndPoint = _mUdpClient.Client.LocalEndPoint as IPEndPoint;
+            _udpClient = new UdpClient(0, AddressFamily.InterNetwork);
+            IPEndPoint clientLocalEndPoint = _udpClient.Client.LocalEndPoint as IPEndPoint;
             UdpListenPort = clientLocalEndPoint.Port;
             Debug.Log("Current UDP available port:" + UdpListenPort);
         }
@@ -40,7 +40,7 @@ namespace ChaosBall.Net
             if (Disposed) return;
             try
             {
-                _mUdpClient.BeginReceive(ReceiveCallback, null);
+                _udpClient.BeginReceive(ReceiveCallback, null);
             }
             catch (SocketException e)
             {
@@ -58,7 +58,7 @@ namespace ChaosBall.Net
             try
             {
                 IPEndPoint remoteEp = new IPEndPoint(IPAddress.Any, 0);
-                byte[] data = _mUdpClient.EndReceive(iar, ref remoteEp);
+                byte[] data = _udpClient.EndReceive(iar, ref remoteEp);
                 if (RemoteEp == null)
                 {
                     RemoteEp = remoteEp;
@@ -87,8 +87,8 @@ namespace ChaosBall.Net
         public void Send(in ResFrameSyncData resFrameSyncData)
         {
             if (Disposed) return;
-            MessageHead messageHead = _mMessageHeadPool.Allocate();
-            messageHead.Index = _mCurrentDataSequence;
+            MessageHead messageHead = _messageHeadPool.Allocate();
+            messageHead.Index = _currentDataSequence;
             
             resFrameSyncData.MessageHead = messageHead;
             resFrameSyncData.MessageType = MessageType.FrameSync;
@@ -97,9 +97,9 @@ namespace ChaosBall.Net
             {
                 byte[] data = Serialize(resFrameSyncData);
 
-                _mCurrentDataSequence++;
+                _currentDataSequence++;
 
-                _mUdpClient.Send(data, data.Length, RemoteEp);
+                _udpClient.Send(data, data.Length, RemoteEp);
             }
             catch (SocketException e)
             {
@@ -111,26 +111,26 @@ namespace ChaosBall.Net
             }
             finally
             {
-                _mMessageHeadPool.Release(messageHead);
+                _messageHeadPool.Release(messageHead);
             }
         }
 
         private void SendAck(int index)
         {
             if (Disposed) return;
-            MessageHead messageHead = _mMessageHeadPool.Allocate();
+            MessageHead messageHead = _messageHeadPool.Allocate();
             messageHead.Index = index;
             messageHead.Ack = true;
             // messageHead.ClientIp = GameInterface.Interface.TcpClient.ClientIp;
 
-            ResFrameSyncData resFrameSyncData = _mResFrameSyncDataPool.Allocate();
+            ResFrameSyncData resFrameSyncData = _resFrameSyncDataPool.Allocate();
             resFrameSyncData.MessageHead = messageHead;
             resFrameSyncData.MessageType = MessageType.Ack;
 
             try
             {
                 byte[] data = Serialize(resFrameSyncData);
-                _mUdpClient.Send(data, data.Length, RemoteEp);
+                _udpClient.Send(data, data.Length, RemoteEp);
             }
             catch (SocketException e)
             {
@@ -142,14 +142,14 @@ namespace ChaosBall.Net
             }
             finally
             {
-                _mMessageHeadPool.Release(messageHead);
-                _mResFrameSyncDataPool.Release(resFrameSyncData);
+                _messageHeadPool.Release(messageHead);
+                _resFrameSyncDataPool.Release(resFrameSyncData);
             }
         }
 
         private void Close()
         {
-            _mUdpClient.Close();
+            _udpClient.Close();
         }
 
         private byte[] Serialize(ResFrameSyncData resFrameSyncData)
@@ -167,7 +167,7 @@ namespace ChaosBall.Net
         public void Dispose()
         {
             Close();
-            _mUdpClient?.Dispose();
+            _udpClient?.Dispose();
             Disposed = true;
         }
     }
